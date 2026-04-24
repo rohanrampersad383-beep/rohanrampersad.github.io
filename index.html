@@ -1,19 +1,296 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rohan Rampersad | IT Portfolio</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #142033;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0b2239, #163b63);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 42px;
+      margin: 0 0 10px;
+    }
+
+    header p {
+      margin: 6px 0;
+      font-size: 17px;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: -30px auto 40px;
+      padding: 0 20px;
+    }
+
+    section {
+      background: white;
+      margin-bottom: 24px;
+      padding: 28px;
+      border-radius: 16px;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #0b2239;
+      border-bottom: 2px solid #e7edf5;
+      padding-bottom: 10px;
+    }
+
+    h3 {
+      margin-bottom: 6px;
+      color: #163b63;
+    }
+
+    a {
+      color: #0b5cad;
+    }
+
+    .button {
+      display: inline-block;
+      background: #0b2239;
+      color: white;
+      text-decoration: none;
+      padding: 13px 20px;
+      border-radius: 10px;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    .button:hover {
+      background: #163b63;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      background: #fbfdff;
+    }
+
+    .project {
+      border-top: 1px solid #e2e8f0;
+      padding-top: 18px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #eaf2fb;
+      color: #163b63;
+      padding: 5px 9px;
+      border-radius: 999px;
+      margin: 4px 4px 4px 0;
+      font-size: 13px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: #526173;
+      font-size: 14px;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Rohan Rampersad</h1>
-  <p>Applied Computer Science Student | IT | Web Development | Databases</p>
+  <header>
+    <h1>Rohan Rampersad</h1>
+    <p>Applied Computer Science Student | IT | Web Development | Databases | Data Operations</p>
+    <p>Trinidad and Tobago</p>
+    <p>rohanrampersad383@gmail.com | 1 (868) 2844-520</p>
+  </header>
 
-  <h2>Portfolio</h2>
-  <p>This page will host my IT portfolio and project work.</p>
+  <main>
+    <section>
+      <h2>About Me</h2>
+      <p>
+        I am an Applied Computer Science student studying through SAMS in partnership with Anglia Ruskin University.
+        My experience includes web development, databases, systems analysis, image processing, artificial intelligence,
+        machine learning, cloud computing practice, and data handling.
+      </p>
+      <p>
+        I enjoy building practical systems, organizing data, solving technical problems, and learning new technologies.
+        My goal is to gain hands-on experience in IT support, data operations, web development, cloud computing, or technical support.
+      </p>
 
-  <h2>Contact</h2>
-  <p>Email: rohanrampersad383@gmail.com</p>
-  <p>Phone: 1 (868) 2844-520</p>
-  <p>LinkedIn: <a href="https://www.linkedin.com/in/rohan-rampersad-a18ab1401">View LinkedIn</a></p>
+      <a class="button" href="Rohan_Rampersad_IT_Portfolio_updated.pdf" target="_blank">
+        View Full Portfolio PDF
+      </a>
+    </section>
+
+    <section>
+      <h2>Technical Skills</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Web Development</h3>
+          <p>HTML, CSS, JavaScript, PHP, Next.js, TypeScript, Tailwind CSS</p>
+        </div>
+
+        <div class="card">
+          <h3>Databases</h3>
+          <p>MySQL, PostgreSQL, Prisma, ER diagrams, SQL queries, normalization, CRUD operations</p>
+        </div>
+
+        <div class="card">
+          <h3>Programming & Analysis</h3>
+          <p>Python, MATLAB, Jupyter Notebook, data preprocessing, model evaluation</p>
+        </div>
+
+        <div class="card">
+          <h3>Cloud & Networking</h3>
+          <p>AWS foundations, IAM, VPC, EC2, RDS, EBS, security groups, subnetting, VPN concepts</p>
+        </div>
+
+        <div class="card">
+          <h3>Tools</h3>
+          <p>Visual Studio Code, WampServer, Microsoft Excel, Microsoft Word, PowerPoint</p>
+        </div>
+
+        <div class="card">
+          <h3>System Design</h3>
+          <p>Waterfall, OOAD, use case diagrams, sequence diagrams, state transition diagrams, DFDs, ERDs</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Featured Projects</h2>
+
+      <div class="project">
+        <h3>Job Match Assistant</h3>
+        <p>
+          A full-stack job discovery and tracking platform that helps users upload resumes, set career preferences,
+          review job matches, track applications, and rank opportunities using a legal semi-automated workflow.
+        </p>
+        <span class="tag">Next.js</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Tailwind CSS</span>
+        <span class="tag">Prisma</span>
+        <span class="tag">PostgreSQL</span>
+      </div>
+
+      <div class="project">
+        <h3>Fitness Central</h3>
+        <p>
+          A web-based fitness tracking system developed for my final project. It includes user registration,
+          login, workout logging, weight tracking, goal setting, dashboard progress, and a basic exercise guide.
+        </p>
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">PHP</span>
+        <span class="tag">MySQL</span>
+      </div>
+
+      <div class="project">
+        <h3>Artificial Intelligence / Machine Learning Coursework</h3>
+        <p>
+          Jupyter Notebook coursework covering tabular, image, audio, and text data, including preprocessing,
+          feature extraction, classification, model training, and evaluation.
+        </p>
+        <span class="tag">Python</span>
+        <span class="tag">Jupyter Notebook</span>
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Model Evaluation</span>
+      </div>
+
+      <div class="project">
+        <h3>Image Processing – Leaf Morphometric Analysis</h3>
+        <p>
+          MATLAB project involving image segmentation, binary masks, morphological processing, boundary detection,
+          centroid and medoid calculation, Green Leaf Index analysis, and multi-leaf ranking.
+        </p>
+        <span class="tag">MATLAB</span>
+        <span class="tag">Image Processing</span>
+        <span class="tag">Segmentation</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Additional Academic Projects</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Dynamic Websites</h3>
+          <p>PHP website project with login, registration, setup pages, CSS, database connection files, and local testing.</p>
+        </div>
+
+        <div class="card">
+          <h3>Database Design Projects</h3>
+          <p>Velocity Motors and Toyota database projects covering ER diagrams, data dictionaries, normalization, SQL scripts, and reports.</p>
+        </div>
+
+        <div class="card">
+          <h3>BIT Project</h3>
+          <p>Mandy’s Hardware inventory/client management system with planning, DFD, ERD, SQL design, interface design, and evaluation.</p>
+        </div>
+
+        <div class="card">
+          <h3>Computer Networks</h3>
+          <p>Networking coursework covering topology, subnetting, Wi-Fi, server roles, VPNs, security, Cisco IOS concepts, and IoT risks.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Work Experience</h2>
+
+      <h3>Accounts Clerk | Persads Supercenter</h3>
+      <p>
+        Managed daily data entry and maintained financial records using Microsoft Excel, including sales, payroll,
+        income reports, and cash flow balancing. Built strong accuracy, reporting, and record-keeping skills while
+        supporting coworkers and handling daily responsibilities independently.
+      </p>
+
+      <h3>Cashier / Inventory Assistant | Mandy Sooklal Hardware</h3>
+      <p>
+        Processed customer transactions, assisted with stock updates and restocking, and supported daily inventory
+        organization in a busy work environment.
+      </p>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <p><strong>BSc (Hons) Applied Computer Science</strong> — Anglia Ruskin University, delivered through SAMS</p>
+      <p><strong>NCC Education Level 5 Diploma in Computing / Computer Business</strong> — Completed</p>
+      <p><strong>NCC Education Level 4 Diploma in Computing / Computer Business</strong> — Completed</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p><strong>Email:</strong> rohanrampersad383@gmail.com</p>
+      <p><strong>Phone:</strong> 1 (868) 2844-520</p>
+      <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/rohan-rampersad-a18ab1401" target="_blank">www.linkedin.com/in/rohan-rampersad-a18ab1401</a></p>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Rohan Rampersad | IT Portfolio
+  </footer>
 </body>
 </html>
