@@ -1,296 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rohan Rampersad | IT Portfolio</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #142033;
-      line-height: 1.6;
-    }
-
-    header {
-      background: linear-gradient(135deg, #0b2239, #163b63);
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 42px;
-      margin: 0 0 10px;
-    }
-
-    header p {
-      margin: 6px 0;
-      font-size: 17px;
-    }
-
-    main {
-      max-width: 1050px;
-      margin: -30px auto 40px;
-      padding: 0 20px;
-    }
-
-    section {
-      background: white;
-      margin-bottom: 24px;
-      padding: 28px;
-      border-radius: 16px;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
-    }
-
-    h2 {
-      margin-top: 0;
-      color: #0b2239;
-      border-bottom: 2px solid #e7edf5;
-      padding-bottom: 10px;
-    }
-
-    h3 {
-      margin-bottom: 6px;
-      color: #163b63;
-    }
-
-    a {
-      color: #0b5cad;
-    }
-
-    .button {
-      display: inline-block;
-      background: #0b2239;
-      color: white;
-      text-decoration: none;
-      padding: 13px 20px;
-      border-radius: 10px;
-      margin-top: 12px;
-      font-weight: bold;
-    }
-
-    .button:hover {
-      background: #163b63;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-    }
-
-    .card {
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 16px;
-      background: #fbfdff;
-    }
-
-    .project {
-      border-top: 1px solid #e2e8f0;
-      padding-top: 18px;
-      margin-top: 18px;
-    }
-
-    .tag {
-      display: inline-block;
-      background: #eaf2fb;
-      color: #163b63;
-      padding: 5px 9px;
-      border-radius: 999px;
-      margin: 4px 4px 4px 0;
-      font-size: 13px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 24px;
-      color: #526173;
-      font-size: 14px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio website for Rohan Rampersad, an Applied Computer Science student focused on IT, web development, databases, data operations, and entry-level cloud and technical roles.">
+  <meta name="theme-color" content="#081120">
+  <title>Rohan Rampersad | IT & Web Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
-
 <body>
-  <header>
-    <h1>Rohan Rampersad</h1>
-    <p>Applied Computer Science Student | IT | Web Development | Databases | Data Operations</p>
-    <p>Trinidad and Tobago</p>
-    <p>rohanrampersad383@gmail.com | 1 (868) 2844-520</p>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="page-background" aria-hidden="true">
+    <div class="page-background__glow page-background__glow--one"></div>
+    <div class="page-background__glow page-background__glow--two"></div>
+    <div class="page-background__grid"></div>
+  </div>
+
+  <header class="site-header" id="top">
+    <div class="container site-header__inner">
+      <a class="brand" href="#top" aria-label="Rohan Rampersad home">
+        <span class="brand__mark">RR</span>
+        <span class="brand__text">Rohan Rampersad</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+        <a class="site-nav__cta" href="Rohan_Rampersad_IT_Portfolio.pdf" target="_blank" rel="noreferrer">Portfolio PDF</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section>
-      <h2>About Me</h2>
-      <p>
-        I am an Applied Computer Science student studying through SAMS in partnership with Anglia Ruskin University.
-        My experience includes web development, databases, systems analysis, image processing, artificial intelligence,
-        machine learning, cloud computing practice, and data handling.
-      </p>
-      <p>
-        I enjoy building practical systems, organizing data, solving technical problems, and learning new technologies.
-        My goal is to gain hands-on experience in IT support, data operations, web development, cloud computing, or technical support.
-      </p>
+  <main id="main-content">
+    <section class="hero section">
+      <div class="container hero__layout">
+        <div class="hero__content reveal">
+          <p class="eyebrow">Applied Computer Science Student | Trinidad and Tobago</p>
+          <h1>Building practical systems for IT, web development, databases, and data operations.</h1>
+          <p class="hero__lede">
+            I am an Applied Computer Science student studying through SAMS in partnership with Anglia Ruskin University. My experience includes web development, databases, systems analysis, image processing, artificial intelligence, machine learning, cloud computing practice, and data handling.
+          </p>
+          <p class="hero__lede hero__lede--muted">
+            I enjoy building practical systems, organizing data, solving technical problems, and learning technologies that support real-world IT and software delivery.
+          </p>
 
-      <a class="button" href="Rohan_Rampersad_IT_Portfolio.pdf" target="_blank">
-        View Full Portfolio PDF
-      </a>
-    </section>
+          <div class="hero__actions">
+            <a class="button button--primary" href="Rohan_Rampersad_IT_Portfolio.pdf" target="_blank" rel="noreferrer">View Portfolio PDF</a>
+            <a class="button button--secondary" href="#projects">View Projects</a>
+            <a class="button button--ghost" href="#contact">Contact Me</a>
+          </div>
 
-    <section>
-      <h2>Technical Skills</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Web Development</h3>
-          <p>HTML, CSS, JavaScript, PHP, Next.js, TypeScript, Tailwind CSS</p>
+          <ul class="hero__highlights">
+            <li>Full-stack and database-backed project work</li>
+            <li>AI/ML, image processing, and data-focused coursework</li>
+            <li>AWS, networking, systems analysis, and technical support foundations</li>
+          </ul>
         </div>
 
-        <div class="card">
-          <h3>Databases</h3>
-          <p>MySQL, PostgreSQL, Prisma, ER diagrams, SQL queries, normalization, CRUD operations</p>
-        </div>
+        <div class="hero__visual reveal">
+          <article class="panel panel--feature">
+            <div class="panel__label">Career Snapshot</div>
+            <h2>Applied Computer Science Student | IT | Web Development | Databases | Data Operations</h2>
+            <p>
+              Portfolio aligned for IT support, junior developer, database support, data operations, and entry-level cloud or technical roles.
+            </p>
 
-        <div class="card">
-          <h3>Programming & Analysis</h3>
-          <p>Python, MATLAB, Jupyter Notebook, data preprocessing, model evaluation</p>
-        </div>
+            <div class="pill-row">
+              <span>IT Support</span>
+              <span>Web Development</span>
+              <span>Databases</span>
+              <span>Data Operations</span>
+              <span>Cloud Foundations</span>
+            </div>
 
-        <div class="card">
-          <h3>Cloud & Networking</h3>
-          <p>AWS foundations, IAM, VPC, EC2, RDS, EBS, security groups, subnetting, VPN concepts</p>
-        </div>
+            <div class="metric-grid">
+              <div class="metric-card">
+                <strong>Web + Systems</strong>
+                <span>Practical projects across front-end, back-end, and structured analysis</span>
+              </div>
+              <div class="metric-card">
+                <strong>Database Focus</strong>
+                <span>SQL, CRUD, schema design, normalization, and reporting workflows</span>
+              </div>
+            </div>
+          </article>
 
-        <div class="card">
-          <h3>Tools</h3>
-          <p>Visual Studio Code, WampServer, Microsoft Excel, Microsoft Word, PowerPoint</p>
+          <div class="hero__mini-grid">
+            <article class="panel panel--mini">
+              <div class="panel__label">Technical Strength</div>
+              <h3>Database design, application logic, and organized data handling</h3>
+            </article>
+            <article class="panel panel--mini">
+              <div class="panel__label">Support Mindset</div>
+              <h3>Problem solving, troubleshooting, documentation, and user-focused delivery</h3>
+            </article>
+            <article class="panel panel--mini">
+              <div class="panel__label">Current Study Areas</div>
+              <h3>Cloud computing, networking, AI/ML basics, and systems analysis</h3>
+            </article>
+            <article class="panel panel--mini">
+              <div class="panel__label">Tools</div>
+              <h3>VS Code, WampServer, Excel, Word, PowerPoint, Jupyter Notebook</h3>
+            </article>
+          </div>
         </div>
+      </div>
 
-        <div class="card">
-          <h3>System Design</h3>
-          <p>Waterfall, OOAD, use case diagrams, sequence diagrams, state transition diagrams, DFDs, ERDs</p>
+      <div class="container">
+        <div class="value-strip reveal">
+          <article class="value-card">
+            <span class="value-card__title">IT Support Readiness</span>
+            <p>Structured troubleshooting, cloud basics, network concepts, and technical communication.</p>
+          </article>
+          <article class="value-card">
+            <span class="value-card__title">Web Development</span>
+            <p>Responsive interfaces, authentication flows, dashboards, and database-backed application logic.</p>
+          </article>
+          <article class="value-card">
+            <span class="value-card__title">Database & Data</span>
+            <p>Schema design, SQL, normalization, CRUD operations, and data organization for usable systems.</p>
+          </article>
+          <article class="value-card">
+            <span class="value-card__title">Analytical Coursework</span>
+            <p>AI/ML preprocessing, image processing, systems analysis, and documentation-led delivery.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section>
-      <h2>Featured Projects</h2>
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Featured Work</p>
+          <h2>Projects that show practical development, data, and systems capability.</h2>
+          <p>
+            My work combines application development, structured data, technical analysis, and academic problem solving. These projects are selected to reflect the kinds of roles I am targeting.
+          </p>
+        </div>
 
-      <div class="project">
-        <h3>Job Match Assistant</h3>
-        <p>
-          A full-stack job discovery and tracking platform that helps users upload resumes, set career preferences,
-          review job matches, track applications, and rank opportunities using a legal semi-automated workflow.
-        </p>
-        <span class="tag">Next.js</span>
-        <span class="tag">TypeScript</span>
-        <span class="tag">Tailwind CSS</span>
-        <span class="tag">Prisma</span>
-        <span class="tag">PostgreSQL</span>
-      </div>
+        <div class="projects-grid">
+          <article class="project-card reveal">
+            <div class="project-card__head">
+              <span class="project-card__index">01</span>
+              <h3>Job Match Assistant</h3>
+            </div>
+            <p>
+              A full-stack job discovery and tracking platform that helps users upload resumes, define career preferences, review job matches, track applications, and rank opportunities using a legal semi-automated workflow.
+            </p>
+            <div class="tag-row">
+              <span>Next.js</span>
+              <span>TypeScript</span>
+              <span>Tailwind CSS</span>
+              <span>Prisma</span>
+              <span>PostgreSQL</span>
+            </div>
+            <ul class="detail-list">
+              <li>Designed a structured database-backed workflow for job tracking and opportunity scoring.</li>
+              <li>Worked across dashboards, resume parsing, user preferences, and ranking logic.</li>
+              <li>Focused on ethical automation and practical data processing.</li>
+            </ul>
+          </article>
 
-      <div class="project">
-        <h3>Fitness Central</h3>
-        <p>
-          A web-based fitness tracking system developed for my final project. It includes user registration,
-          login, workout logging, weight tracking, goal setting, dashboard progress, and a basic exercise guide.
-        </p>
-        <span class="tag">HTML</span>
-        <span class="tag">CSS</span>
-        <span class="tag">JavaScript</span>
-        <span class="tag">PHP</span>
-        <span class="tag">MySQL</span>
-      </div>
+          <article class="project-card reveal">
+            <div class="project-card__head">
+              <span class="project-card__index">02</span>
+              <h3>Fitness Central</h3>
+            </div>
+            <p>
+              A web-based fitness tracking system built as a final project with registration, login, workout logging, weight tracking, goals, progress dashboards, and a basic exercise guide.
+            </p>
+            <div class="tag-row">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+              <span>PHP</span>
+              <span>MySQL</span>
+            </div>
+            <ul class="detail-list">
+              <li>Built database-backed features for authentication, CRUD operations, and dashboard views.</li>
+              <li>Delivered a practical user flow covering tracking, goals, and exercise information.</li>
+              <li>Applied front-end structure, server-side logic, and relational data handling.</li>
+            </ul>
+          </article>
 
-      <div class="project">
-        <h3>Artificial Intelligence / Machine Learning Coursework</h3>
-        <p>
-          Jupyter Notebook coursework covering tabular, image, audio, and text data, including preprocessing,
-          feature extraction, classification, model training, and evaluation.
-        </p>
-        <span class="tag">Python</span>
-        <span class="tag">Jupyter Notebook</span>
-        <span class="tag">Machine Learning</span>
-        <span class="tag">Model Evaluation</span>
-      </div>
+          <article class="project-card reveal">
+            <div class="project-card__head">
+              <span class="project-card__index">03</span>
+              <h3>AI / Machine Learning Coursework</h3>
+            </div>
+            <p>
+              Jupyter Notebook coursework exploring tabular, image, audio, and text data through preprocessing, feature extraction, model training, classification, and evaluation.
+            </p>
+            <div class="tag-row">
+              <span>Python</span>
+              <span>Jupyter Notebook</span>
+              <span>Machine Learning</span>
+            </div>
+            <ul class="detail-list">
+              <li>Worked with multiple data types and applied preprocessing workflows to prepare them for analysis.</li>
+              <li>Explored feature extraction, classification, and model evaluation techniques.</li>
+              <li>Strengthened practical understanding of AI/ML fundamentals and data interpretation.</li>
+            </ul>
+          </article>
 
-      <div class="project">
-        <h3>Image Processing – Leaf Morphometric Analysis</h3>
-        <p>
-          MATLAB project involving image segmentation, binary masks, morphological processing, boundary detection,
-          centroid and medoid calculation, Green Leaf Index analysis, and multi-leaf ranking.
-        </p>
-        <span class="tag">MATLAB</span>
-        <span class="tag">Image Processing</span>
-        <span class="tag">Segmentation</span>
+          <article class="project-card reveal">
+            <div class="project-card__head">
+              <span class="project-card__index">04</span>
+              <h3>Image Processing: Leaf Morphometric Analysis</h3>
+            </div>
+            <p>
+              A MATLAB image processing project involving segmentation, binary masks, morphology, boundary detection, centroid and medoid calculation, Green Leaf Index analysis, and multi-leaf ranking.
+            </p>
+            <div class="tag-row">
+              <span>MATLAB</span>
+              <span>Segmentation</span>
+              <span>Visual Analysis</span>
+            </div>
+            <ul class="detail-list">
+              <li>Used image processing techniques to isolate and measure leaf structures.</li>
+              <li>Applied object measurement and ranking workflows to compare multiple samples.</li>
+              <li>Combined visual analysis with quantitative interpretation.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="section-heading section-heading--compact reveal">
+          <p class="eyebrow">Additional Academic Work</p>
+          <h3>Supporting projects across dynamic websites, databases, business analysis, networking, and cloud practice.</h3>
+        </div>
+
+        <div class="support-grid">
+          <article class="support-card reveal">
+            <h4>Dynamic Websites</h4>
+            <p>PHP-based websites with login, registration, setup pages, CSS, database connections, and local testing workflows.</p>
+          </article>
+          <article class="support-card reveal">
+            <h4>Database Design</h4>
+            <p>Velocity Motors and Toyota projects covering ER diagrams, data dictionaries, normalization, SQL scripts, and reports.</p>
+          </article>
+          <article class="support-card reveal">
+            <h4>BIT Project</h4>
+            <p>Mandy's Hardware inventory and client management system with DFD, ERD, SQL design, interface planning, and evaluation.</p>
+          </article>
+          <article class="support-card reveal">
+            <h4>Networks & Cloud</h4>
+            <p>Subnetting, Wi-Fi, VPNs, server roles, Cisco IOS concepts, IoT risks, and AWS foundations including IAM, VPC, EC2, EBS, and RDS.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section>
-      <h2>Additional Academic Projects</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Dynamic Websites</h3>
-          <p>PHP website project with login, registration, setup pages, CSS, database connection files, and local testing.</p>
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Technical Skills</p>
+          <h2>Grouped to match the roles I am applying for.</h2>
+          <p>
+            This portfolio is intentionally balanced between software, databases, support operations, and foundational cloud and infrastructure knowledge.
+          </p>
         </div>
 
-        <div class="card">
-          <h3>Database Design Projects</h3>
-          <p>Velocity Motors and Toyota database projects covering ER diagrams, data dictionaries, normalization, SQL scripts, and reports.</p>
-        </div>
+        <div class="skills-grid">
+          <article class="skill-card reveal">
+            <h3>Web Development</h3>
+            <div class="tag-row">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+              <span>PHP</span>
+              <span>Next.js</span>
+              <span>TypeScript</span>
+              <span>Tailwind CSS</span>
+            </div>
+          </article>
 
-        <div class="card">
-          <h3>BIT Project</h3>
-          <p>Mandy’s Hardware inventory/client management system with planning, DFD, ERD, SQL design, interface design, and evaluation.</p>
-        </div>
+          <article class="skill-card reveal">
+            <h3>Databases & Data</h3>
+            <div class="tag-row">
+              <span>MySQL</span>
+              <span>PostgreSQL</span>
+              <span>Prisma</span>
+              <span>SQL</span>
+              <span>CRUD</span>
+              <span>ER Diagrams</span>
+              <span>Normalization</span>
+            </div>
+          </article>
 
-        <div class="card">
-          <h3>Computer Networks</h3>
-          <p>Networking coursework covering topology, subnetting, Wi-Fi, server roles, VPNs, security, Cisco IOS concepts, and IoT risks.</p>
+          <article class="skill-card reveal">
+            <h3>Programming & Analysis</h3>
+            <div class="tag-row">
+              <span>Python</span>
+              <span>MATLAB</span>
+              <span>Jupyter Notebook</span>
+              <span>AI/ML Basics</span>
+              <span>Classification</span>
+              <span>Model Evaluation</span>
+              <span>Feature Extraction</span>
+            </div>
+          </article>
+
+          <article class="skill-card reveal">
+            <h3>Cloud & Infrastructure</h3>
+            <div class="tag-row">
+              <span>AWS Foundations</span>
+              <span>IAM</span>
+              <span>VPC</span>
+              <span>EC2</span>
+              <span>RDS</span>
+              <span>EBS</span>
+              <span>Security Groups</span>
+              <span>Subnetting</span>
+            </div>
+          </article>
+
+          <article class="skill-card reveal">
+            <h3>Tools</h3>
+            <div class="tag-row">
+              <span>Visual Studio Code</span>
+              <span>WampServer</span>
+              <span>Excel</span>
+              <span>Word</span>
+              <span>PowerPoint</span>
+            </div>
+          </article>
+
+          <article class="skill-card reveal">
+            <h3>Systems Analysis & Documentation</h3>
+            <div class="tag-row">
+              <span>Waterfall</span>
+              <span>OOAD</span>
+              <span>Use Case Diagrams</span>
+              <span>Sequence Diagrams</span>
+              <span>DFDs</span>
+              <span>ERDs</span>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section>
-      <h2>Work Experience</h2>
+    <section class="section" id="education">
+      <div class="container education-layout">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Education</p>
+          <h2>Academic foundation with practical technical coursework.</h2>
+          <p>
+            My studies combine software development, databases, systems analysis, networking, cloud concepts, and data-driven problem solving.
+          </p>
+        </div>
 
-      <h3>Accounts Clerk | Persads Supercenter</h3>
-      <p>
-        Managed daily data entry and maintained financial records using Microsoft Excel, including sales, payroll,
-        income reports, and cash flow balancing. Built strong accuracy, reporting, and record-keeping skills while
-        supporting coworkers and handling daily responsibilities independently.
-      </p>
+        <div class="education-grid">
+          <article class="timeline-card reveal">
+            <span class="timeline-card__date">Current</span>
+            <h3>Applied Computer Science Student</h3>
+            <p class="timeline-card__org">SAMS in partnership with Anglia Ruskin University</p>
+            <p>
+              Studying applied computing with project-based exposure to web systems, databases, image processing, artificial intelligence, machine learning, cloud computing practice, and technical documentation.
+            </p>
+          </article>
 
-      <h3>Cashier / Inventory Assistant | Mandy Sooklal Hardware</h3>
-      <p>
-        Processed customer transactions, assisted with stock updates and restocking, and supported daily inventory
-        organization in a busy work environment.
-      </p>
+          <article class="timeline-card reveal">
+            <span class="timeline-card__date">Focus Areas</span>
+            <h3>Career Preparation</h3>
+            <p class="timeline-card__org">Entry-Level Technical Roles</p>
+            <p>
+              Developing a portfolio that supports applications for IT support, junior web development, database support, data operations, and early-career cloud or technical analyst roles.
+            </p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2>Education</h2>
-      <p><strong>BSc (Hons) Applied Computer Science</strong> — Anglia Ruskin University, delivered through SAMS</p>
-      <p><strong>NCC Education Level 5 Diploma in Computing / Computer Business</strong> — Completed</p>
-      <p><strong>NCC Education Level 4 Diploma in Computing / Computer Business</strong> — Completed</p>
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Experience</p>
+          <h2>Project-based and academic experience aligned to technical support and development work.</h2>
+          <p>
+            This section reflects hands-on project and coursework experience rather than formal long-term industry employment, keeping the portfolio accurate while still demonstrating practical capability.
+          </p>
+        </div>
+
+        <div class="experience-list">
+          <article class="experience-item reveal">
+            <div class="experience-item__meta">Full-Stack & Database Projects</div>
+            <div class="experience-item__body">
+              <h3>Application Development</h3>
+              <p>
+                Built and planned multi-page systems with authentication, dashboards, CRUD operations, and relational databases through academic and independent project work.
+              </p>
+            </div>
+          </article>
+
+          <article class="experience-item reveal">
+            <div class="experience-item__meta">Analysis & Documentation</div>
+            <div class="experience-item__body">
+              <h3>Systems Design</h3>
+              <p>
+                Produced ER diagrams, DFDs, use cases, sequence diagrams, SQL structures, and evaluation reports for coursework and business-style project scenarios.
+              </p>
+            </div>
+          </article>
+
+          <article class="experience-item reveal">
+            <div class="experience-item__meta">Support & Infrastructure Foundations</div>
+            <div class="experience-item__body">
+              <h3>Networks and Cloud Practice</h3>
+              <p>
+                Practiced technical concepts including subnetting, Wi-Fi, VPNs, server roles, Cisco IOS ideas, AWS services, security groups, and troubleshooting-oriented interpretation.
+              </p>
+            </div>
+          </article>
+
+          <article class="experience-item reveal">
+            <div class="experience-item__meta">Data & Analytical Coursework</div>
+            <div class="experience-item__body">
+              <h3>Data Handling and Evaluation</h3>
+              <p>
+                Worked with structured datasets, notebook-based analysis, preprocessing pipelines, feature extraction, and classification evaluation across different data types.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2>Contact</h2>
-      <p><strong>Email:</strong> rohanrampersad383@gmail.com</p>
-      <p><strong>Phone:</strong> 1 (868) 2844-520</p>
-      <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/rohan-rampersad-a18ab1401" target="_blank">www.linkedin.com/in/rohan-rampersad-a18ab1401</a></p>
+    <section class="section section--contact" id="contact">
+      <div class="container contact-layout">
+        <div class="contact-copy reveal">
+          <p class="eyebrow">Contact</p>
+          <h2>Open to IT, web, database, data operations, and junior technical opportunities.</h2>
+          <p>
+            If you are hiring for an entry-level technical role and want someone who enjoys practical systems, organized data, and learning fast, I would be glad to connect.
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="mailto:rohanrampersad383@gmail.com">Email Me</a>
+            <a class="button button--secondary" href="https://www.linkedin.com/in/rohan-rampersad-a18ab1401" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="contact-card reveal">
+          <div class="contact-row">
+            <span>Email</span>
+            <a href="mailto:rohanrampersad383@gmail.com">rohanrampersad383@gmail.com</a>
+          </div>
+          <div class="contact-row">
+            <span>Phone</span>
+            <a href="tel:+18682844520">1 (868) 2844-520</a>
+          </div>
+          <div class="contact-row">
+            <span>Location</span>
+            <strong>Trinidad and Tobago</strong>
+          </div>
+          <div class="contact-row">
+            <span>LinkedIn</span>
+            <a href="https://www.linkedin.com/in/rohan-rampersad-a18ab1401" target="_blank" rel="noreferrer">View profile</a>
+          </div>
+          <div class="contact-row">
+            <span>Portfolio PDF</span>
+            <a href="Rohan_Rampersad_IT_Portfolio.pdf" target="_blank" rel="noreferrer">Open portfolio</a>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    © 2026 Rohan Rampersad | IT Portfolio
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>&copy; <span id="year"></span> Rohan Rampersad. Static portfolio website for GitHub Pages.</p>
+      <a href="#top">Back to top</a>
+    </div>
   </footer>
 </body>
 </html>
