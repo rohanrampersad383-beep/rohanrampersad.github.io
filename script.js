@@ -5,6 +5,7 @@ const sections = document.querySelectorAll("main section[id]");
 const revealItems = document.querySelectorAll(".reveal");
 const header = document.querySelector(".site-header");
 const yearTarget = document.getElementById("year");
+let cursorFrame = null;
 
 if (yearTarget) {
   yearTarget.textContent = new Date().getFullYear();
@@ -76,6 +77,18 @@ if ("IntersectionObserver" in window) {
 window.addEventListener("scroll", () => {
   setActiveLink();
   updateHeaderState();
+});
+
+window.addEventListener("pointermove", (event) => {
+  if (cursorFrame) {
+    return;
+  }
+
+  cursorFrame = window.requestAnimationFrame(() => {
+    document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`);
+    document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`);
+    cursorFrame = null;
+  });
 });
 
 window.addEventListener("load", () => {
