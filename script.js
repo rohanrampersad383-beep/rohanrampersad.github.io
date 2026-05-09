@@ -5,6 +5,7 @@ const sections = document.querySelectorAll("main section[id]");
 const revealItems = document.querySelectorAll(".reveal");
 const header = document.querySelector(".site-header");
 const yearTarget = document.getElementById("year");
+const tiltItems = document.querySelectorAll("[data-tilt]");
 let cursorFrame = null;
 let scrollFrame = null;
 
@@ -104,6 +105,22 @@ window.addEventListener("pointermove", (event) => {
     document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`);
     document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`);
     cursorFrame = null;
+  });
+});
+
+tiltItems.forEach((item) => {
+  item.addEventListener("pointermove", (event) => {
+    const bounds = item.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+    item.style.setProperty("--tilt-y", `${x * 5}deg`);
+    item.style.setProperty("--tilt-x", `${y * -5}deg`);
+  });
+
+  item.addEventListener("pointerleave", () => {
+    item.style.setProperty("--tilt-y", "0deg");
+    item.style.setProperty("--tilt-x", "0deg");
   });
 });
 

@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260509b">
+  <link rel="stylesheet" href="style.css?v=20260509c">
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -82,8 +82,8 @@
       </div>
     </section>
 
-    <section class="section band product-pulse" id="currently-building">
-      <div class="site-shell split-layout">
+    <section class="section story-bridge" id="currently-building">
+      <div class="site-shell story-bridge__inner">
         <div class="section-copy reveal">
           <p class="eyebrow">Currently Building</p>
           <h2>AI Job Match Assistant is the main product focus.</h2>
@@ -91,71 +91,62 @@
             The current priority is a discovery-first job platform that shows full-stack product thinking: resume parsing, profile targeting, job discovery, scoring logic, review queues, and application tracking.
           </p>
         </div>
-        <div class="build-strip build-strip--compact reveal">
-          <div class="pulse-card">
-            <strong>Focus</strong>
-            <span>AI-assisted career workflow</span>
-          </div>
-          <div class="pulse-card">
-            <strong>Stack</strong>
-            <span>Next.js, TypeScript, Prisma, PostgreSQL</span>
-          </div>
-          <div class="pulse-card">
-            <strong>Workflow</strong>
-            <span>Ranked opportunities with manual user control</span>
-          </div>
+        <div class="story-lanes reveal" aria-label="AI Job Match product workflow">
+          <article>
+            <span>01</span>
+            <strong>Capture</strong>
+            <p>Resume details and profile targets define the matching workflow.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <strong>Discover</strong>
+            <p>Public sources feed new roles into a review-first dashboard.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <strong>Rank</strong>
+            <p>Scoring logic helps compare roles before applying manually.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="job-match">
+    <section class="section product-stage-section" id="job-match">
       <div class="site-shell">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Featured Project</p>
-          <h2>AI Job Match Assistant</h2>
-          <p>
-            A full-stack SaaS-style product built around a practical job-search problem: reduce scattered job hunting into one ranked, ethical, and trackable workflow.
-          </p>
-        </div>
-
-        <article class="product-showcase reveal">
-          <div class="product-showcase__media">
-            <div class="product-frame">
-              <img src="assets/job-match/dashboard.png" alt="AI Job Match Assistant dashboard with ranked opportunities and job filters.">
-            </div>
-            <div class="supporting-screens" aria-label="AI Job Match workflow screenshots">
-              <img src="assets/job-match/review-queue.png" alt="Review queue showing discovered roles and match score.">
-              <img src="assets/job-match/sources.png" alt="Legal discovery source management screen.">
-            </div>
-          </div>
-
-          <div class="product-showcase__content">
+        <article class="product-stage reveal">
+          <div class="product-stage__copy">
+            <p class="eyebrow">Featured Product Build</p>
+            <h2>AI Job Match Assistant</h2>
+            <p class="section-lead">
+              A full-stack SaaS-style product built around a practical job-search problem: reduce scattered job hunting into one ranked, ethical, and trackable workflow.
+            </p>
             <div class="project-meta">
               <span>Live product</span>
               <span>Legal sourcing workflow</span>
               <span>Manual apply only</span>
             </div>
-            <h3>Discovery, ranking, triage, and tracking in one focused application.</h3>
             <p>
               The platform imports public job data, groups duplicates, scores role fit, prioritizes Trinidad and Tobago opportunities, and gives users a structured queue for deciding what to save, hide, review, or apply to manually.
             </p>
 
-            <div class="product-brief">
-              <div>
+            <div class="product-story">
+              <article>
                 <span>Problem</span>
                 <p>Job discovery is scattered across sources, difficult to compare, and easy to lose track of.</p>
-              </div>
-              <div>
+              </article>
+              <article>
                 <span>Solution</span>
-                <p>A ranked dashboard with profile targeting, source runs, review queues, and application status tracking.</p>
-              </div>
+                <p>A ranked dashboard with targeting, source runs, review queues, and application status tracking.</p>
+              </article>
             </div>
 
-            <div class="feature-list">
-              <span>Resume upload and parsing</span>
-              <span>Career preference targeting</span>
-              <span>Source discovery and import logs</span>
-              <span>Match scoring and triage queue</span>
+            <div class="feature-cloud" aria-label="AI Job Match features">
+              <span>Resume parsing</span>
+              <span>Profile targeting</span>
+              <span>Source discovery</span>
+              <span>Match scoring</span>
+              <span>Review queue</span>
+              <span>Application tracking</span>
             </div>
 
             <div>
@@ -174,42 +165,91 @@
               <a class="button" href="https://github.com/rohanrampersad383-beep/ai-job-match-assistant" target="_blank" rel="noreferrer">View Repository</a>
             </div>
           </div>
+
+          <div class="product-stage__visual">
+            <div class="screen-orbit" aria-hidden="true">
+              <span></span>
+              <span></span>
+            </div>
+            <figure class="device-mockup" data-tilt>
+              <div class="device-mockup__bar">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <img src="assets/job-match/dashboard.png" alt="AI Job Match Assistant dashboard with ranked opportunities and job filters.">
+            </figure>
+            <div class="floating-note floating-note--top">
+              <strong>147</strong>
+              <span>new jobs imported</span>
+            </div>
+            <div class="floating-note floating-note--bottom">
+              <strong>Ranked</strong>
+              <span>review-first dashboard</span>
+            </div>
+          </div>
         </article>
+
+        <div class="workflow-strip reveal">
+          <article data-tilt>
+            <img src="assets/job-match/review-queue.png" alt="Review queue showing discovered roles and match score.">
+            <div>
+              <span>Review Queue</span>
+              <p>New discoveries are triaged with fit notes and match scores.</p>
+            </div>
+          </article>
+          <article data-tilt>
+            <img src="assets/job-match/sources.png" alt="Legal discovery source management screen.">
+            <div>
+              <span>Source Control</span>
+              <p>Public sources, fetch settings, and safety rules stay transparent.</p>
+            </div>
+          </article>
+          <article data-tilt>
+            <img src="assets/job-match/profile.png" alt="Profile targeting preferences screen.">
+            <div>
+              <span>Targeting Profile</span>
+              <p>Career preferences guide scoring, filtering, and shortlist quality.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section class="section band" id="projects">
+    <section class="section technical-flow" id="projects">
       <div class="site-shell">
-        <div class="section-heading reveal">
+        <div class="section-heading section-heading--center reveal">
           <p class="eyebrow">Project Portfolio</p>
-          <h2>Technical projects for web, data, and automation roles.</h2>
-          <p>These projects highlight working interfaces, database-backed systems, machine learning workflows, and computer vision analysis.</p>
+          <h2>Supporting technical work across web systems, data, and analysis.</h2>
+          <p>Smaller project studies that show database-backed interfaces, applied machine learning, and image processing workflows.</p>
         </div>
 
-        <div class="project-grid project-grid--refined">
-          <article class="project-card project-card--primary project-card--spotlight reveal">
-            <div class="project-card__body">
-              <p class="eyebrow">Full-stack SaaS-style app</p>
-              <h3>AI Job Match Assistant</h3>
-              <p>End-to-end product work covering resume upload, profile targeting, public source discovery, ranked opportunities, review queue triage, and application tracking.</p>
-              <div class="tag-row">
-                <span>Next.js</span>
-                <span>TypeScript</span>
-                <span>Prisma</span>
-                <span>PostgreSQL</span>
+        <div class="case-rail">
+          <article class="case-panel case-panel--fitness reveal" data-tilt>
+            <div class="case-panel__number">01</div>
+            <div class="system-card-ui" aria-hidden="true">
+              <div class="system-card-ui__header">
+                <span></span>
+                <span></span>
+                <span></span>
               </div>
-              <div class="project-links">
-                <a href="https://ai-job-match-assistant.vercel.app" target="_blank" rel="noreferrer">Live Demo</a>
-                <a href="https://github.com/rohanrampersad383-beep/ai-job-match-assistant" target="_blank" rel="noreferrer">GitHub Repo</a>
+              <div class="system-card-ui__grid">
+                <span>Login</span>
+                <span>Workout Logs</span>
+                <span>Goals</span>
+                <span>Progress</span>
+              </div>
+              <div class="system-card-ui__chart">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
               </div>
             </div>
-          </article>
-
-          <article class="project-card project-card--minimal reveal">
-            <div class="project-card__body">
-              <p class="eyebrow">Final web system</p>
+            <div>
+              <p class="eyebrow">Database-backed web system</p>
               <h3>Fitness Central</h3>
-              <p>A database-backed fitness tracking system with registration, login, workout logs, weight tracking, goal setting, dashboard progress, and exercise guide content.</p>
+              <p>A fitness tracking system with registration, login, workout logs, weight tracking, goal setting, dashboard progress, and exercise guide content.</p>
               <div class="tag-row">
                 <span>HTML</span>
                 <span>CSS</span>
@@ -223,120 +263,125 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
-            <img src="assets/ai-ml/tabular-1.png" alt="Tabular machine learning feature importance visualization.">
-            <div class="project-card__body">
-              <p class="eyebrow">AI coursework</p>
+          <article class="case-panel case-panel--ml reveal" data-tilt>
+            <div class="case-panel__number">02</div>
+            <figure>
+              <img src="assets/ai-ml/tabular-1.png" alt="Tabular machine learning feature importance visualization.">
+            </figure>
+            <div>
+              <p class="eyebrow">Applied AI coursework</p>
               <h3>Machine Learning Notebooks</h3>
-              <p>Notebook-based coursework covering tabular, image, audio, and text workflows with preprocessing, classification, feature extraction, training, and evaluation.</p>
+              <p>Notebook-based workflows covering tabular, image, audio, and text data with preprocessing, classification, feature extraction, training, and evaluation.</p>
+              <div class="tag-row">
+                <span>Python</span>
+                <span>Jupyter</span>
+                <span>Classification</span>
+              </div>
             </div>
           </article>
 
-          <article class="project-card reveal">
-            <img src="assets/image-processing/ip-visual-01.png" alt="Annotated leaf morphometric analysis output.">
-            <div class="project-card__body">
+          <article class="case-panel case-panel--vision reveal" data-tilt>
+            <div class="case-panel__number">03</div>
+            <figure>
+              <img src="assets/image-processing/ip-visual-01.png" alt="Annotated leaf morphometric analysis output.">
+            </figure>
+            <div>
               <p class="eyebrow">Computer vision</p>
               <h3>Leaf Morphometric Analysis</h3>
               <p>MATLAB image processing work using segmentation, binary masks, morphology, boundary detection, centroid/medoid calculation, Green Leaf Index, and ranking.</p>
+              <div class="tag-row">
+                <span>MATLAB</span>
+                <span>Segmentation</span>
+                <span>Visual Analysis</span>
+              </div>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="ai-ml">
+    <section class="section lab-section" id="ai-ml">
       <div class="site-shell">
-        <div class="section-heading reveal">
-          <p class="eyebrow">AI/ML Work</p>
-          <h2>Applied Machine Learning & Data Analysis</h2>
-          <p>
-            Notebook projects covering preprocessing, classification, model evaluation, and interpretation across tabular, image, audio, and text data.
-          </p>
-        </div>
-
-        <div class="ml-layout">
-          <figure class="visual-card visual-card--feature reveal">
-            <img src="assets/ai-ml/tabular-1.png" alt="SHAP feature importance plot from tabular machine learning coursework.">
-            <figcaption>Tabular ML interpretation with feature impact analysis and model explanation.</figcaption>
-          </figure>
-          <div class="ml-cards reveal">
-            <article>
-              <span>Data Coverage</span>
-              <p>Tabular, image, audio, and text tasks using notebook-based workflows.</p>
-            </article>
-            <article>
-              <span>ML Process</span>
-              <p>Preprocessing, feature extraction, classification, training, and evaluation.</p>
-            </article>
-            <article>
-              <span>Result Analysis</span>
-              <p>Reading outputs, comparing models, and explaining technical results.</p>
-            </article>
+        <article class="lab-case lab-case--ml reveal">
+          <div class="lab-case__copy">
+            <p class="eyebrow">AI/ML Work</p>
+            <h2>Applied Machine Learning & Data Analysis</h2>
+            <p>
+              Notebook projects covering preprocessing, classification, model evaluation, and interpretation across tabular, image, audio, and text data.
+            </p>
+            <div class="feature-cloud">
+              <span>Data preprocessing</span>
+              <span>Feature extraction</span>
+              <span>Classification</span>
+              <span>Model evaluation</span>
+            </div>
           </div>
-          <figure class="visual-card reveal">
-            <img src="assets/ai-ml/image-1.png" alt="Image machine learning notebook output.">
-            <figcaption>Image classification workflow output from coursework.</figcaption>
-          </figure>
-        </div>
+          <div class="lab-case__visuals">
+            <figure class="analysis-card analysis-card--large" data-tilt>
+              <img src="assets/ai-ml/tabular-1.png" alt="SHAP feature importance plot from tabular machine learning coursework.">
+              <figcaption>Tabular ML interpretation and feature impact analysis.</figcaption>
+            </figure>
+            <figure class="analysis-card" data-tilt>
+              <img src="assets/ai-ml/image-1.png" alt="Image machine learning notebook output.">
+              <figcaption>Image classification workflow output.</figcaption>
+            </figure>
+          </div>
+        </article>
       </div>
     </section>
 
-    <section class="section band" id="vision">
+    <section class="section lab-section lab-section--vision" id="vision">
       <div class="site-shell">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Image Processing</p>
-          <h2>Computer Vision & Leaf Morphometric Analysis</h2>
-          <p>
-            The MATLAB work demonstrates segmentation, boundary extraction, object measurement, Green Leaf Index analysis, and ranked leaf assessment from real assignment outputs.
-          </p>
-        </div>
-
-        <div class="vision-layout vision-layout--refined">
-          <figure class="visual-card visual-card--wide reveal">
-            <img src="assets/image-processing/ip-visual-01.png" alt="Annotated leaves with boundaries, area, GLI, and damage measurements.">
-            <figcaption>Annotated leaf outputs with boundaries, area, GLI, and damage percentages.</figcaption>
-          </figure>
-          <div class="case-study-card reveal">
-            <p class="eyebrow">MATLAB Vision Workflow</p>
-            <h3>From raw leaf images to measurable visual analysis.</h3>
-            <p>The project turns image inputs into structured measurements using masks, morphology, boundaries, centroid/medoid calculations, and multi-leaf ranking.</p>
-            <div class="feature-list">
+        <article class="lab-case lab-case--reverse reveal">
+          <div class="lab-case__copy">
+            <p class="eyebrow">Image Processing</p>
+            <h2>Computer Vision & Leaf Morphometric Analysis</h2>
+            <p>
+              The MATLAB work demonstrates segmentation, boundary extraction, object measurement, Green Leaf Index analysis, and ranked leaf assessment from assignment outputs.
+            </p>
+            <div class="feature-cloud">
               <span>Segmentation</span>
               <span>Binary masks</span>
               <span>Boundary detection</span>
               <span>GLI analysis</span>
               <span>Leaf ranking</span>
             </div>
-            <figure class="visual-card visual-card--inline">
+          </div>
+          <div class="vision-composition">
+            <figure class="analysis-card analysis-card--wide" data-tilt>
+              <img src="assets/image-processing/ip-visual-01.png" alt="Annotated leaves with boundaries, area, GLI, and damage measurements.">
+              <figcaption>Annotated leaf outputs with boundaries, area, GLI, and damage percentages.</figcaption>
+            </figure>
+            <figure class="analysis-card analysis-card--small" data-tilt>
               <img src="assets/image-processing/coinandleaf.png" alt="Coin and leaf source image for measurement workflow.">
               <figcaption>Source image used for measurement and scale-based analysis.</figcaption>
             </figure>
           </div>
-        </div>
+        </article>
       </div>
     </section>
 
-    <section class="section" id="skills">
+    <section class="section skills-section" id="skills">
       <div class="site-shell">
-        <div class="section-heading reveal">
+        <div class="section-heading section-heading--center reveal">
           <p class="eyebrow">Technical Range</p>
           <h2>Skills grouped for junior developer, data, IT, and cloud-support roles.</h2>
         </div>
 
         <div class="skills-grid">
-          <article class="skill-card reveal">
+          <article class="skill-card reveal" data-tilt>
             <h3>Frontend & Web</h3>
             <p>HTML, CSS, JavaScript, TypeScript, Next.js, Tailwind CSS, responsive UI, dashboards.</p>
           </article>
-          <article class="skill-card reveal">
+          <article class="skill-card reveal" data-tilt>
             <h3>Backend & Databases</h3>
             <p>PHP, MySQL, PostgreSQL, Prisma, SQL, CRUD, schema design, ERDs, normalization.</p>
           </article>
-          <article class="skill-card reveal">
+          <article class="skill-card reveal" data-tilt>
             <h3>AI, Data & Vision</h3>
             <p>Python, Jupyter Notebook, MATLAB, preprocessing, classification, feature extraction, model evaluation.</p>
           </article>
-          <article class="skill-card reveal">
+          <article class="skill-card reveal" data-tilt>
             <h3>Cloud & IT Foundations</h3>
             <p>AWS IAM, VPC, EC2, RDS, EBS, security groups, subnetting, networking, troubleshooting.</p>
           </article>
@@ -377,6 +422,7 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <footer class="site-footer">
