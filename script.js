@@ -1,131 +1,125 @@
-const navToggle = document.querySelector(".nav-toggle");
-const siteNav = document.querySelector(".site-nav");
-const navLinks = document.querySelectorAll(".site-nav a[href^='#']");
-const sections = document.querySelectorAll("main section[id]");
-const revealItems = document.querySelectorAll(".reveal");
-const header = document.querySelector(".site-header");
-const yearTarget = document.getElementById("year");
-const tiltItems = document.querySelectorAll("[data-tilt]");
-let cursorFrame = null;
-let scrollFrame = null;
+/* ================================================================
+   ROHAN RAMPERSAD — Cinematic interactions
+   ================================================================ */
 
-document.documentElement.classList.add("js-ready");
+(function () {
 
-if (yearTarget) {
-  yearTarget.textContent = new Date().getFullYear();
-}
+  /* ---------- year ---------- */
+  const yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
 
-if (navToggle && siteNav) {
-  navToggle.addEventListener("click", () => {
-    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
-    navToggle.setAttribute("aria-expanded", String(!isOpen));
-    siteNav.classList.toggle("is-open");
-    document.body.classList.toggle("nav-open");
-  });
+  /* ---------- live clock in nav ---------- */
+  const navTime = document.getElementById('navTime');
+  function tick() {
+    if (!navTime) return;
+    const d = new Date();
+    const pad = (n) => String(n).padStart(2, '0');
+    navTime.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())} TT`;
+  }
+  tick(); setInterval(tick, 1000);
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      navToggle.setAttribute("aria-expanded", "false");
-      siteNav.classList.remove("is-open");
-      document.body.classList.remove("nav-open");
-    });
-  });
-}
+  /* ---------- navbar scroll behavior ---------- */
+  const nav = document.getElementById('nav');
+  let lastY = window.scrollY;
+  const onScroll = () => {
+    const y = window.scrollY;
+    if (y > 20) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
+    if (y > 280 && y > lastY) nav.style.transform = 'translateY(-160%)';
+    else nav.style.transform = 'translateY(0)';
+    lastY = y;
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
 
-const setActiveLink = () => {
-  const scrollPosition = window.scrollY + 140;
-  let currentId = "";
-
-  sections.forEach((section) => {
-    const top = section.offsetTop;
-    const bottom = top + section.offsetHeight;
-    if (scrollPosition >= top && scrollPosition < bottom) {
-      currentId = section.id;
-    }
-  });
-
-  navLinks.forEach((link) => {
-    const isActive = currentId && link.getAttribute("href") === `#${currentId}`;
-    link.classList.toggle("is-active", isActive);
-  });
-};
-
-const updateHeaderState = () => {
-  if (!header) {
-    return;
+  /* ---------- mobile menu ---------- */
+  const menuBtn = document.getElementById('menuBtn');
+  const navMobile = document.getElementById('navMobile');
+  if (menuBtn) {
+    menuBtn.addEventListener('click', () => navMobile.classList.toggle('open'));
+    navMobile.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => navMobile.classList.remove('open'))
+    );
   }
 
-  header.classList.toggle("is-scrolled", window.scrollY > 24);
-};
-
-const updateScrollEffects = () => {
-  if (scrollFrame) {
-    return;
-  }
-
-  scrollFrame = window.requestAnimationFrame(() => {
-    document.documentElement.style.setProperty("--scroll-y", `${window.scrollY}px`);
-    document.documentElement.style.setProperty("--parallax-y", `${Math.max(-28, window.scrollY * -0.006)}px`);
-    scrollFrame = null;
-  });
-};
-
-if ("IntersectionObserver" in window) {
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) {
-        return;
+  /* ---------- reveal on scroll ---------- */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        observer.unobserve(e.target);
       }
-
-      entry.target.classList.add("is-visible");
-      observer.unobserve(entry.target);
     });
-  }, {
-    threshold: 0.18,
-    rootMargin: "0px 0px -40px 0px"
+  }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = Math.min(i * 50, 320) + 'ms';
+    observer.observe(el);
   });
 
-  revealItems.forEach((item) => revealObserver.observe(item));
-} else {
-  revealItems.forEach((item) => item.classList.add("is-visible"));
-}
+  /* ---------- mouse-follow spotlight ---------- */
+  const spot = document.getElementById('spotlight');
+  let spotActive = false;
+  window.addEventListener('mousemove', (e) => {
+    if (!spotActive) { spot.classList.add('is-active'); spotActive = true; }
+    spot.style.transform = `translate(${e.clientX - 300}px, ${e.clientY - 300}px)`;
+  });
+  window.addEventListener('mouseleave', () => { spot.classList.remove('is-active'); spotActive = false; });
 
-window.addEventListener("scroll", () => {
-  setActiveLink();
-  updateHeaderState();
-  updateScrollEffects();
-});
+  /* ---------- project cards: cursor glow ---------- */
+  document.querySelectorAll('[data-project]').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      const y = ((e.clientY - r.top) / r.height) * 100;
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+    });
+  });
 
-window.addEventListener("pointermove", (event) => {
-  if (cursorFrame) {
-    return;
+  /* ---------- subtle tilt on tilt cards ---------- */
+  document.querySelectorAll('[data-tilt]').forEach((el) => {
+    el.addEventListener('mousemove', (e) => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      el.style.transform = `perspective(900px) rotateX(${(-y * 4).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg) translateY(-2px)`;
+    });
+    el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+  });
+
+  /* ---------- hero floating cards: parallax on mouse ---------- */
+  const cluster = document.querySelector('.hero__cluster');
+  if (cluster) {
+    const floats = cluster.querySelectorAll('.float');
+    cluster.addEventListener('mousemove', (e) => {
+      const r = cluster.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      floats.forEach((f) => {
+        const depth = parseFloat(f.dataset.float || '1');
+        f.style.translate = `${x * depth * 8}px ${y * depth * 8}px`;
+      });
+    });
+    cluster.addEventListener('mouseleave', () => {
+      floats.forEach((f) => { f.style.translate = ''; });
+    });
+  }
+/* ---------- copy-to-clipboard ---------- */
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const text = btn.getAttribute('data-copy');
+      const original = btn.textContent;
+      navigator.clipboard?.writeText(text).then(() => {
+        btn.textContent = 'Copied ✓';
+        setTimeout(() => { btn.textContent = original; }, 1400);
+      });
+    });
+  });
+
+  /* ---------- footer last-deploy stamp ---------- */
+  const ft = document.getElementById('footTime');
+  if (ft) {
+    const opts = { hour: '2-digit', minute: '2-digit' };
+    ft.textContent = `today · ${new Date().toLocaleTimeString([], opts)}`;
   }
 
-  cursorFrame = window.requestAnimationFrame(() => {
-    document.documentElement.style.setProperty("--cursor-x", `${event.clientX}px`);
-    document.documentElement.style.setProperty("--cursor-y", `${event.clientY}px`);
-    cursorFrame = null;
-  });
-});
-
-tiltItems.forEach((item) => {
-  item.addEventListener("pointermove", (event) => {
-    const bounds = item.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-
-    item.style.setProperty("--tilt-y", `${x * 5}deg`);
-    item.style.setProperty("--tilt-x", `${y * -5}deg`);
-  });
-
-  item.addEventListener("pointerleave", () => {
-    item.style.setProperty("--tilt-y", "0deg");
-    item.style.setProperty("--tilt-x", "0deg");
-  });
-});
-
-window.addEventListener("load", () => {
-  setActiveLink();
-  updateHeaderState();
-  updateScrollEffects();
-});
+})();

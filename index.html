@@ -6,494 +6,738 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-TGXPTJ0FN5');
-</script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Rohan Rampersad portfolio: junior full-stack, AI, database, data operations, and IT support projects.">
-  <meta name="theme-color" content="#05070d">
-  <title>Rohan Rampersad | Full-Stack, AI & IT Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20260509c">
-  <script src="script.js" defer></script>
+</script><meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rohan Rampersad | AI, Full-Stack & IT Portfolio</title>
+<meta name="description" content="Rohan Rampersad portfolio: Applied Computer Science student from Trinidad and Tobago focused on AI, full-stack development, cloud technologies, web applications, and practical problem-solving." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <a class="skip-link" href="#main-content">Skip to content</a>
 
-  <header class="site-header" id="top">
-    <div class="site-shell site-header__inner">
-      <a class="brand" href="#top" aria-label="Rohan Rampersad portfolio home">
-        <span class="brand__mark">RR</span>
-        <span class="brand__copy">
-          <strong>Rohan Rampersad</strong>
-          <span>Full-stack + AI portfolio</span>
-        </span>
+<!-- ============================================================
+     GLOBAL AMBIENT BACKGROUND (cinematic atmosphere)
+     ============================================================ -->
+<div class="atmos" aria-hidden="true">
+  <div class="atmos__grid"></div>
+  <div class="atmos__stars"></div>
+  <div class="atmos__noise"></div>
+  <div class="atmos__beam atmos__beam--1"></div>
+  <div class="atmos__beam atmos__beam--2"></div>
+  <div class="atmos__orb atmos__orb--violet"></div>
+  <div class="atmos__orb atmos__orb--cyan"></div>
+  <div class="atmos__orb atmos__orb--pink"></div>
+  <div class="atmos__scan"></div>
+</div>
+
+<!-- Mouse-follow spotlight -->
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<header class="nav" id="nav">
+  <div class="nav__inner glass-strong">
+    <a href="#home" class="nav__brand">
+      <span class="nav__logo">
+        <span class="nav__logo-shape"></span>
+        <span class="nav__logo-text">RR</span>
+      </span>
+      <span class="nav__name">
+        Rohan Rampersad
+        <small>Applied CS · Trinidad &amp; Tobago</small>
+      </span>
+    </a>
+    <nav class="nav__links">
+      <a href="#about"><span class="nav__num">01</span>About</a>
+      <a href="#skills"><span class="nav__num">02</span>Stack</a>
+      <a href="#projects"><span class="nav__num">03</span>Work</a>
+      <a href="#experience"><span class="nav__num">04</span>Path</a>
+      <a href="#contact"><span class="nav__num">05</span>Contact</a>
+    </nav>
+    <div class="nav__right">
+      <span class="nav__time" id="navTime">--:--:--</span>
+      <a href="Rohan_Rampersad_IT_Portfolio.pdf" class="btn btn--primary btn--sm" target="_blank" rel="noreferrer">
+        Portfolio PDF <span class="btn__shine"></span>
       </a>
+    </div>
+    <button class="nav__menu" id="menuBtn" aria-label="Toggle menu">
+      <span></span><span></span>
+    </button>
+  </div>
+  <div class="nav__mobile" id="navMobile">
+    <a href="#about">01 — About</a>
+    <a href="#skills">02 — Stack</a>
+    <a href="#projects">03 — Work</a>
+    <a href="#experience">04 — Path</a>
+    <a href="#contact">05 — Contact</a>
+  </div>
+</header>
 
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-      </button>
+<!-- ============================================================
+     HERO — asymmetrical, layered, cinematic
+     ============================================================ -->
+<section class="hero" id="home">
+  <!-- background connectors / lines -->
+  <svg class="hero__lines" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="lg1" x1="0" x2="1" y1="0" y2="1">
+        <stop offset="0%" stop-color="#7c5cff" stop-opacity="0"/>
+        <stop offset="50%" stop-color="#7c5cff" stop-opacity=".7"/>
+        <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="lg2" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0%" stop-color="#22d3ee" stop-opacity="0"/>
+        <stop offset="50%" stop-color="#22d3ee" stop-opacity=".5"/>
+        <stop offset="100%" stop-color="#f472b6" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <path d="M0,520 C300,420 500,620 800,500 C1000,420 1100,520 1200,460" stroke="url(#lg1)" stroke-width="1" fill="none" />
+    <path d="M0,200 C200,260 400,140 700,220 C900,280 1100,180 1200,240" stroke="url(#lg2)" stroke-width="1" fill="none" />
+    <path d="M0,700 C300,640 600,760 1200,680" stroke="url(#lg1)" stroke-width="1" fill="none" />
+  </svg>
 
-      <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
-        <a href="#job-match">Job Match</a>
+  <div class="container hero__grid">
+
+    <!-- LEFT — main typography -->
+    <div class="hero__main">
+      <div class="hero__badges reveal">
+        <span class="pill pill--live">
+          <span class="pill__dot"></span> PORTFOLIO ONLINE
+        </span>
+        <span class="pill">Applied CS Portfolio</span>
+        <span class="pill pill--ghost">TT · GMT-4</span>
+      </div>
+
+      <h1 class="hero__title">
+        <span class="reveal-line"><span>Engineer.</span></span>
+        <span class="reveal-line"><span class="serif">Designer.</span></span>
+        <span class="reveal-line"><span class="grad">Problem-solver</span><span class="cursor-blink">_</span></span>
+      </h1>
+
+      <div class="hero__meta reveal">
+        <div class="hero__avatar">
+          <span class="hero__avatar-ring"></span>
+          <span class="hero__avatar-init">RR</span>
+        </div>
+        <div class="hero__meta-text">
+          <strong>Rohan Rampersad</strong>
+          <span>Applied Computer Science · Building AI &amp; full-stack systems from Trinidad &amp; Tobago.</span>
+        </div>
+      </div>
+
+      <div class="hero__cta reveal">
+        <a href="#projects" class="btn btn--primary">
+          <span>Explore Work</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          <span class="btn__shine"></span>
+        </a>
+        <a href="assets/documents/Rohan_Rampersad_Resume.pdf" class="btn btn--ghost" target="_blank" rel="noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Resume PDF
+        </a>
+        <a href="#contact" class="btn btn--outline">Contact -></a>
+      </div>
+
+      <div class="hero__socials reveal">
+        <span class="hero__socials-label">CONNECT —</span>
+        <a href="https://github.com/rohanrampersad383-beep" class="social-chip" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.27-1.7-1.27-1.7-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.16 1.18a10.9 10.9 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.7 5.4-5.27 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.52 11.52 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5Z"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/rohan-rampersad-a18ab1401" class="social-chip" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.39 4.3 5.5v6.24ZM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z"/></svg>
+          LinkedIn
+        </a>
+        <a href="mailto:rohanrampersad383@gmail.com" class="social-chip">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>
+          Email
+        </a>
+      </div>
+
+      <!-- bottom mini cards -->
+      <div class="hero__strip">
+        <div class="strip glass reveal" data-tilt>
+          <span class="strip__label">FOCUS</span>
+          <span class="strip__val">AI + Full-Stack</span>
+          <div class="strip__spark"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="strip glass reveal" data-tilt>
+          <span class="strip__label">STACK</span>
+          <span class="strip__val">Web · Data · Cloud</span>
+          <span class="strip__delta">Next.js · PHP · SQL</span>
+        </div>
+        <div class="strip glass reveal" data-tilt>
+          <span class="strip__label">ROLE TARGET</span>
+          <span class="strip__val">Junior Developer</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — floating dashboard cluster -->
+    <div class="hero__cluster">
+
+      <div class="float float--terminal glass-strong" data-float="1">
+        <div class="float__bar">
+          <span class="dotc dotc--r"></span><span class="dotc dotc--y"></span><span class="dotc dotc--g"></span>
+          <span class="float__title">~/rohan — zsh</span>
+          <span class="float__meta">⌘</span>
+        </div>
+        <pre class="float__body terminal">
+<span class="c-mut">$</span> whoami
+<span class="c-acc">rohan</span>  <span class="c-mut">// applied cs · ai · full-stack</span>
+
+<span class="c-mut">$</span> ls ./focus
+<span class="c-acc">›</span> web-apps   databases   ai-ml
+<span class="c-acc">›</span> cloud      support     data-ops
+
+<span class="c-mut">$</span> cat ./status
+<span class="c-ok">●</span> portfolio ready · learning daily
+<span class="c-acc">▌</span></pre>
+      </div>
+
+      <div class="float float--metric glass-strong" data-float="2">
+        <div class="metric__head">
+          <span class="metric__label">PROJECT AREAS</span>
+          <span class="metric__pill"><span class="pill__dot"></span> live</span>
+        </div>
+        <div class="metric__num"><span>6</span><small>areas</small></div>
+        <div class="metric__bars">
+          <span style="--h:40%"></span><span style="--h:65%"></span>
+          <span style="--h:55%"></span><span style="--h:80%"></span>
+          <span style="--h:70%"></span><span style="--h:92%"></span>
+          <span style="--h:60%"></span><span style="--h:88%"></span>
+          <span style="--h:50%"></span><span style="--h:78%"></span>
+          <span style="--h:66%"></span><span style="--h:95%"></span>
+        </div>
+      </div>
+
+      <div class="float float--ai glass-strong" data-float="3">
+        <div class="ai__head">
+          <span class="ai__avatar"></span>
+          <div>
+            <strong>Portfolio Snapshot</strong>
+            <small>Current focus</small>
+          </div>
+        </div>
+        <div class="ai__msg">
+          <span>“Building practical AI, full-stack, database, and cloud foundation projects.”</span>
+        </div>
+        <div class="ai__progress"><span></span></div>
+      </div>
+
+      <div class="float float--badge glass-strong" data-float="4">
+        <span class="badge__icon">◆</span>
+        <div>
+          <strong>Main project</strong>
+          <small>AI Job Match Assistant</small>
+        </div>
+      </div>
+
+      <div class="float float--orbit" data-float="5" aria-hidden="true">
+        <div class="orbit">
+          <span class="orbit__core"></span>
+          <span class="orbit__ring orbit__ring--1"></span>
+          <span class="orbit__ring orbit__ring--2"></span>
+          <span class="orbit__ring orbit__ring--3"></span>
+          <span class="orbit__node orbit__node--1">TS</span>
+          <span class="orbit__node orbit__node--2">PY</span>
+          <span class="orbit__node orbit__node--3">SQL</span>
+          <span class="orbit__node orbit__node--4">AI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- marquee divider -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>● TYPESCRIPT</span><span>● NEXT.JS</span><span>● PYTHON</span><span>● POSTGRESQL</span>
+      <span>● TAILWIND</span><span>● PRISMA</span><span>● AWS</span><span>● PHP</span>
+      <span>● MYSQL</span><span>● AI / LLMs</span><span>● APIs</span><span>● GIT</span>
+      <span>● TYPESCRIPT</span><span>● NEXT.JS</span><span>● PYTHON</span><span>● POSTGRESQL</span>
+      <span>● TAILWIND</span><span>● PRISMA</span><span>● AWS</span><span>● PHP</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT — split asymmetric story
+     ============================================================ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="eyebrow"><span class="eyebrow__num">01</span> About</span>
+      <h2 class="section__title">
+        I build <span class="grad">software</span> that<br/>
+        feels <span class="serif">inevitable.</span>
+      </h2>
+    </div>
+
+    <div class="about-grid">
+      <article class="about-card glass-strong reveal">
+        <div class="about-card__top">
+          <span class="pill pill--ghost">PROFILE.MDX</span>
+          <span class="kbd">⌘ K</span>
+        </div>
+        <p class="about-card__lead">
+          I am an Applied Computer Science student studying through SAMS in partnership with Anglia Ruskin University. My work includes <em>AI</em>, <em>full-stack development</em>, databases, cloud computing practice, systems analysis, and data handling.
+        </p>
+        <p>
+          I enjoy building useful systems, organizing data, solving technical problems, and learning new technologies through practical projects.
+        </p>
+
+        <div class="about-card__divider"><span></span><small>NOW</small><span></span></div>
+
+        <ul class="about-list">
+          <li><span class="dot-g"></span> Studying Applied Computer Science</li>
+          <li><span class="dot-c"></span> Building AI and full-stack portfolio projects</li>
+          <li><span class="dot-p"></span> Open to junior developer, IT support, database, data operations, and cloud foundation roles</li>
+        </ul>
+      </article>
+
+      <div class="about-side">
+        <div class="stat-card glass reveal" data-tilt>
+          <div class="stat-card__num">AI</div>
+          <div class="stat-card__label">Current product focus</div>
+          <div class="stat-card__ring"></div>
+        </div>
+        <div class="stat-card glass reveal" data-tilt>
+          <div class="stat-card__num">Web</div>
+          <div class="stat-card__label">Full-stack systems</div>
+          <div class="stat-card__ring"></div>
+        </div>
+        <div class="stat-card stat-card--wide glass reveal" data-tilt>
+          <div class="stat-card__top">
+            <span class="pill pill--live"><span class="pill__dot"></span> CURRENTLY</span>
+          </div>
+          <div class="stat-card__big">Building AI Job Match Assistant<br/>and technical portfolio projects.</div>
+          <div class="stat-card__ring stat-card__ring--lg"></div>
+        </div>
+        <div class="stat-card glass reveal" data-tilt>
+          <div class="stat-card__num">SQL</div>
+          <div class="stat-card__label">Database design</div>
+        </div>
+        <div class="stat-card glass reveal" data-tilt>
+          <div class="stat-card__num">AWS</div>
+          <div class="stat-card__label">Cloud foundations</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SKILLS — bento layout
+     ============================================================ -->
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="eyebrow"><span class="eyebrow__num">02</span> Stack</span>
+      <h2 class="section__title">
+        The <span class="grad">toolkit</span> behind<br/>
+        every <span class="serif">build.</span>
+      </h2>
+    </div>
+
+    <div class="bento">
+      <div class="bento__cell bento__cell--lang glass-strong reveal" data-tilt>
+        <div class="bento__head">
+          <span class="bento__num">/01</span>
+          <span class="bento__title">Languages</span>
+        </div>
+        <div class="chips">
+          <span class="chip">TypeScript</span><span class="chip">JavaScript</span>
+          <span class="chip">Python</span><span class="chip">PHP</span>
+          <span class="chip">HTML</span><span class="chip">CSS</span>
+          <span class="chip">SQL</span><span class="chip">MATLAB</span>
+        </div>
+        <div class="bento__glow"></div>
+      </div>
+
+      <div class="bento__cell bento__cell--frame glass-strong reveal" data-tilt>
+        <div class="bento__head">
+          <span class="bento__num">/02</span>
+          <span class="bento__title">Frameworks &amp; UI</span>
+        </div>
+        <div class="chips">
+          <span class="chip">Next.js</span>
+          <span class="chip">Tailwind CSS</span>
+          <span class="chip">Prisma</span>
+          <span class="chip">Responsive UI</span>
+          <span class="chip">Dashboards</span>
+        </div>
+      </div>
+
+      <div class="bento__cell bento__cell--data glass-strong reveal" data-tilt>
+        <div class="bento__head">
+          <span class="bento__num">/03</span>
+          <span class="bento__title">Data &amp; Cloud</span>
+        </div>
+        <div class="chips">
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">MySQL</span>
+          <span class="chip">AWS</span>
+          <span class="chip">CRUD</span>
+          <span class="chip">ER Diagrams</span>
+          <span class="chip">Normalization</span>
+        </div>
+        <div class="bento__viz">
+          <span style="--h:30%"></span><span style="--h:55%"></span><span style="--h:70%"></span>
+          <span style="--h:45%"></span><span style="--h:85%"></span><span style="--h:60%"></span>
+          <span style="--h:75%"></span><span style="--h:95%"></span>
+        </div>
+      </div>
+
+      <div class="bento__cell bento__cell--ai glass-strong reveal" data-tilt>
+        <div class="bento__head">
+          <span class="bento__num">/04</span>
+          <span class="bento__title">AI &amp; Tooling</span>
+        </div>
+        <div class="chips">
+          <span class="chip">AI/ML Basics</span>
+          <span class="chip">Jupyter Notebook</span>
+          <span class="chip">Data Preprocessing</span>
+          <span class="chip">Classification</span>
+          <span class="chip">MATLAB Image Processing</span>
+          <span class="chip">Git / GitHub</span>
+          <span class="chip">VS Code</span>
+          <span class="chip">WampServer</span>
+        </div>
+        <div class="bento__pulse"></div>
+      </div>
+
+      <div class="bento__cell bento__cell--quote glass-strong reveal">
+        <span class="quote__mark serif">“</span>
+        <p>
+          I focus on practical systems: clean interfaces, reliable data, and workflows that make technical work easier.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROJECTS — full case-study cards
+     ============================================================ -->
+<section class="section" id="projects">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="eyebrow"><span class="eyebrow__num">03</span> Selected Work</span>
+      <h2 class="section__title">
+        Products I've <span class="grad">designed</span><br/>
+        and <span class="serif">engineered.</span>
+      </h2>
+    </div>
+
+    <!-- Project 01 -->
+    <article class="case glass-strong reveal" data-project>
+      <div class="case__meta">
+        <span class="pill pill--live"><span class="pill__dot"></span> CASE STUDY 01</span>
+        <span class="case__year">2025</span>
+      </div>
+      <div class="case__grid">
+        <div class="case__copy">
+          <h3 class="case__title">AI Job Match Assistant</h3>
+          <p class="case__lead">
+            A full-stack Next.js, TypeScript, Prisma, PostgreSQL, and Tailwind CSS web application that helps users manage job discovery, job tracking, resume/application preparation, and match scoring.
+          </p>
+          <div class="case__chips chips">
+            <span class="chip">Next.js</span><span class="chip">TypeScript</span>
+            <span class="chip">Prisma</span><span class="chip">PostgreSQL</span>`n            <span class="chip">Tailwind CSS</span><span class="chip">Job Tracking</span>
+          </div>
+          <div class="case__metrics">
+            <div><strong>Discovery</strong><span>public job source workflow</span></div>
+            <div><strong>Tracking</strong><span>application status workflow</span></div>
+            <div><strong>Scoring</strong><span>match ranking logic</span></div>
+          </div>
+          <div class="case__cta">
+            <a href="https://ai-job-match-assistant.vercel.app" class="btn btn--primary btn--sm" target="_blank" rel="noreferrer">Live Demo
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+            <a href="https://github.com/rohanrampersad383-beep/ai-job-match-assistant" class="btn btn--outline btn--sm" target="_blank" rel="noreferrer">GitHub Repo</a>
+          </div>
+        </div>
+
+        <div class="case__preview case__preview--ai">
+          <div class="window glass-strong">
+            <div class="window__bar">
+              <span class="dotc dotc--r"></span><span class="dotc dotc--y"></span><span class="dotc dotc--g"></span>
+              <span class="window__url">ai-job-match-assistant.vercel.app</span>
+            </div>
+            <div class="window__body">
+              <div class="dash-row">
+                <div class="dash-card dash-card--score">
+                  <span class="dash-card__label">Match Workflow</span>
+                  <div class="ring">
+                    <svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" stroke="rgba(255,255,255,.08)" stroke-width="6" fill="none"/><circle cx="30" cy="30" r="26" stroke="url(#rg)" stroke-width="6" fill="none" stroke-dasharray="163" stroke-dashoffset="20" stroke-linecap="round" transform="rotate(-90 30 30)"/><defs><linearGradient id="rg"><stop offset="0%" stop-color="#7c5cff"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient></defs></svg>
+                    <span>Rank</span>
+                  </div>
+                </div>
+                <div class="dash-card dash-card--flex">
+                  <span class="dash-card__label">Core features</span>
+                  <div class="dash-tags">
+                    <span>Resume</span><span>Jobs</span><span>Scoring</span><span>SQL</span><span>Tracking</span>
+                  </div>
+                  <span class="dash-card__label" style="margin-top:8px">Workflow</span>
+                  <div class="dash-tags dash-tags--warn"><span>Manual review</span><span>Ethical sourcing</span></div>
+                </div>
+              </div>
+              <div class="dash-cta">Review matched opportunities →</div>
+            </div>
+          </div>
+          <div class="window window--mini glass">
+            <div class="mini__head"><span>Workflow note</span><span class="pill__dot"></span></div>
+            <div class="mini__body">“Manual apply only. Legal discovery sources and user-controlled tracking.”</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project 02 -->
+    <article class="case case--alt glass-strong reveal" data-project>
+      <div class="case__meta">
+        <span class="pill pill--live pill--cyan"><span class="pill__dot"></span> CASE STUDY 02</span>
+        <span class="case__year">2024</span>
+      </div>
+      <div class="case__grid case__grid--reverse">
+        <div class="case__copy">
+          <h3 class="case__title">Fitness Central</h3>
+          <p class="case__lead">
+            An academic full-stack fitness tracking system built with HTML, CSS, JavaScript, PHP, MySQL, WAMPServer, and phpMyAdmin. It supports user accounts, workout logging, weight tracking, goals, dashboards, and database-driven features.
+          </p>
+          <div class="case__chips chips">
+            <span class="chip">PHP</span><span class="chip">MySQL</span>
+            <span class="chip">JavaScript</span><span class="chip">HTML</span>
+            <span class="chip">CSS</span><span class="chip">WAMPServer</span>
+            <span class="chip">phpMyAdmin</span>
+          </div>
+          <div class="case__metrics">
+            <div><strong>Accounts</strong><span>login and registration</span></div>
+            <div><strong>Tracking</strong><span>workouts and weight</span></div>
+            <div><strong>Goals</strong><span>dashboard progress</span></div>
+          </div>
+          <div class="case__cta">
+            <a href="https://github.com/rohanrampersad383-beep/fitness-central" class="btn btn--primary btn--sm" target="_blank" rel="noreferrer">GitHub Repo
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+            <a href="#contact" class="btn btn--outline btn--sm">Ask About Project</a>
+          </div>
+        </div>
+
+        <div class="case__preview case__preview--fit">
+          <div class="window glass-strong">
+            <div class="window__bar">
+              <span class="dotc dotc--r"></span><span class="dotc dotc--y"></span><span class="dotc dotc--g"></span>
+              <span class="window__url">fitness-central.local/dashboard</span>
+            </div>
+            <div class="window__body">
+              <div class="dash-row">
+                <div class="dash-card dash-card--flex">
+                  <span class="dash-card__label">Dashboard features</span>
+                  <div class="big-num">CRUD <small>system</small></div>
+                  <div class="dash-bars">
+                    <span style="--h:40%"></span><span style="--h:65%"></span>
+                    <span style="--h:80%"></span><span style="--h:55%"></span>
+                    <span style="--h:90%"></span><span style="--h:70%"></span>
+                    <span style="--h:45%"></span>
+                  </div>
+                </div>
+                <div class="dash-card dash-card--score">
+                  <span class="dash-card__label">Database</span>
+                  <div class="ring">
+                    <svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" stroke="rgba(255,255,255,.08)" stroke-width="6" fill="none"/><circle cx="30" cy="30" r="26" stroke="url(#rg2)" stroke-width="6" fill="none" stroke-dasharray="163" stroke-dashoffset="40" stroke-linecap="round" transform="rotate(-90 30 30)"/><defs><linearGradient id="rg2"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#a7f3d0"/></linearGradient></defs></svg>
+                    <span>SQL</span>
+                  </div>
+                </div>
+              </div>
+              <div class="dash-cta dash-cta--cyan">Track workouts and goals →</div>
+            </div>
+          </div>
+          <div class="window window--mini glass">
+            <div class="mini__head"><span>Academic system</span><span class="pill__dot"></span></div>
+            <div class="mini__body">“Users, goals, workouts, and progress are managed through MySQL-backed CRUD features.”</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================================================
+     EXPERIENCE — vertical timeline
+     ============================================================ -->
+<section class="section" id="experience">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="eyebrow"><span class="eyebrow__num">04</span> Path</span>
+      <h2 class="section__title">
+        The <span class="grad">journey</span> so far,<br/>
+        and where it's <span class="serif">going.</span>
+      </h2>
+    </div>
+
+    <div class="path">
+      <div class="path__line"></div>
+
+      <div class="path__item reveal">
+        <div class="path__node"><span></span></div>
+        <div class="path__card glass-strong">
+          <div class="path__top">
+            <span class="path__year">Current</span>
+            <span class="pill pill--live"><span class="pill__dot"></span> in progress</span>
+          </div>
+          <h3>Applied Computer Science Student</h3>
+          <p>Studying through SAMS in partnership with Anglia Ruskin University, with coursework and projects across software engineering, web development, databases, AI, image processing, cloud computing, and data handling.</p>
+          <div class="chips chips--sm">
+            <span class="chip">Software Engineering</span>
+            <span class="chip">AI</span>
+            <span class="chip">Image Processing</span>
+            <span class="chip">Web Dev</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="path__item reveal">
+        <div class="path__node"><span></span></div>
+        <div class="path__card glass-strong">
+          <div class="path__top">
+            <span class="path__year">Academic Projects</span>
+            <span class="pill">completed</span>
+          </div>
+          <h3>Database, BIT, Networks &amp; Systems Analysis</h3>
+          <p>Completed academic systems and database work including Velocity Motors, Toyota database projects, Mandy’s Hardware inventory/client management system, network topology, subnetting, server roles, VPNs, security, Cisco IOS concepts, and IoT risks.</p>
+          <div class="chips chips--sm">
+            <span class="chip">Databases</span>
+            <span class="chip">Networks</span>
+            <span class="chip">Systems Analysis</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="path__item reveal">
+        <div class="path__node"><span></span></div>
+        <div class="path__card glass-strong">
+          <div class="path__top">
+            <span class="path__year">Ongoing</span>
+            <span class="pill pill--cyan">focus</span>
+          </div>
+          <h3>AI/ML · Image Processing · Cloud Foundations</h3>
+          <p>Hands-on work with Jupyter Notebook machine learning workflows, MATLAB leaf morphometric analysis, AWS IAM/VPC/EC2/RDS/EBS practice, and troubleshooting-oriented cloud concepts.</p>
+          <div class="chips chips--sm">
+            <span class="chip">Jupyter</span>
+            <span class="chip">MATLAB</span>
+            <span class="chip">AWS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="path__item reveal">
+        <div class="path__node path__node--next"><span></span></div>
+        <div class="path__card path__card--next glass-strong">
+          <div class="path__top">
+            <span class="path__year">Next</span>
+            <span class="pill pill--ghost">2026</span>
+          </div>
+          <h3>Junior technical roles</h3>
+          <p>Seeking entry-level opportunities in full-stack development, IT support, database support, data operations, junior developer, cloud support, and AI-focused technical roles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT — cinematic finale
+     ============================================================ -->
+<section class="section section--contact" id="contact">
+  <div class="contact-bg" aria-hidden="true">
+    <div class="contact-bg__orb"></div>
+    <div class="contact-bg__grid"></div>
+  </div>
+  <div class="container contact reveal">
+    <span class="eyebrow"><span class="eyebrow__num">05</span> Contact</span>
+    <h2 class="contact__title">
+      Let's <span class="grad">build</span> something<br/>
+      <span class="serif">remarkable.</span>
+    </h2>
+    <p class="contact__sub">
+      Open to junior full-stack, AI, database, data operations, cloud foundation, and IT support roles. Contact me for opportunities, collaborations, or project questions.
+    </p>
+
+    <div class="contact__panel glass-strong">
+      <div class="contact__row">
+        <span class="contact__label">EMAIL</span>
+        <a href="mailto:rohanrampersad383@gmail.com" class="contact__value">rohanrampersad383@gmail.com</a>
+        <button class="contact__copy" data-copy="rohanrampersad383@gmail.com">Copy</button>
+      </div>
+      <div class="contact__row">
+        <span class="contact__label">LINKEDIN</span>
+        <a href="https://www.linkedin.com/in/rohan-rampersad-a18ab1401" class="contact__value" target="_blank" rel="noreferrer">/in/rohan-rampersad-a18ab1401</a>
+        <span class="contact__copy">Open ↗</span>
+      </div>
+      <div class="contact__row">
+        <span class="contact__label">GITHUB</span>
+        <a href="https://github.com/rohanrampersad383-beep" class="contact__value" target="_blank" rel="noreferrer">/rohanrampersad383-beep</a>
+        <span class="contact__copy">Open ↗</span>
+      </div>
+      <div class="contact__row">
+        <span class="contact__label">LOCATION</span>
+        <span class="contact__value">Trinidad &amp; Tobago · GMT-4</span>
+        <span class="contact__copy"><span class="pill__dot"></span> Available</span>
+      </div>
+    </div>
+
+    <div class="contact__cta">
+      <a href="mailto:rohanrampersad383@gmail.com" class="btn btn--primary">
+        Start a conversation
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <span class="btn__shine"></span>
+      </a>
+      <a href="assets/documents/Rohan_Rampersad_Resume.pdf" class="btn btn--ghost" target="_blank" rel="noreferrer">Download Resume</a>
+      <a href="Rohan_Rampersad_IT_Portfolio.pdf" class="btn btn--outline" target="_blank" rel="noreferrer">Portfolio PDF</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <span class="nav__logo"><span class="nav__logo-shape"></span><span class="nav__logo-text">RR</span></span>
+      <div>
+        <strong>Rohan Rampersad</strong>
+        <small>© <span id="yr"></span> · Portfolio hosted on GitHub Pages</small>
+      </div>
+    </div>
+    <div class="footer__cols">
+      <div>
+        <span class="footer__h">Navigate</span>
         <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#ai-ml">AI/ML</a>
-        <a href="#vision">Image Processing</a>
-        <a href="#contact">Contact</a>
-        <a class="nav-pill" href="Rohan_Rampersad_IT_Portfolio.pdf" target="_blank" rel="noreferrer">Portfolio PDF</a>
-      </nav>
+        <a href="#skills">Stack</a>
+        <a href="#projects">Work</a>
+      </div>
+      <div>
+        <span class="footer__h">Connect</span>
+        <a href="https://github.com/rohanrampersad383-beep" target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/rohan-rampersad-a18ab1401" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+        <a href="mailto:rohanrampersad383@gmail.com">Email ↗</a>
+      </div>
+      <div>
+        <span class="footer__h">Status</span>
+        <span class="footer__status"><span class="pill__dot"></span> Portfolio available</span>
+        <small>Last deploy <span id="footTime">just now</span></small>
+      </div>
     </div>
-  </header>
+  </div>
+  <div class="footer__big">ROHAN&nbsp;·&nbsp;RAMPERSAD</div>
+</footer>
 
-  <main id="main-content">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__media" aria-hidden="true">
-        <img src="assets/job-match/dashboard.png" alt="">
-      </div>
-      <div class="hero__overlay"></div>
-
-      <div class="site-shell hero__content reveal">
-        <div class="hero__grid">
-          <div class="hero__copy">
-            <p class="eyebrow">Trinidad and Tobago | Full-Stack, AI & IT Support</p>
-            <h1 id="hero-title">Rohan Rampersad</h1>
-            <p class="hero__headline">Junior full-stack, AI, database, and IT support developer building practical systems for real workflows.</p>
-            <p class="hero__summary">
-              I build useful web applications, database-backed workflows, AI/ML coursework, and computer vision experiments. My portfolio is focused on entry-level software, data operations, database support, cloud foundations, and technical support roles.
-            </p>
-
-            <div class="action-row">
-              <a class="button button--primary" href="#projects">View Projects</a>
-              <a class="button" href="assets/documents/Rohan_Rampersad_Resume.pdf" target="_blank" rel="noreferrer">Resume Download</a>
-              <a class="button" href="https://github.com/rohanrampersad383-beep" target="_blank" rel="noreferrer">GitHub</a>
-              <a class="button button--accent" href="https://ai-job-match-assistant.vercel.app" target="_blank" rel="noreferrer">Live Demo</a>
-            </div>
-
-            <div class="hero__badges" aria-label="Portfolio highlights">
-              <span>Next.js</span>
-              <span>TypeScript</span>
-              <span>PostgreSQL</span>
-              <span>Python ML</span>
-              <span>MATLAB Vision</span>
-              <span>AWS Foundations</span>
-            </div>
-          </div>
-
-          <aside class="hero-card" data-tilt aria-label="Career snapshot">
-            <div class="hero-card__topline">
-              <span>Available for junior technical roles</span>
-              <i></i>
-            </div>
-            <h2>Full-stack systems, AI workflows, and database-backed problem solving.</h2>
-            <div class="hero-card__matrix">
-              <div>
-                <strong>Focus</strong>
-                <span>Web apps, data operations, IT support</span>
-              </div>
-              <div>
-                <strong>Location</strong>
-                <span>Trinidad and Tobago</span>
-              </div>
-              <div>
-                <strong>Main Build</strong>
-                <span>AI Job Match Assistant</span>
-              </div>
-              <div>
-                <strong>Career Fit</strong>
-                <span>Junior developer, cloud, database support</span>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <section class="section about-section" id="about">
-      <div class="site-shell about-layout">
-        <div class="section-copy reveal">
-          <p class="eyebrow">About</p>
-          <h2>Applied computer science student focused on practical technical delivery.</h2>
-          <p>
-            I study Applied Computer Science through SAMS in partnership with Anglia Ruskin University. My work combines web development, databases, systems analysis, image processing, artificial intelligence, machine learning, cloud practice, and structured data handling.
-          </p>
-        </div>
-        <div class="about-panel reveal" data-tilt>
-          <article>
-            <span>01</span>
-            <strong>Build practical systems</strong>
-            <p>Projects are centered on real workflows: dashboards, CRUD systems, scoring logic, review queues, and organized data.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <strong>Work across the stack</strong>
-            <p>Comfortable moving between frontend interfaces, database design, PHP/MySQL systems, and modern TypeScript applications.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <strong>Support technical teams</strong>
-            <p>Prepared for junior developer, database support, data operations, cloud foundations, and IT support responsibilities.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section story-bridge" id="currently-building">
-      <div class="site-shell story-bridge__inner">
-        <div class="section-copy reveal">
-          <p class="eyebrow">Currently Building</p>
-          <h2>AI Job Match Assistant is the main product focus.</h2>
-          <p>
-            The current priority is a discovery-first job platform that shows full-stack product thinking: resume parsing, profile targeting, job discovery, scoring logic, review queues, and application tracking.
-          </p>
-        </div>
-        <div class="story-lanes reveal" aria-label="AI Job Match product workflow">
-          <article>
-            <span>01</span>
-            <strong>Capture</strong>
-            <p>Resume details and profile targets define the matching workflow.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <strong>Discover</strong>
-            <p>Public sources feed new roles into a review-first dashboard.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <strong>Rank</strong>
-            <p>Scoring logic helps compare roles before applying manually.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section product-stage-section" id="job-match">
-      <div class="site-shell">
-        <article class="product-stage reveal">
-          <div class="product-stage__copy">
-            <p class="eyebrow">Featured Product Build</p>
-            <h2>AI Job Match Assistant</h2>
-            <p class="section-lead">
-              A full-stack SaaS-style product built around a practical job-search problem: reduce scattered job hunting into one ranked, ethical, and trackable workflow.
-            </p>
-            <div class="project-meta">
-              <span>Live product</span>
-              <span>Legal sourcing workflow</span>
-              <span>Manual apply only</span>
-            </div>
-            <p>
-              The platform imports public job data, groups duplicates, scores role fit, prioritizes Trinidad and Tobago opportunities, and gives users a structured queue for deciding what to save, hide, review, or apply to manually.
-            </p>
-
-            <div class="product-story">
-              <article>
-                <span>Problem</span>
-                <p>Job discovery is scattered across sources, difficult to compare, and easy to lose track of.</p>
-              </article>
-              <article>
-                <span>Solution</span>
-                <p>A ranked dashboard with targeting, source runs, review queues, and application status tracking.</p>
-              </article>
-            </div>
-
-            <div class="feature-cloud" aria-label="AI Job Match features">
-              <span>Resume parsing</span>
-              <span>Profile targeting</span>
-              <span>Source discovery</span>
-              <span>Match scoring</span>
-              <span>Review queue</span>
-              <span>Application tracking</span>
-            </div>
-
-            <div>
-              <p class="mini-label">Tech Stack</p>
-              <div class="tag-row">
-                <span>Next.js</span>
-                <span>TypeScript</span>
-                <span>Tailwind CSS</span>
-                <span>Prisma</span>
-                <span>PostgreSQL</span>
-              </div>
-            </div>
-
-            <div class="action-row">
-              <a class="button button--primary" href="https://ai-job-match-assistant.vercel.app" target="_blank" rel="noreferrer">Open Live Demo</a>
-              <a class="button" href="https://github.com/rohanrampersad383-beep/ai-job-match-assistant" target="_blank" rel="noreferrer">View Repository</a>
-            </div>
-          </div>
-
-          <div class="product-stage__visual">
-            <div class="screen-orbit" aria-hidden="true">
-              <span></span>
-              <span></span>
-            </div>
-            <figure class="device-mockup" data-tilt>
-              <div class="device-mockup__bar">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <img src="assets/job-match/dashboard.png" alt="AI Job Match Assistant dashboard with ranked opportunities and job filters.">
-            </figure>
-            <div class="floating-note floating-note--top">
-              <strong>147</strong>
-              <span>new jobs imported</span>
-            </div>
-            <div class="floating-note floating-note--bottom">
-              <strong>Ranked</strong>
-              <span>review-first dashboard</span>
-            </div>
-          </div>
-        </article>
-
-        <div class="workflow-strip reveal">
-          <article data-tilt>
-            <img src="assets/job-match/review-queue.png" alt="Review queue showing discovered roles and match score.">
-            <div>
-              <span>Review Queue</span>
-              <p>New discoveries are triaged with fit notes and match scores.</p>
-            </div>
-          </article>
-          <article data-tilt>
-            <img src="assets/job-match/sources.png" alt="Legal discovery source management screen.">
-            <div>
-              <span>Source Control</span>
-              <p>Public sources, fetch settings, and safety rules stay transparent.</p>
-            </div>
-          </article>
-          <article data-tilt>
-            <img src="assets/job-match/profile.png" alt="Profile targeting preferences screen.">
-            <div>
-              <span>Targeting Profile</span>
-              <p>Career preferences guide scoring, filtering, and shortlist quality.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section technical-flow" id="projects">
-      <div class="site-shell">
-        <div class="section-heading section-heading--center reveal">
-          <p class="eyebrow">Project Portfolio</p>
-          <h2>Supporting technical work across web systems, data, and analysis.</h2>
-          <p>Smaller project studies that show database-backed interfaces, applied machine learning, and image processing workflows.</p>
-        </div>
-
-        <div class="case-rail">
-          <article class="case-panel case-panel--fitness reveal" data-tilt>
-            <div class="case-panel__number">01</div>
-            <div class="system-card-ui" aria-hidden="true">
-              <div class="system-card-ui__header">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <div class="system-card-ui__grid">
-                <span>Login</span>
-                <span>Workout Logs</span>
-                <span>Goals</span>
-                <span>Progress</span>
-              </div>
-              <div class="system-card-ui__chart">
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-              </div>
-            </div>
-            <div>
-              <p class="eyebrow">Database-backed web system</p>
-              <h3>Fitness Central</h3>
-              <p>A fitness tracking system with registration, login, workout logs, weight tracking, goal setting, dashboard progress, and exercise guide content.</p>
-              <div class="tag-row">
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>JavaScript</span>
-                <span>PHP</span>
-                <span>MySQL</span>
-              </div>
-              <div class="project-links">
-                <a href="https://github.com/rohanrampersad383-beep/fitness-central" target="_blank" rel="noreferrer">GitHub Repo</a>
-              </div>
-            </div>
-          </article>
-
-          <article class="case-panel case-panel--ml reveal" data-tilt>
-            <div class="case-panel__number">02</div>
-            <figure>
-              <img src="assets/ai-ml/tabular-1.png" alt="Tabular machine learning feature importance visualization.">
-            </figure>
-            <div>
-              <p class="eyebrow">Applied AI coursework</p>
-              <h3>Machine Learning Notebooks</h3>
-              <p>Notebook-based workflows covering tabular, image, audio, and text data with preprocessing, classification, feature extraction, training, and evaluation.</p>
-              <div class="tag-row">
-                <span>Python</span>
-                <span>Jupyter</span>
-                <span>Classification</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="case-panel case-panel--vision reveal" data-tilt>
-            <div class="case-panel__number">03</div>
-            <figure>
-              <img src="assets/image-processing/ip-visual-01.png" alt="Annotated leaf morphometric analysis output.">
-            </figure>
-            <div>
-              <p class="eyebrow">Computer vision</p>
-              <h3>Leaf Morphometric Analysis</h3>
-              <p>MATLAB image processing work using segmentation, binary masks, morphology, boundary detection, centroid/medoid calculation, Green Leaf Index, and ranking.</p>
-              <div class="tag-row">
-                <span>MATLAB</span>
-                <span>Segmentation</span>
-                <span>Visual Analysis</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section lab-section" id="ai-ml">
-      <div class="site-shell">
-        <article class="lab-case lab-case--ml reveal">
-          <div class="lab-case__copy">
-            <p class="eyebrow">AI/ML Work</p>
-            <h2>Applied Machine Learning & Data Analysis</h2>
-            <p>
-              Notebook projects covering preprocessing, classification, model evaluation, and interpretation across tabular, image, audio, and text data.
-            </p>
-            <div class="feature-cloud">
-              <span>Data preprocessing</span>
-              <span>Feature extraction</span>
-              <span>Classification</span>
-              <span>Model evaluation</span>
-            </div>
-          </div>
-          <div class="lab-case__visuals">
-            <figure class="analysis-card analysis-card--large" data-tilt>
-              <img src="assets/ai-ml/tabular-1.png" alt="SHAP feature importance plot from tabular machine learning coursework.">
-              <figcaption>Tabular ML interpretation and feature impact analysis.</figcaption>
-            </figure>
-            <figure class="analysis-card" data-tilt>
-              <img src="assets/ai-ml/image-1.png" alt="Image machine learning notebook output.">
-              <figcaption>Image classification workflow output.</figcaption>
-            </figure>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section lab-section lab-section--vision" id="vision">
-      <div class="site-shell">
-        <article class="lab-case lab-case--reverse reveal">
-          <div class="lab-case__copy">
-            <p class="eyebrow">Image Processing</p>
-            <h2>Computer Vision & Leaf Morphometric Analysis</h2>
-            <p>
-              The MATLAB work demonstrates segmentation, boundary extraction, object measurement, Green Leaf Index analysis, and ranked leaf assessment from assignment outputs.
-            </p>
-            <div class="feature-cloud">
-              <span>Segmentation</span>
-              <span>Binary masks</span>
-              <span>Boundary detection</span>
-              <span>GLI analysis</span>
-              <span>Leaf ranking</span>
-            </div>
-          </div>
-          <div class="vision-composition">
-            <figure class="analysis-card analysis-card--wide" data-tilt>
-              <img src="assets/image-processing/ip-visual-01.png" alt="Annotated leaves with boundaries, area, GLI, and damage measurements.">
-              <figcaption>Annotated leaf outputs with boundaries, area, GLI, and damage percentages.</figcaption>
-            </figure>
-            <figure class="analysis-card analysis-card--small" data-tilt>
-              <img src="assets/image-processing/coinandleaf.png" alt="Coin and leaf source image for measurement workflow.">
-              <figcaption>Source image used for measurement and scale-based analysis.</figcaption>
-            </figure>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section skills-section" id="skills">
-      <div class="site-shell">
-        <div class="section-heading section-heading--center reveal">
-          <p class="eyebrow">Technical Range</p>
-          <h2>Skills grouped for junior developer, data, IT, and cloud-support roles.</h2>
-        </div>
-
-        <div class="skills-grid skills-grid--premium">
-          <article class="skill-card skill-card--web reveal" data-tilt>
-            <span>01</span>
-            <h3>Frontend & Web</h3>
-            <p>HTML, CSS, JavaScript, TypeScript, Next.js, Tailwind CSS, responsive UI, dashboards.</p>
-          </article>
-          <article class="skill-card skill-card--data reveal" data-tilt>
-            <span>02</span>
-            <h3>Backend & Databases</h3>
-            <p>PHP, MySQL, PostgreSQL, Prisma, SQL, CRUD, schema design, ERDs, normalization.</p>
-          </article>
-          <article class="skill-card skill-card--ai reveal" data-tilt>
-            <span>03</span>
-            <h3>AI, Data & Vision</h3>
-            <p>Python, Jupyter Notebook, MATLAB, preprocessing, classification, feature extraction, model evaluation.</p>
-          </article>
-          <article class="skill-card skill-card--cloud reveal" data-tilt>
-            <span>04</span>
-            <h3>Cloud & IT Foundations</h3>
-            <p>AWS IAM, VPC, EC2, RDS, EBS, security groups, subnetting, networking, troubleshooting.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section band" id="certificates">
-      <div class="site-shell certificate-layout">
-        <div class="section-copy reveal">
-          <p class="eyebrow">Documents & Certificates</p>
-          <h2>Career documents and technical certificates.</h2>
-          <p>Resume, cover letter, portfolio PDF, and MathWorks certificates are available for quick review.</p>
-        </div>
-        <div class="download-grid reveal">
-          <a href="assets/documents/Rohan_Rampersad_Resume.pdf" target="_blank" rel="noreferrer">Resume PDF</a>
-          <a href="assets/documents/Rohan_Rampersad_Cover_Letter.pdf" target="_blank" rel="noreferrer">Cover Letter PDF</a>
-          <a href="assets/documents/Rohan_Rampersad_IT_Portfolio.pdf" target="_blank" rel="noreferrer">Portfolio PDF</a>
-          <a href="assets/certificates/matlab-onramp-certificate.pdf" target="_blank" rel="noreferrer">MATLAB Onramp</a>
-          <a href="assets/certificates/image-processing-onramp-certificate.pdf" target="_blank" rel="noreferrer">Image Processing Onramp</a>
-          <a href="assets/certificates/computer-vision-onramp-certificate.pdf" target="_blank" rel="noreferrer">Computer Vision Onramp</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="contact">
-      <div class="site-shell contact-layout">
-        <div class="section-copy reveal">
-          <p class="eyebrow">Contact</p>
-          <h2>Open to junior full-stack, AI, database, data operations, cloud, and IT support roles.</h2>
-          <p>Available for entry-level technical roles where practical systems, organized data, troubleshooting, and fast learning matter.</p>
-        </div>
-        <div class="contact-panel reveal">
-          <a href="mailto:rohanrampersad383@gmail.com">rohanrampersad383@gmail.com</a>
-          <a href="tel:+18682844520">1 (868) 2844-520</a>
-          <a href="https://www.linkedin.com/in/rohan-rampersad-a18ab1401" target="_blank" rel="noreferrer">LinkedIn Profile</a>
-          <a href="https://github.com/rohanrampersad383-beep" target="_blank" rel="noreferrer">GitHub Profile</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="site-shell site-footer__inner">
-      <p>&copy; <span id="year"></span> Rohan Rampersad. Full-stack, AI, and IT portfolio.</p>
-      <a href="#top">Back to top</a>
-    </div>
-  </footer>
+<script src="script.js"></script>
 </body>
 </html>
