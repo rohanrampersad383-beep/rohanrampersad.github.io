@@ -6,6 +6,9 @@ const revealItems = document.querySelectorAll(".reveal");
 const header = document.querySelector(".site-header");
 const yearTarget = document.getElementById("year");
 let cursorFrame = null;
+let scrollFrame = null;
+
+document.documentElement.classList.add("js-ready");
 
 if (yearTarget) {
   yearTarget.textContent = new Date().getFullYear();
@@ -54,6 +57,18 @@ const updateHeaderState = () => {
   header.classList.toggle("is-scrolled", window.scrollY > 24);
 };
 
+const updateScrollEffects = () => {
+  if (scrollFrame) {
+    return;
+  }
+
+  scrollFrame = window.requestAnimationFrame(() => {
+    document.documentElement.style.setProperty("--scroll-y", `${window.scrollY}px`);
+    document.documentElement.style.setProperty("--parallax-y", `${Math.max(-28, window.scrollY * -0.006)}px`);
+    scrollFrame = null;
+  });
+};
+
 if ("IntersectionObserver" in window) {
   const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
@@ -77,6 +92,7 @@ if ("IntersectionObserver" in window) {
 window.addEventListener("scroll", () => {
   setActiveLink();
   updateHeaderState();
+  updateScrollEffects();
 });
 
 window.addEventListener("pointermove", (event) => {
@@ -94,4 +110,5 @@ window.addEventListener("pointermove", (event) => {
 window.addEventListener("load", () => {
   setActiveLink();
   updateHeaderState();
+  updateScrollEffects();
 });
