@@ -4,6 +4,8 @@
 
 (function () {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  const allowPointerEffects = !reduceMotion && !coarsePointer;
 
   /* ---------- year ---------- */
   const yr = document.getElementById('yr');
@@ -86,7 +88,7 @@
   /* ---------- mouse-follow spotlight ---------- */
   const spot = document.getElementById('spotlight');
   let spotActive = false;
-  if (spot && !reduceMotion) {
+  if (spot && allowPointerEffects) {
     window.addEventListener('mousemove', (e) => {
       document.documentElement.style.setProperty('--cursor-x', `${e.clientX}px`);
       document.documentElement.style.setProperty('--cursor-y', `${e.clientY}px`);
@@ -113,7 +115,7 @@
     });
   });
 
-  if (!reduceMotion) {
+  if (allowPointerEffects) {
     /* ---------- subtle tilt on tilt cards ---------- */
     document.querySelectorAll('[data-tilt]').forEach((el) => {
       el.addEventListener('mousemove', (e) => {
