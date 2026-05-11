@@ -39,6 +39,31 @@
 
 <!-- Mouse-follow spotlight -->
 <div class="spotlight cursor-spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="cursor-shape" id="cursorShape" aria-hidden="true">
+  <svg class="cursor-shape__svg" viewBox="0 0 100 100" focusable="false">
+    <defs>
+      <filter id="cursorEnergyBlur" x="-80%" y="-80%" width="260%" height="260%">
+        <feGaussianBlur stdDeviation="4" result="blur"/>
+        <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.13 0 0 0 0 0.83 0 0 0 0 0.93 0 0 0 .9 0"/>
+        <feMerge>
+          <feMergeNode/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <linearGradient id="cursorEnergyGradient" x1="10" y1="12" x2="90" y2="88" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#d9fbff"/>
+        <stop offset="42%" stop-color="#22d3ee"/>
+        <stop offset="72%" stop-color="#7c5cff"/>
+        <stop offset="100%" stop-color="#f472b6"/>
+      </linearGradient>
+    </defs>
+    <path id="cursorEnergyPath" class="cursor-shape__path" d="M50 9 C63 18 80 34 87 50 C78 65 63 84 50 91 C36 83 20 65 13 50 C20 34 36 18 50 9 Z"/>
+    <path id="cursorMorphA" class="cursor-shape__variant" d="M50 9 C63 18 80 34 87 50 C78 65 63 84 50 91 C36 83 20 65 13 50 C20 34 36 18 50 9 Z"/>
+    <path id="cursorMorphB" class="cursor-shape__variant" d="M50 7 C57 24 75 18 84 32 C72 43 94 52 82 67 C66 63 62 87 48 93 C41 76 18 82 14 64 C29 56 7 46 18 31 C34 34 36 12 50 7 Z"/>
+    <path id="cursorMorphC" class="cursor-shape__variant" d="M50 8 C69 13 86 29 92 48 C83 68 67 85 49 94 C31 84 15 70 8 50 C17 31 31 14 50 8 Z"/>
+    <path id="cursorMorphD" class="cursor-shape__variant" d="M50 12 C59 16 77 26 82 42 C91 55 73 70 62 82 C48 92 34 78 22 67 C11 53 20 35 34 24 C40 18 45 14 50 12 Z"/>
+  </svg>
+</div>
 <div class="cursor-particles" id="cursorParticles" aria-hidden="true"></div>
 
 <!-- ============================================================

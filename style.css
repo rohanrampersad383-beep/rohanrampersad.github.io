@@ -90,11 +90,11 @@ em { font-style: italic; color: var(--ink); }
   inset: 0;
   z-index: -8;
   pointer-events: none;
-  opacity: calc(.34 + (var(--cursor-energy) * .36));
+  opacity: calc(.22 + (var(--cursor-energy) * .22));
   background:
-    radial-gradient(640px circle at var(--cursor-x) var(--cursor-y), rgba(var(--cursor-rgb), calc(.18 + (var(--cursor-energy) * .2))), transparent 58%),
-    radial-gradient(920px circle at calc(var(--cursor-x) + 14vw) calc(var(--cursor-y) + 10vh), rgba(var(--cursor-rgb-2), calc(.12 + (var(--cursor-energy) * .13))), transparent 62%),
-    radial-gradient(700px circle at calc(var(--cursor-x) - 12vw) calc(var(--cursor-y) - 8vh), rgba(var(--cursor-rgb-3), calc(.08 + (var(--cursor-energy) * .12))), transparent 64%);
+    radial-gradient(360px circle at var(--cursor-x) var(--cursor-y), rgba(var(--cursor-rgb), calc(.10 + (var(--cursor-energy) * .12))), transparent 62%),
+    radial-gradient(620px circle at calc(var(--cursor-x) + 10vw) calc(var(--cursor-y) + 8vh), rgba(var(--cursor-rgb-2), calc(.08 + (var(--cursor-energy) * .08))), transparent 68%),
+    radial-gradient(480px circle at calc(var(--cursor-x) - 9vw) calc(var(--cursor-y) - 6vh), rgba(var(--cursor-rgb-3), calc(.05 + (var(--cursor-energy) * .07))), transparent 70%);
   mix-blend-mode: screen;
   transition: opacity .45s ease, background .35s ease;
 }
@@ -230,26 +230,59 @@ em { font-style: italic; color: var(--ink); }
 /* mouse-follow spotlight */
 .spotlight {
   position: fixed; pointer-events: none; z-index: 72;
-  width: 720px; height: 720px; left: 0; top: 0;
+  width: 150px; height: 150px; left: 0; top: 0;
   transform: translate(-50%, -50%);
   background:
-    radial-gradient(circle at center, rgba(255,255,255, calc(.08 + (var(--cursor-energy) * .08))) 0 2%, transparent 8%),
-    radial-gradient(circle at center, rgba(var(--cursor-rgb), calc(.24 + (var(--cursor-energy) * .22))), transparent 34%),
-    radial-gradient(circle at center, rgba(var(--cursor-rgb-2), calc(.26 + (var(--cursor-energy) * .18))), transparent 52%),
-    radial-gradient(circle at center, rgba(var(--cursor-rgb-3), calc(.12 + (var(--cursor-energy) * .16))), transparent 68%);
-  filter: blur(32px) saturate(130%);
+    radial-gradient(circle at center, rgba(255,255,255, calc(.10 + (var(--cursor-energy) * .08))) 0 3%, transparent 13%),
+    radial-gradient(circle at center, rgba(var(--cursor-rgb), calc(.22 + (var(--cursor-energy) * .22))), transparent 38%),
+    radial-gradient(circle at center, rgba(var(--cursor-rgb-2), calc(.16 + (var(--cursor-energy) * .16))), transparent 64%),
+    radial-gradient(circle at center, rgba(var(--cursor-rgb-3), calc(.10 + (var(--cursor-energy) * .12))), transparent 76%);
+  filter: blur(14px) saturate(145%);
   opacity: 0;
   transition: opacity .45s ease, filter .35s ease;
   will-change: transform, opacity;
 }
-.spotlight.is-active { opacity: calc(.72 + (var(--cursor-energy) * .2)); }
-.spotlight.is-idle { filter: blur(46px) saturate(110%); }
+.spotlight.is-active { opacity: calc(.52 + (var(--cursor-energy) * .22)); }
+.spotlight.is-idle { filter: blur(20px) saturate(115%); }
 .cursor-spotlight {
   background:
-    radial-gradient(circle at center, rgba(255,255,255, calc(.06 + (var(--cursor-energy) * .08))) 0 2%, transparent 8%),
-    radial-gradient(360px circle at center, rgba(var(--cursor-rgb), calc(.24 + (var(--cursor-energy) * .22))), transparent 58%),
-    radial-gradient(620px circle at center, rgba(var(--cursor-rgb-2), calc(.2 + (var(--cursor-energy) * .2))), transparent 68%);
+    radial-gradient(circle at center, rgba(255,255,255, calc(.10 + (var(--cursor-energy) * .10))) 0 4%, transparent 12%),
+    radial-gradient(80px circle at center, rgba(var(--cursor-rgb), calc(.28 + (var(--cursor-energy) * .2))), transparent 58%),
+    radial-gradient(135px circle at center, rgba(var(--cursor-rgb-2), calc(.18 + (var(--cursor-energy) * .16))), transparent 72%);
   mix-blend-mode: screen;
+}
+.cursor-shape {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 96;
+  width: 64px;
+  height: 64px;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  filter:
+    drop-shadow(0 0 8px rgba(var(--cursor-rgb), .86))
+    drop-shadow(0 0 22px rgba(var(--cursor-rgb-2), .48));
+  will-change: transform, opacity, filter;
+}
+.cursor-shape.is-active { opacity: calc(.78 + (var(--cursor-energy) * .16)); }
+.cursor-shape.is-idle { opacity: .46; filter: drop-shadow(0 0 7px rgba(var(--cursor-rgb), .5)); }
+.cursor-shape__svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.cursor-shape__path {
+  fill: rgba(var(--cursor-rgb), .13);
+  stroke: url(#cursorEnergyGradient);
+  stroke-width: 4.5;
+  stroke-linejoin: round;
+  filter: url(#cursorEnergyBlur);
+  vector-effect: non-scaling-stroke;
+}
+.cursor-shape__variant {
+  display: none;
 }
 .cursor-particles {
   position: fixed;
@@ -267,10 +300,19 @@ em { font-style: italic; color: var(--ink); }
   height: var(--p-size, 6px);
   border-radius: 999px;
   background: rgb(var(--p-rgb, var(--cursor-rgb)));
-  box-shadow: 0 0 12px rgba(var(--p-rgb, var(--cursor-rgb)), .86), 0 0 26px rgba(var(--p-rgb, var(--cursor-rgb)), .36);
+  box-shadow: 0 0 14px rgba(var(--p-rgb, var(--cursor-rgb)), .95), 0 0 30px rgba(var(--p-rgb, var(--cursor-rgb)), .48);
   opacity: 0;
   transform: translate3d(var(--p-x, 0), var(--p-y, 0), 0) scale(.5);
   will-change: transform, opacity;
+}
+.cursor-particle--dash {
+  width: calc(var(--p-size, 7px) * 2.6);
+  height: max(2px, calc(var(--p-size, 7px) * .34));
+  border-radius: 999px;
+}
+.cursor-particle--diamond {
+  border-radius: 2px;
+  transform: translate3d(var(--p-x, 0), var(--p-y, 0), 0) rotate(45deg) scale(.5);
 }
 
 /* ============================================================
@@ -1847,7 +1889,7 @@ a.contact__value:hover { color: var(--violet-2); }
 }
 
 @media (hover: none), (pointer: coarse) {
-  .spotlight, .cursor-spotlight, .cursor-particles { display: none; }
+  .spotlight, .cursor-spotlight, .cursor-shape, .cursor-particles { display: none; }
   .cursor-energy-bg { opacity: .2; }
   .case:hover .window:not(.window--mini),
   .hero-browser-shell:hover .browser-frame img {
@@ -1930,7 +1972,7 @@ a.contact__value:hover { color: var(--violet-2); }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
   .reveal-line > span { transform: none; opacity: 1; }
-  .spotlight, .cursor-spotlight, .cursor-particles { display: none; }
+  .spotlight, .cursor-spotlight, .cursor-shape, .cursor-particles { display: none; }
   .cursor-energy-bg { opacity: .16; }
   .frame-glow-ring, .scan-line, .mockup-ring, .hero__circuit path, .case::after { animation: none !important; }
   .anime-motion-dot { display: none; }

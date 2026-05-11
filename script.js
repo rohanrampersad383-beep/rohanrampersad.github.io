@@ -687,14 +687,19 @@
 
   /* ---------- cursor energy field ---------- */
   const spot = document.getElementById('spotlight');
+  const cursorShape = document.getElementById('cursorShape');
+  const cursorPath = document.getElementById('cursorEnergyPath');
   const particleLayer = document.getElementById('cursorParticles');
   const root = document.documentElement;
   const cursorState = {
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
     energy: 0.18,
-    scale: 0.82,
+    scale: 0.74,
+    stretch: 0,
+    rotation: 0,
   };
+  const cursorMorphTargets = ['#cursorMorphA', '#cursorMorphB', '#cursorMorphC', '#cursorMorphD'];
   const cursorMoods = {
     hero: ['34, 211, 238', '124, 92, 255', '91, 139, 255'],
     stack: ['59, 130, 246', '34, 211, 238', '124, 92, 255'],
@@ -708,8 +713,12 @@
     ['#contact', 'contact'],
   ];
   let lastParticleAt = 0;
+  let activeParticles = 0;
   let idleTimer = null;
+  let lastPointer = { x: cursorState.x, y: cursorState.y, t: performance.now() };
   let currentCursorMood = 'hero';
+  let currentMorphIndex = 0;
+  let morphLocked = false;
 
   function applyCursorMood(mode) {
     if (mode === currentCursorMood) return;
@@ -734,56 +743,114 @@
     root.style.setProperty('--cursor-y', `${cursorState.y}px`);
     root.style.setProperty('--cursor-energy', cursorState.energy.toFixed(3));
     if (spot) {
-      spot.style.transform = `translate(${cursorState.x - 360}px, ${cursorState.y - 360}px) scale(${cursorState.scale})`;
+      spot.style.transform = `translate(${cursorState.x - 75}px, ${cursorState.y - 75}px) scale(${cursorState.scale})`;
+    }
+    if (cursorShape) {
+      const stretchX = 1 + cursorState.stretch * 0.24;
+      const stretchY = 1 - cursorState.stretch * 0.1;
+      cursorShape.style.transform = `translate(${cursorState.x - 32}px, ${cursorState.y - 32}px) rotate(${cursorState.rotation}deg) scale(${cursorState.scale * stretchX}, ${cursorState.scale * stretchY})`;
     }
   }
 
   function setCursorEnergy(energy, duration = 420) {
     const nextEnergy = clamp(energy, 0.12, 1);
     cursorState.energy = nextEnergy;
-    cursorState.scale = 0.72 + nextEnergy * 0.42;
+    cursorState.scale = 0.64 + nextEnergy * 0.32;
     paintCursor();
 
     if (animeReady && spot) {
       runAnime({
         targets: spot,
-        opacity: [parseFloat(getComputedStyle(spot).opacity) || 0, Math.min(0.92, 0.7 + nextEnergy * 0.2)],
+        opacity: [parseFloat(getComputedStyle(spot).opacity) || 0, Math.min(0.68, 0.42 + nextEnergy * 0.18)],
+        duration,
+        easing: 'outCubic',
+      });
+    }
+    if (animeReady && cursorShape) {
+      runAnime({
+        targets: cursorShape,
+        opacity: [parseFloat(getComputedStyle(cursorShape).opacity) || 0, Math.min(0.94, 0.68 + nextEnergy * 0.18)],
         duration,
         easing: 'outCubic',
       });
     }
   }
 
-  function spawnCursorParticle(x, y) {
+  function morphCursor(targetSelector, duration = 560) {
+    if (!allowPointerEffects || !animeReady || !cursorPath || !animeApi.svg || typeof animeApi.svg.morphTo !== 'function') {
+      const target = document.querySelector(targetSelector);
+      if (cursorPath && target) cursorPath.setAttribute('d', target.getAttribute('d'));
+      return;
+    }
+    if (morphLocked) return;
+    morphLocked = true;
+    try {
+      runAnime({
+        targets: cursorPath,
+        d: animeApi.svg.morphTo(targetSelector),
+        duration,
+        easing: 'inOutQuad',
+        onComplete: () => { morphLocked = false; },
+      });
+    } catch (error) {
+      const target = document.querySelector(targetSelector);
+      if (target) cursorPath.setAttribute('d', target.getAttribute('d'));
+      morphLocked = false;
+    }
+  }
+
+  function startCursorMorphLoop() {
+    if (!allowPointerEffects || !cursorPath || reduceMotion) return;
+    const loop = () => {
+      currentMorphIndex = (currentMorphIndex + 1) % cursorMorphTargets.length;
+      morphCursor(cursorMorphTargets[currentMorphIndex], 520 + Math.random() * 180);
+      window.setTimeout(loop, 560 + Math.random() * 260);
+    };
+    window.setTimeout(loop, 420);
+  }
+
+  function spawnCursorParticle(x, y, burst = 1, velocity = 0) {
     if (!particleLayer || !animeReady) return;
     const now = performance.now();
-    if (now - lastParticleAt < 34) return;
+    if (burst <= 1 && now - lastParticleAt < 22) return;
     lastParticleAt = now;
 
-    const particle = document.createElement('span');
-    particle.className = 'cursor-particle';
+    const emissions = Math.min(burst, 6);
     const colors = [
       getComputedStyle(root).getPropertyValue('--cursor-rgb').trim() || '34, 211, 238',
       getComputedStyle(root).getPropertyValue('--cursor-rgb-2').trim() || '124, 92, 255',
       getComputedStyle(root).getPropertyValue('--cursor-rgb-3').trim() || '91, 139, 255',
     ];
-    const size = 4 + Math.random() * 5;
-    particle.style.setProperty('--p-size', `${size}px`);
-    particle.style.setProperty('--p-rgb', colors[Math.floor(Math.random() * colors.length)]);
-    particle.style.left = `${x}px`;
-    particle.style.top = `${y}px`;
-    particleLayer.appendChild(particle);
 
-    runAnime({
-      targets: particle,
-      translateX: [0, (Math.random() - 0.5) * 48],
-      translateY: [0, (Math.random() - 0.5) * 48],
-      opacity: [0.9, 0],
-      scale: [0.9, 0],
-      duration: 640,
-      easing: 'outCubic',
-    });
-    setTimeout(() => particle.remove(), 700);
+    for (let i = 0; i < emissions; i += 1) {
+      if (activeParticles > 44) return;
+      activeParticles += 1;
+      const particle = document.createElement('span');
+      const variant = Math.random();
+      particle.className = `cursor-particle${variant > 0.72 ? ' cursor-particle--dash' : variant > 0.42 ? ' cursor-particle--diamond' : ''}`;
+      const size = 5 + Math.random() * 6 + Math.min(velocity * 0.018, 4);
+      const drift = 28 + Math.random() * 42 + Math.min(velocity * 0.12, 28);
+      particle.style.setProperty('--p-size', `${size}px`);
+      particle.style.setProperty('--p-rgb', colors[Math.floor(Math.random() * colors.length)]);
+      particle.style.left = `${x + (Math.random() - 0.5) * 10}px`;
+      particle.style.top = `${y + (Math.random() - 0.5) * 10}px`;
+      particleLayer.appendChild(particle);
+
+      runAnime({
+        targets: particle,
+        translateX: [0, (Math.random() - 0.5) * drift],
+        translateY: [0, (Math.random() - 0.5) * drift],
+        rotate: [Math.random() * 80 - 40, Math.random() * 220 - 110],
+        opacity: [1, 0],
+        scale: [0.9 + Math.random() * 0.55, 0],
+        duration: 480 + Math.random() * 260,
+        easing: 'outCubic',
+      });
+      window.setTimeout(() => {
+        particle.remove();
+        activeParticles = Math.max(0, activeParticles - 1);
+      }, 800);
+    }
   }
 
   function setupCursorMoodObserver() {
@@ -807,41 +874,60 @@
   applyCursorMood('hero');
   paintCursor();
   setupCursorMoodObserver();
+  startCursorMorphLoop();
   window.__cursorMoodReady = true;
   updateCursorMoodByScroll();
 
   if (spot && allowPointerEffects) {
     window.addEventListener('mousemove', (e) => {
       if (!spot.classList.contains('is-active')) spot.classList.add('is-active');
+      if (cursorShape && !cursorShape.classList.contains('is-active')) cursorShape.classList.add('is-active');
       spot.classList.remove('is-idle');
+      if (cursorShape) cursorShape.classList.remove('is-idle');
       window.clearTimeout(idleTimer);
       idleTimer = window.setTimeout(() => {
         spot.classList.add('is-idle');
-        setCursorEnergy(0.16, 900);
+        if (cursorShape) cursorShape.classList.add('is-idle');
+        cursorState.stretch = 0;
+        setCursorEnergy(0.15, 900);
       }, 950);
+
+      const now = performance.now();
+      const dx = e.clientX - lastPointer.x;
+      const dy = e.clientY - lastPointer.y;
+      const dt = Math.max(16, now - lastPointer.t);
+      const velocity = Math.sqrt(dx * dx + dy * dy) / dt * 16.67;
+      const stretch = clamp(velocity / 42, 0, 1);
+      const rotation = Math.abs(dx) + Math.abs(dy) > 2 ? Math.atan2(dy, dx) * (180 / Math.PI) : cursorState.rotation;
+      lastPointer = { x: e.clientX, y: e.clientY, t: now };
 
       if (animeReady) {
         runAnime({
           targets: cursorState,
           x: [cursorState.x, e.clientX],
           y: [cursorState.y, e.clientY],
-          energy: [cursorState.energy, Math.max(cursorState.energy, 0.34)],
-          scale: [cursorState.scale, Math.max(cursorState.scale, 0.9)],
-          duration: 260,
+          energy: [cursorState.energy, Math.max(cursorState.energy, 0.3 + stretch * 0.2)],
+          scale: [cursorState.scale, Math.max(cursorState.scale, 0.72 + stretch * 0.1)],
+          stretch: [cursorState.stretch, stretch],
+          rotation: [cursorState.rotation, rotation],
+          duration: 180,
           easing: 'outQuad',
           onUpdate: paintCursor,
         });
       } else {
         cursorState.x = e.clientX;
         cursorState.y = e.clientY;
-        cursorState.energy = 0.34;
-        cursorState.scale = 0.9;
+        cursorState.energy = 0.32;
+        cursorState.scale = 0.74;
+        cursorState.stretch = stretch;
+        cursorState.rotation = rotation;
         paintCursor();
       }
-      spawnCursorParticle(e.clientX, e.clientY);
+      spawnCursorParticle(e.clientX, e.clientY, stretch > 0.55 ? 2 : 1, velocity);
     }, { passive: true });
     window.addEventListener('mouseleave', () => {
       spot.classList.remove('is-active');
+      if (cursorShape) cursorShape.classList.remove('is-active');
       setCursorEnergy(0.12, 500);
     });
 
@@ -852,7 +938,10 @@
       target.classList.add('energy-target');
       target.addEventListener('mouseenter', () => {
         target.classList.add('is-energy-hover');
-        setCursorEnergy(0.95, 240);
+        setCursorEnergy(0.82, 220);
+        morphCursor('#cursorMorphB', 420);
+        cursorState.stretch = Math.max(cursorState.stretch, 0.62);
+        spawnCursorParticle(cursorState.x, cursorState.y, 5, 38);
         if (animeReady) {
           runAnime({
             targets: target,
@@ -865,7 +954,7 @@
       });
       target.addEventListener('mouseleave', () => {
         target.classList.remove('is-energy-hover');
-        setCursorEnergy(0.32, 420);
+        setCursorEnergy(0.28, 420);
         if (animeReady) {
           runAnime({
             targets: target,
