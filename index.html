@@ -38,10 +38,6 @@
 
 <!-- Mouse-follow spotlight -->
 <div class="spotlight cursor-spotlight" id="spotlight" aria-hidden="true"></div>
-<div class="anime-active-badge" aria-hidden="true">
-  <span class="anime-active-badge__dot"></span>
-  Anime.js active
-</div>
 
 <!-- ============================================================
      NAVBAR
@@ -59,6 +55,7 @@
       </span>
     </a>
     <nav class="nav__links">
+      <span class="nav__indicator" aria-hidden="true"></span>
       <a href="#about"><span class="nav__num">01</span>About</a>
       <a href="#skills"><span class="nav__num">02</span>Stack</a>
       <a href="#learning"><span class="nav__num">03</span>Focus</a>
@@ -148,6 +145,29 @@
         <span class="pill pill--ghost">TT · GMT-4</span>
       </div>
 
+      <div class="portfolio-runtime-badge reveal" data-runtime-badge>
+        <span class="portfolio-runtime-badge__orb"></span>
+        <span>
+          <strong>Interactive Portfolio</strong>
+          <small>Powered by Anime.js</small>
+        </span>
+      </div>
+
+      <svg class="hero-network" viewBox="0 0 720 360" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="hero-network__line" d="M52 245L148 170L262 206L378 118L512 154L652 80" />
+        <path class="hero-network__line" d="M118 296L262 206L410 260L512 154" />
+        <path class="hero-network__line" d="M148 170L226 74L378 118L462 48" />
+        <circle class="hero-network__node" cx="52" cy="245" r="4" />
+        <circle class="hero-network__node" cx="148" cy="170" r="5" />
+        <circle class="hero-network__node" cx="262" cy="206" r="4" />
+        <circle class="hero-network__node" cx="378" cy="118" r="5" />
+        <circle class="hero-network__node" cx="512" cy="154" r="4" />
+        <circle class="hero-network__node" cx="652" cy="80" r="5" />
+        <circle class="hero-network__node hero-network__node--violet" cx="226" cy="74" r="4" />
+        <circle class="hero-network__node hero-network__node--violet" cx="410" cy="260" r="4" />
+        <circle class="hero-network__node hero-network__node--pink" cx="462" cy="48" r="4" />
+      </svg>
+
       <h1 class="hero__title">
         <span class="reveal-line"><span>Full-stack</span></span>
         <span class="reveal-line"><span class="serif">AI-powered</span></span>
@@ -156,6 +176,12 @@
 
       <div class="hero__meta reveal">
         <div class="hero__avatar">
+          <span class="hero__avatar-orb"></span>
+          <span class="hero__avatar-particle hero__avatar-particle--1"></span>
+          <span class="hero__avatar-particle hero__avatar-particle--2"></span>
+          <span class="hero__avatar-particle hero__avatar-particle--3"></span>
+          <span class="hero__avatar-arc hero__avatar-arc--1"></span>
+          <span class="hero__avatar-arc hero__avatar-arc--2"></span>
           <span class="hero__avatar-ring"></span>
           <span class="hero__avatar-init">RR</span>
         </div>
@@ -316,6 +342,29 @@
 <!-- ============================================================
      ABOUT — split asymmetric story
      ============================================================ -->
+<section class="stats-band" aria-label="Portfolio highlights" data-stats>
+  <div class="container">
+    <div class="stats-grid glass-strong reveal">
+      <article class="stat-tile">
+        <strong><span data-stat-count="2">0</span><span>+</span></strong>
+        <small>Full-Stack Projects</small>
+      </article>
+      <article class="stat-tile">
+        <strong><span data-stat-count="1">0</span></strong>
+        <small>Live Deployed App</small>
+      </article>
+      <article class="stat-tile">
+        <strong><span data-stat-count="10">0</span><span>+</span></strong>
+        <small>Technologies Used</small>
+      </article>
+      <article class="stat-tile stat-tile--focus">
+        <strong>AI + Database + Cloud</strong>
+        <small>Focus Areas</small>
+      </article>
+    </div>
+  </div>
+</section>
+
 <div class="bleed-divider" aria-hidden="true"></div>
 
 <section class="section" id="about">
@@ -396,6 +445,16 @@
       </h2>
     </div>
 
+    <div class="skill-filter glass reveal" aria-label="Skill category filters">
+      <button class="skill-filter__tab is-active" type="button" data-skill-filter="all">All</button>
+      <button class="skill-filter__tab" type="button" data-skill-filter="frontend">Frontend</button>
+      <button class="skill-filter__tab" type="button" data-skill-filter="backend">Backend</button>
+      <button class="skill-filter__tab" type="button" data-skill-filter="database">Database</button>
+      <button class="skill-filter__tab" type="button" data-skill-filter="ai">AI</button>
+      <button class="skill-filter__tab" type="button" data-skill-filter="cloud">Cloud</button>
+      <button class="skill-filter__tab" type="button" data-skill-filter="tools">Tools</button>
+    </div>
+
     <div class="bento">
       <div class="bento__cell bento__cell--lang glass-strong reveal" data-tilt>
         <div class="bento__head">
@@ -403,10 +462,10 @@
           <span class="bento__title">Frontend</span>
         </div>
         <div class="chips">
-          <span class="chip">HTML</span><span class="chip">CSS</span>
-          <span class="chip">JavaScript</span><span class="chip">React</span>
-          <span class="chip">Next.js</span><span class="chip">Tailwind CSS</span>
-          <span class="chip">Responsive UI</span><span class="chip">Dashboard Design</span>
+          <span class="chip" data-skill-cats="frontend">HTML</span><span class="chip" data-skill-cats="frontend">CSS</span>
+          <span class="chip" data-skill-cats="frontend">JavaScript</span><span class="chip" data-skill-cats="frontend">React</span>
+          <span class="chip" data-skill-cats="frontend backend">Next.js</span><span class="chip" data-skill-cats="frontend">Tailwind CSS</span>
+          <span class="chip" data-skill-cats="frontend">Responsive UI</span><span class="chip" data-skill-cats="frontend">Dashboard Design</span>
         </div>
         <div class="bento__glow"></div>
       </div>
@@ -417,13 +476,13 @@
           <span class="bento__title">Backend</span>
         </div>
         <div class="chips">
-          <span class="chip">PHP</span>
-          <span class="chip">Node.js</span>
-          <span class="chip">API Development</span>
-          <span class="chip">Prisma ORM</span>
-          <span class="chip">MySQL</span>
-          <span class="chip">PostgreSQL</span>
-          <span class="chip">CRUD Systems</span>
+          <span class="chip" data-skill-cats="backend">PHP</span>
+          <span class="chip" data-skill-cats="backend">Node.js</span>
+          <span class="chip" data-skill-cats="backend">API Development</span>
+          <span class="chip" data-skill-cats="backend database">Prisma ORM</span>
+          <span class="chip" data-skill-cats="database backend">MySQL</span>
+          <span class="chip" data-skill-cats="database backend">PostgreSQL</span>
+          <span class="chip" data-skill-cats="backend database">CRUD Systems</span>
         </div>
       </div>
 
@@ -433,12 +492,12 @@
           <span class="bento__title">AI / Cloud</span>
         </div>
         <div class="chips">
-          <span class="chip">AI-assisted Workflows</span>
-          <span class="chip">OpenAI API Familiarity</span>
-          <span class="chip">Resume Matching Logic</span>
-          <span class="chip">Job Scoring</span>
-          <span class="chip">AWS Fundamentals</span>
-          <span class="chip">Vercel Deployment</span>
+          <span class="chip" data-skill-cats="ai">AI-assisted Workflows</span>
+          <span class="chip" data-skill-cats="ai backend">OpenAI API Familiarity</span>
+          <span class="chip" data-skill-cats="ai">Resume Matching Logic</span>
+          <span class="chip" data-skill-cats="ai">Job Scoring</span>
+          <span class="chip" data-skill-cats="cloud">AWS Fundamentals</span>
+          <span class="chip" data-skill-cats="cloud">Vercel Deployment</span>
         </div>
         <div class="bento__viz">
           <span style="--h:30%"></span><span style="--h:55%"></span><span style="--h:70%"></span>
@@ -453,14 +512,14 @@
           <span class="bento__title">Tools</span>
         </div>
         <div class="chips">
-          <span class="chip">Git / GitHub</span>
-          <span class="chip">VS Code</span>
-          <span class="chip">WampServer</span>
-          <span class="chip">phpMyAdmin</span>
-          <span class="chip">Microsoft Office</span>
-          <span class="chip">Jupyter Notebook</span>
-          <span class="chip">MATLAB</span>
-          <span class="chip">Figma / Lovable / Claude / Codex Workflow</span>
+          <span class="chip" data-skill-cats="tools">Git / GitHub</span>
+          <span class="chip" data-skill-cats="tools">VS Code</span>
+          <span class="chip" data-skill-cats="tools backend">WampServer</span>
+          <span class="chip" data-skill-cats="tools database">phpMyAdmin</span>
+          <span class="chip" data-skill-cats="tools">Microsoft Office</span>
+          <span class="chip" data-skill-cats="tools ai">Jupyter Notebook</span>
+          <span class="chip" data-skill-cats="tools ai">MATLAB</span>
+          <span class="chip" data-skill-cats="tools frontend">Figma / Lovable / Claude / Codex Workflow</span>
         </div>
         <div class="bento__pulse"></div>
       </div>
@@ -475,11 +534,15 @@
 
     <div class="tech-orbit glass-strong reveal" data-tech-lab>
       <div class="tech-orbit__copy">
-        <span class="eyebrow eyebrow--mini">Interactive Stack</span>
-        <h3>Drag the badges around the lab.</h3>
+        <span class="eyebrow eyebrow--mini">Interactive tech stack</span>
+        <h3>Drag the stack</h3>
         <p>A lightweight interaction layer for the tools I use across web, database, cloud, and AI-focused projects.</p>
       </div>
       <div class="tech-orbit__stage" aria-label="Interactive draggable technology badges">
+        <span class="tech-orbit__hint" aria-hidden="true">
+          <span class="tech-orbit__hint-icon"></span>
+          Drag badges
+        </span>
         <button class="tech-drag-badge" type="button" data-tech="React">React</button>
         <button class="tech-drag-badge" type="button" data-tech="Next.js">Next.js</button>
         <button class="tech-drag-badge" type="button" data-tech="PHP">PHP</button>
@@ -563,6 +626,23 @@
             <span class="chip">Prisma</span><span class="chip">PostgreSQL</span>
             <span class="chip">Tailwind CSS</span><span class="chip">Job Tracking</span>
           </div>
+          <div class="story-chips" aria-label="AI Job Match project highlights">
+            <span class="story-chip story-chip--live"><span class="pill__dot"></span>Live Demo</span>
+            <span class="story-chip">AI Matching</span>
+            <span class="story-chip">Resume Parsing</span>
+            <span class="story-chip">PostgreSQL</span>
+            <span class="story-chip">Next.js</span>
+          </div>
+          <div class="project-flow" data-flow aria-label="AI Job Match Assistant workflow">
+            <span class="flow-trace" aria-hidden="true"></span>
+            <span class="flow-node">Resume</span>
+            <span class="flow-connector"></span>
+            <span class="flow-node">Parser</span>
+            <span class="flow-connector"></span>
+            <span class="flow-node">Scoring</span>
+            <span class="flow-connector"></span>
+            <span class="flow-node">Job Matches</span>
+          </div>
           <div class="case__metrics">
             <div><strong>Discovery</strong><span>legal public-source importing</span></div>
             <div><strong>Scoring</strong><span>resume-to-role matching logic</span></div>
@@ -632,6 +712,27 @@
             <span class="chip">CSS</span><span class="chip">WAMPServer</span>
             <span class="chip">phpMyAdmin</span>
           </div>
+          <div class="story-chips" aria-label="Fitness Central project highlights">
+            <span class="story-chip story-chip--academic">Academic Project</span>
+            <span class="story-chip">PHP</span>
+            <span class="story-chip">MySQL</span>
+            <span class="story-chip">WAMPServer</span>
+            <span class="story-chip">Dashboard</span>
+          </div>
+          <div class="project-flow" data-flow aria-label="Fitness Central workflow">
+            <span class="flow-trace" aria-hidden="true"></span>
+            <span class="flow-node">Register</span>
+            <span class="flow-connector"></span>
+            <span class="flow-node">Log Workouts</span>
+            <span class="flow-connector"></span>
+            <span class="flow-node">Track Weight</span>
+            <span class="flow-connector"></span>
+            <span class="flow-node">View Progress</span>
+          </div>
+          <div class="system-walkthrough">
+            <strong>System walkthrough</strong>
+            <span>Users create an account, log workouts, monitor weight changes, set goals, and review dashboard progress from a MySQL-backed PHP application.</span>
+          </div>
           <div class="case__metrics">
             <div><strong>Auth</strong><span>login and registration flow</span></div>
             <div><strong>Tracking</strong><span>workouts, weight, and goals</span></div>
@@ -642,6 +743,7 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
             </a>
             <a href="#contact" class="btn btn--outline btn--sm">Ask About Project</a>
+            <span class="btn btn--disabled btn--sm" aria-disabled="true">Case Study Coming Soon</span>
           </div>
         </div>
 

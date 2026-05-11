@@ -10,15 +10,16 @@
   const animeReady = !!(animeApi && typeof animeApi.animate === 'function') && !reduceMotion;
 
   if (animeApi && typeof animeApi.animate === 'function') {
-    console.log('Anime.js latest version loaded successfully');
+    console.log('Portfolio interactions loaded');
   }
 
   const runAnime = (config) => {
     if (!animeReady) return null;
     const { targets, ...params } = config;
-    return animeApi.animate(targets, params);
+    return animeApi.animate(targets, { autoplay: true, ...params });
   };
   const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+  const retainedObservers = [];
 
   /* ---------- year ---------- */
   const yr = document.getElementById('yr');
@@ -38,10 +39,44 @@
   /* ---------- navbar scroll behavior and active section ---------- */
   const nav = document.getElementById('nav');
   const navLinks = Array.from(document.querySelectorAll('.nav__links a[href^="#"], .nav__mobile a[href^="#"]'));
+  const desktopNavLinks = Array.from(document.querySelectorAll('.nav__links a[href^="#"]'));
+  const navIndicator = document.querySelector('.nav__indicator');
   const navTargets = navLinks
     .map((link) => document.querySelector(link.getAttribute('href')))
     .filter(Boolean);
   let lastY = window.scrollY;
+  const navIndicatorState = { x: 0, width: 34, opacity: 0 };
+
+  function moveNavIndicator(activeLink) {
+    if (!navIndicator || !activeLink || window.innerWidth <= 820) return;
+    const parentRect = activeLink.parentElement.getBoundingClientRect();
+    const rect = activeLink.getBoundingClientRect();
+    const next = {
+      x: rect.left - parentRect.left + 8,
+      width: Math.max(28, rect.width - 16),
+      opacity: 1,
+    };
+
+    if (animeReady) {
+      runAnime({
+        targets: navIndicatorState,
+        x: next.x,
+        width: next.width,
+        opacity: next.opacity,
+        duration: 380,
+        easing: 'outCubic',
+        onUpdate: () => {
+          navIndicator.style.transform = `translateX(${navIndicatorState.x}px)`;
+          navIndicator.style.width = `${navIndicatorState.width}px`;
+          navIndicator.style.opacity = String(navIndicatorState.opacity);
+        },
+      });
+    } else {
+      navIndicator.style.transform = `translateX(${next.x}px)`;
+      navIndicator.style.width = `${next.width}px`;
+      navIndicator.style.opacity = '1';
+    }
+  }
 
   function updateActiveNav(y) {
     let current = navTargets[0]?.id || '';
@@ -51,6 +86,7 @@
     navLinks.forEach((link) => {
       link.classList.toggle('is-active', link.getAttribute('href') === `#${current}`);
     });
+    moveNavIndicator(desktopNavLinks.find((link) => link.getAttribute('href') === `#${current}`));
   }
 
   const onScroll = () => {
@@ -88,9 +124,10 @@
     const ctaTargets = document.querySelectorAll('.hero__cta .btn, .hero__socials > *');
     const stripTargets = document.querySelectorAll('.hero__strip .strip');
     const visualTargets = document.querySelectorAll('.hero-browser-shell, .hero__cluster .float');
-    const activeBadge = document.querySelector('.anime-active-badge');
+    const runtimeBadge = document.querySelector('.portfolio-runtime-badge');
     const stagedTargets = [
       ...badgeTargets,
+      ...(runtimeBadge ? [runtimeBadge] : []),
       ...headlineTargets,
       ...introTargets,
       ...ctaTargets,
@@ -99,14 +136,14 @@
 
     animeApi.set(stagedTargets, { opacity: 0, translateY: 24 });
     animeApi.set(visualTargets, { opacity: 0, translateY: 28, scale: 0.975 });
-    if (activeBadge) animeApi.set(activeBadge, { opacity: 0, translateY: 10, scale: 0.94 });
+    if (runtimeBadge) animeApi.set(runtimeBadge, { opacity: 0, translateY: 10, scale: 0.94 });
 
     if (typeof animeApi.createTimeline === 'function') {
-      const heroTl = animeApi.createTimeline({ defaults: { easing: 'outCubic' } });
+      const heroTl = animeApi.createTimeline({ autoplay: true, defaults: { easing: 'outCubic' } });
       heroTl
-        .add(activeBadge, { opacity: [0, 1], translateY: [10, 0], scale: [0.94, 1], duration: 520 }, 0)
         .add(badgeTargets, { opacity: [0, 1], translateY: [22, 0], delay: animeApi.stagger(70), duration: 640 }, 80)
-        .add(headlineTargets, { opacity: [0, 1], translateY: [36, 0], delay: animeApi.stagger(110), duration: 820, easing: 'outExpo' }, 180)
+        .add(runtimeBadge, { opacity: [0, 1], translateY: [10, 0], scale: [0.94, 1], duration: 560 }, 170)
+        .add(headlineTargets, { opacity: [0, 1], translateY: [36, 0], delay: animeApi.stagger(110), duration: 820, easing: 'outExpo' }, 240)
         .add(introTargets, { opacity: [0, 1], translateY: [24, 0], duration: 720 }, 540)
         .add(visualTargets, { opacity: [0, 1], translateY: [34, 0], scale: [0.975, 1], delay: animeApi.stagger(95), duration: 920, easing: 'outExpo' }, 360)
         .add(ctaTargets, { opacity: [0, 1], translateY: [20, 0], delay: animeApi.stagger(55), duration: 620 }, 720)
@@ -179,6 +216,92 @@
     requestAnimationFrame(moveDot);
   }
   setupHeroSvgShowcase();
+
+  /* ---------- signature hero orb and network animation ---------- */
+  function setupSignatureHeroEffects() {
+    if (!animeReady) return;
+
+    const networkLines = Array.from(document.querySelectorAll('.hero-network__line'));
+    const networkNodes = document.querySelectorAll('.hero-network__node');
+    networkLines.forEach((line) => {
+      const length = line.getTotalLength();
+      line.style.strokeDasharray = length;
+      line.style.strokeDashoffset = length;
+    });
+
+    networkLines.forEach((line, index) => {
+      runAnime({
+        targets: line,
+        strokeDashoffset: [line.getTotalLength(), 0],
+        delay: 760 + index * 180,
+        duration: 1500,
+        easing: 'inOutSine',
+      });
+    });
+
+    runAnime({
+      targets: networkNodes,
+      opacity: [0.25, 1],
+      scale: [0.65, 1.18],
+      delay: animeApi.stagger(95, { start: 1150, from: 'center' }),
+      duration: 900,
+      easing: 'outElastic(1, .55)',
+    });
+    runAnime({
+      targets: networkNodes,
+      scale: [1, 1.35],
+      opacity: [0.7, 1],
+      delay: animeApi.stagger(120),
+      direction: 'alternate',
+      loop: true,
+      duration: 1700,
+      easing: 'inOutSine',
+    });
+
+    runAnime({
+      targets: '.portfolio-runtime-badge__orb, .hero__avatar-orb',
+      rotate: [0, 360],
+      duration: 9000,
+      loop: true,
+      easing: 'linear',
+    });
+    runAnime({
+      targets: '.portfolio-runtime-badge',
+      boxShadow: [
+        '0 20px 60px -30px rgba(34,211,238,.72), inset 0 1px 0 rgba(255,255,255,.1)',
+        '0 24px 70px -24px rgba(124,92,255,.75), inset 0 1px 0 rgba(255,255,255,.14)',
+      ],
+      direction: 'alternate',
+      loop: true,
+      duration: 2400,
+      easing: 'inOutSine',
+    });
+    runAnime({
+      targets: '.hero__avatar-arc--1',
+      rotate: [0, 360],
+      duration: 7000,
+      loop: true,
+      easing: 'linear',
+    });
+    runAnime({
+      targets: '.hero__avatar-arc--2',
+      rotate: [360, 0],
+      duration: 9800,
+      loop: true,
+      easing: 'linear',
+    });
+    runAnime({
+      targets: '.hero__avatar-particle',
+      scale: [0.75, 1.25],
+      opacity: [0.58, 1],
+      delay: animeApi.stagger(180),
+      direction: 'alternate',
+      loop: true,
+      duration: 1200,
+      easing: 'inOutSine',
+    });
+  }
+  setupSignatureHeroEffects();
 
   /* ---------- terminal boot sequence ---------- */
   function runTerminalSequence() {
@@ -287,6 +410,141 @@
     revealItems.forEach((el) => el.classList.add('is-visible'));
   }
 
+  /* ---------- animated stats counters ---------- */
+  function setupStatsCounters() {
+    const stats = document.querySelector('[data-stats]');
+    const counters = Array.from(document.querySelectorAll('[data-stat-count]'));
+    if (!stats || !counters.length) return;
+    if (animeReady) animeApi.set('.stat-tile', { opacity: 0.001, translateY: 22 });
+
+    const playCounters = () => {
+      counters.forEach((counter, index) => {
+        const target = Number(counter.getAttribute('data-stat-count') || '0');
+        if (!animeReady) {
+          counter.textContent = String(target);
+          return;
+        }
+
+        const state = { value: 0 };
+        runAnime({
+          targets: state,
+          value: target,
+          delay: 120 + index * 140,
+          duration: 1050,
+          easing: 'outCubic',
+          onUpdate: () => {
+            counter.textContent = String(Math.round(state.value));
+          },
+        });
+      });
+
+      if (animeReady) {
+        runAnime({
+          targets: '.stat-tile',
+          opacity: [0.001, 1],
+          translateY: [22, 0],
+          delay: animeApi.stagger(70),
+          duration: 720,
+          easing: 'outCubic',
+        });
+      }
+    };
+
+    let played = false;
+    const tryPlayCounters = () => {
+      if (played) return;
+      const rect = stats.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.86 && rect.bottom > 0) {
+        played = true;
+        playCounters();
+        window.removeEventListener('scroll', tryPlayCounters);
+        window.removeEventListener('resize', tryPlayCounters);
+      }
+    };
+
+    if ('IntersectionObserver' in window && !reduceMotion) {
+      const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          tryPlayCounters();
+          statsObserver.disconnect();
+        });
+      }, { threshold: 0.24 });
+      statsObserver.observe(stats);
+      retainedObservers.push(statsObserver);
+      window.addEventListener('scroll', tryPlayCounters, { passive: true });
+      window.addEventListener('resize', tryPlayCounters);
+      setTimeout(tryPlayCounters, 400);
+    } else {
+      playCounters();
+    }
+  }
+  setupStatsCounters();
+
+  /* ---------- project storytelling flow animations ---------- */
+  function setupProjectFlows() {
+    const flows = Array.from(document.querySelectorAll('[data-flow]'));
+    if (!flows.length) return;
+
+    const playFlow = (flow) => {
+      const nodes = flow.querySelectorAll('.flow-node');
+      const connectors = flow.querySelectorAll('.flow-connector');
+      const trace = flow.querySelector('.flow-trace');
+
+      if (!animeReady) {
+        nodes.forEach((node) => node.classList.add('is-flow-hot'));
+        return;
+      }
+
+      runAnime({
+        targets: nodes,
+        opacity: [0.001, 1],
+        translateY: [12, 0],
+        scale: [0.92, 1],
+        delay: animeApi.stagger(110),
+        duration: 560,
+        easing: 'outCubic',
+      });
+      runAnime({
+        targets: connectors,
+        scaleX: [0, 1],
+        transformOrigin: ['0% 50%', '0% 50%'],
+        delay: animeApi.stagger(120, { start: 180 }),
+        duration: 620,
+        easing: 'outCubic',
+      });
+      nodes.forEach((node, index) => {
+        setTimeout(() => node.classList.add('is-flow-hot'), 260 + index * 170);
+        setTimeout(() => node.classList.remove('is-flow-hot'), 1200 + index * 120);
+      });
+      if (trace) {
+        runAnime({
+          targets: trace,
+          translateX: ['0%', '480%'],
+          opacity: [0, 1, 0],
+          delay: 380,
+          duration: 1500,
+          easing: 'inOutSine',
+        });
+      }
+    };
+
+    if ('IntersectionObserver' in window && !reduceMotion) {
+      const flowObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          playFlow(entry.target);
+          flowObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.36 });
+      flows.forEach((flow) => flowObserver.observe(flow));
+      retainedObservers.push(flowObserver);
+    } else {
+      flows.forEach(playFlow);
+    }
+  }
+  setupProjectFlows();
+
   /* ---------- advanced skill grid wave ---------- */
   function setupSkillWave() {
     const skillsSection = document.getElementById('skills');
@@ -328,6 +586,7 @@
         });
       }, { threshold: 0.18 });
       skillObserver.observe(skillsSection);
+      retainedObservers.push(skillObserver);
     } else {
       playWave();
     }
@@ -356,6 +615,43 @@
     });
   }
   setupSkillWave();
+
+  /* ---------- interactive skill category filter ---------- */
+  function setupSkillFilters() {
+    const tabs = Array.from(document.querySelectorAll('[data-skill-filter]'));
+    const skills = Array.from(document.querySelectorAll('[data-skill-cats]'));
+    if (!tabs.length || !skills.length) return;
+
+    const applyFilter = (category) => {
+      tabs.forEach((tab) => {
+        tab.classList.toggle('is-active', tab.getAttribute('data-skill-filter') === category);
+      });
+
+      skills.forEach((skill, index) => {
+        const cats = (skill.getAttribute('data-skill-cats') || '').split(/\s+/);
+        const isMatch = category === 'all' || cats.includes(category);
+        skill.classList.toggle('skill-dimmed', !isMatch);
+        skill.classList.toggle('skill-highlight', isMatch && category !== 'all');
+
+        if (animeReady) {
+          runAnime({
+            targets: skill,
+            opacity: isMatch ? 1 : 0.28,
+            scale: isMatch ? [0.96, 1.04, 1] : 0.96,
+            translateY: isMatch ? [-2, 0] : 0,
+            delay: Math.min(index * 12, 220),
+            duration: 360,
+            easing: 'outCubic',
+          });
+        }
+      });
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => applyFilter(tab.getAttribute('data-skill-filter') || 'all'));
+    });
+  }
+  setupSkillFilters();
 
   /* ---------- scroll-synced divider fill ---------- */
   function setupScrollDividerFill() {
@@ -408,7 +704,7 @@
           y: e.clientY,
           duration: 420,
           easing: 'outQuad',
-          update: () => {
+          onUpdate: () => {
             spot.style.transform = `translate(${spotlightState.x - 300}px, ${spotlightState.y - 300}px)`;
           },
         });
@@ -615,6 +911,17 @@
     });
   }
   setupDraggableTechBadges();
+
+  if (animeReady) {
+    runAnime({
+      targets: '.tech-orbit__hint-icon',
+      translateX: [-3, 3],
+      direction: 'alternate',
+      loop: true,
+      duration: 980,
+      easing: 'inOutSine',
+    });
+  }
 
   if (allowPointerEffects) {
     /* ---------- subtle tilt on tilt cards ---------- */
