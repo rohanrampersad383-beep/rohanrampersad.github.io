@@ -265,6 +265,7 @@ em { font-style: italic; color: var(--ink); }
   border: 1px solid transparent; cursor: pointer;
   transition: transform .25s ease, box-shadow .35s ease, background .3s ease, border-color .3s ease;
   white-space: nowrap;
+  will-change: transform;
 }
 .btn--sm { --pad-y: 9px; --pad-x: 16px; font-size: 13px; }
 .btn--primary {
@@ -582,6 +583,8 @@ em { font-style: italic; color: var(--ink); }
 .float__meta { margin-left: auto; font-family: var(--f-mono); font-size: 11px; color: var(--ink-mute); }
 .float__body { margin: 0; padding: 16px; font-family: var(--f-mono); font-size: 12px; line-height: 1.7; color: var(--ink); white-space: pre; overflow: hidden; }
 .terminal { font-size: 12px; }
+.terminal__line { display: block; min-height: 1.7em; }
+.terminal__cursor { display: inline-block; color: var(--violet-2); margin-left: 2px; }
 .c-mut { color: var(--ink-mute); }
 .c-acc { color: var(--violet-2); }
 .c-ok  { color: var(--green); }
@@ -911,7 +914,8 @@ em { font-style: italic; color: var(--ink); }
   padding: 36px; margin-bottom: 40px;
   border-radius: var(--r-xl);
   position: relative; overflow: hidden;
-  transition: border-color .4s ease, transform .4s ease;
+  transition: border-color .4s ease, transform .4s ease, box-shadow .4s ease;
+  will-change: transform;
 }
 .case::before {
   content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
@@ -942,6 +946,17 @@ em { font-style: italic; color: var(--ink); }
 .case:hover::before { opacity: 1; }
 .case:hover { border-color: var(--violet); transform: translateY(-4px); }
 .case--alt:hover { border-color: var(--cyan); }
+.case__shine {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 46%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,.85), transparent);
+  opacity: 0;
+  transform: translateX(-120%);
+  z-index: 2;
+}
 
 .case__meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; position: relative; z-index: 1; }
 .case__year { font-family: var(--f-mono); font-size: 12px; color: var(--ink-mute); letter-spacing: .15em; }
@@ -1229,6 +1244,7 @@ a.contact__value:hover { color: var(--violet-2); }
   .hero-browser-shell:hover .browser-frame img {
     transform: none;
   }
+  .case__shine { display: none; }
 }
 
 @media (max-width: 640px) {

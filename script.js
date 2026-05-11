@@ -1,11 +1,17 @@
 /* ================================================================
-   Rohan Rampersad - Cinematic interactions
+   Rohan Rampersad - Anime.js powered interactions
    ================================================================ */
 
 (function () {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches;
   const allowPointerEffects = !reduceMotion && !coarsePointer;
+  const animeReady = typeof window.anime === 'function' && !reduceMotion;
+
+  const runAnime = (config) => {
+    if (!animeReady) return null;
+    return window.anime(config);
+  };
 
   /* ---------- year ---------- */
   const yr = document.getElementById('yr');
@@ -65,20 +71,140 @@
     );
   }
 
+  /* ---------- hero intro animation ---------- */
+  function runHeroIntro() {
+    if (!animeReady) return;
+
+    const introTargets = document.querySelectorAll(
+      '.hero__badges .pill, .hero__title .reveal-line, .hero__meta, .hero__cta .btn, .hero__socials > *, .hero__strip .strip'
+    );
+    const visualTargets = document.querySelectorAll('.hero-browser-shell, .hero__cluster .float');
+
+    window.anime.set(introTargets, { opacity: 0, translateY: 24 });
+    window.anime.set(visualTargets, { opacity: 0, translateY: 28, scale: 0.975 });
+
+    runAnime({
+      targets: introTargets,
+      opacity: [0, 1],
+      translateY: [24, 0],
+      delay: window.anime.stagger(72, { start: 80 }),
+      duration: 900,
+      easing: 'easeOutCubic',
+    });
+
+    runAnime({
+      targets: visualTargets,
+      opacity: [0, 1],
+      translateY: [34, 0],
+      scale: [0.975, 1],
+      delay: window.anime.stagger(110, { start: 360 }),
+      duration: 950,
+      easing: 'easeOutExpo',
+    });
+  }
+  runHeroIntro();
+
+  /* ---------- terminal boot sequence ---------- */
+  function runTerminalSequence() {
+    const terminal = document.querySelector('.float--terminal .terminal');
+    if (!terminal || !animeReady) return;
+
+    const lines = [
+      '<span class="c-mut">&gt;</span> initializing portfolio...',
+      '<span class="c-mut">&gt;</span> loading projects...',
+      '<span class="c-mut">&gt;</span> connecting to GitHub...',
+      '<span class="c-ok">&gt;</span> AI Job Match Assistant ready',
+      '<span class="c-ok">&gt;</span> Fitness Central ready',
+      '<span class="c-ok">&gt;</span> resume loaded successfully',
+      '<span class="c-acc">▌</span>',
+    ];
+
+    terminal.innerHTML = '';
+    lines.forEach((line, index) => {
+      const row = document.createElement('span');
+      row.className = 'terminal__line';
+      row.innerHTML = line;
+      row.style.opacity = '0';
+      row.style.transform = 'translateY(8px)';
+      terminal.appendChild(row);
+
+      runAnime({
+        targets: row,
+        opacity: [0, 1],
+        translateY: [8, 0],
+        duration: 420,
+        delay: 520 + index * 260,
+        easing: 'easeOutCubic',
+      });
+    });
+
+    const cursor = terminal.querySelector('.terminal__line:last-child');
+    if (cursor) {
+      cursor.classList.add('terminal__cursor');
+      runAnime({
+        targets: cursor,
+        opacity: [1, 0.25],
+        direction: 'alternate',
+        loop: true,
+        duration: 650,
+        easing: 'easeInOutSine',
+        delay: 2200,
+      });
+    }
+  }
+  runTerminalSequence();
+
   /* ---------- reveal on scroll ---------- */
   const revealItems = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && !reduceMotion) {
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add('is-visible');
-          observer.unobserve(e.target);
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const target = entry.target;
+        target.classList.add('is-visible');
+
+        if (animeReady) {
+          target.style.transition = 'none';
+          runAnime({
+            targets: target,
+            opacity: [0, 1],
+            translateY: [30, 0],
+            duration: 860,
+            easing: 'easeOutCubic',
+          });
+
+          if (target.classList.contains('bento__cell') || target.classList.contains('learning-card')) {
+            runAnime({
+              targets: target.querySelectorAll('.chip, .learning-card__kicker, h3, p'),
+              opacity: [0, 1],
+              translateY: [12, 0],
+              delay: window.anime.stagger(38, { start: 120 }),
+              duration: 520,
+              easing: 'easeOutCubic',
+            });
+          }
+
+          if (target.matches('.case')) {
+            runAnime({
+              targets: target.querySelectorAll('.chip, .case__metrics > div, .case__cta .btn'),
+              opacity: [0, 1],
+              translateY: [12, 0],
+              delay: window.anime.stagger(45, { start: 180 }),
+              duration: 560,
+              easing: 'easeOutCubic',
+            });
+          }
         }
+
+        observer.unobserve(target);
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
 
-    revealItems.forEach((el, i) => {
-      el.style.transitionDelay = Math.min(i * 50, 320) + 'ms';
+    revealItems.forEach((el) => {
+      if (animeReady && el.closest('.hero')) {
+        el.classList.add('is-visible');
+        return;
+      }
       observer.observe(el);
     });
   } else {
@@ -88,6 +214,7 @@
   /* ---------- mouse-follow spotlight ---------- */
   const spot = document.getElementById('spotlight');
   let spotActive = false;
+  const spotlightState = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   if (spot && allowPointerEffects) {
     window.addEventListener('mousemove', (e) => {
       document.documentElement.style.setProperty('--cursor-x', `${e.clientX}px`);
@@ -96,7 +223,21 @@
         spot.classList.add('is-active');
         spotActive = true;
       }
-      spot.style.transform = `translate(${e.clientX - 300}px, ${e.clientY - 300}px)`;
+
+      if (animeReady) {
+        runAnime({
+          targets: spotlightState,
+          x: e.clientX,
+          y: e.clientY,
+          duration: 420,
+          easing: 'easeOutQuad',
+          update: () => {
+            spot.style.transform = `translate(${spotlightState.x - 300}px, ${spotlightState.y - 300}px)`;
+          },
+        });
+      } else {
+        spot.style.transform = `translate(${e.clientX - 300}px, ${e.clientY - 300}px)`;
+      }
     });
     window.addEventListener('mouseleave', () => {
       spot.classList.remove('is-active');
@@ -104,7 +245,7 @@
     });
   }
 
-  /* ---------- card cursor glow ---------- */
+  /* ---------- card cursor glow and Anime.js hover polish ---------- */
   document.querySelectorAll('[data-project], .learning-card').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
       const r = card.getBoundingClientRect();
@@ -112,6 +253,44 @@
       const y = ((e.clientY - r.top) / r.height) * 100;
       card.style.setProperty('--mx', `${x}%`);
       card.style.setProperty('--my', `${y}%`);
+    });
+  });
+
+  document.querySelectorAll('[data-project]').forEach((card) => {
+    let shine = card.querySelector('.case__shine');
+    if (!shine) {
+      shine = document.createElement('span');
+      shine.className = 'case__shine';
+      card.appendChild(shine);
+    }
+
+    if (!allowPointerEffects || !animeReady) return;
+
+    card.addEventListener('mouseenter', () => {
+      runAnime({
+        targets: card,
+        translateY: -8,
+        scale: 1.006,
+        duration: 360,
+        easing: 'easeOutCubic',
+      });
+      runAnime({
+        targets: shine,
+        translateX: ['-120%', '220%'],
+        opacity: [0, 0.9, 0],
+        duration: 760,
+        easing: 'easeOutCubic',
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      runAnime({
+        targets: card,
+        translateY: 0,
+        scale: 1,
+        duration: 420,
+        easing: 'easeOutCubic',
+      });
     });
   });
 
@@ -128,14 +307,37 @@
     });
 
     /* ---------- magnetic buttons ---------- */
-    document.querySelectorAll('[data-magnetic]').forEach((btn) => {
+    document.querySelectorAll('[data-magnetic], .btn, .social-chip').forEach((btn) => {
       btn.addEventListener('mousemove', (e) => {
         const r = btn.getBoundingClientRect();
-        const x = (e.clientX - r.left - r.width / 2) * 0.16;
-        const y = (e.clientY - r.top - r.height / 2) * 0.22;
-        btn.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+        const x = (e.clientX - r.left - r.width / 2) * 0.14;
+        const y = (e.clientY - r.top - r.height / 2) * 0.2;
+
+        if (animeReady) {
+          runAnime({
+            targets: btn,
+            translateX: x,
+            translateY: y,
+            duration: 260,
+            easing: 'easeOutQuad',
+          });
+        } else {
+          btn.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+        }
       });
-      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+      btn.addEventListener('mouseleave', () => {
+        if (animeReady) {
+          runAnime({
+            targets: btn,
+            translateX: 0,
+            translateY: 0,
+            duration: 420,
+            easing: 'easeOutElastic(1, .55)',
+          });
+        } else {
+          btn.style.transform = '';
+        }
+      });
     });
 
     /* ---------- hero floating cards: parallax on mouse ---------- */
@@ -155,6 +357,26 @@
         floats.forEach((f) => { f.style.translate = ''; });
       });
     }
+  }
+
+  /* ---------- divider and frame accents ---------- */
+  if (animeReady) {
+    runAnime({
+      targets: '.bleed-divider',
+      scaleX: [0.45, 1],
+      opacity: [0.35, 0.95],
+      delay: window.anime.stagger(120),
+      duration: 900,
+      easing: 'easeOutCubic',
+    });
+    runAnime({
+      targets: '.mockup-ring, .frame-glow-ring',
+      opacity: [0.28, 0.62],
+      direction: 'alternate',
+      loop: true,
+      duration: 2600,
+      easing: 'easeInOutSine',
+    });
   }
 
   /* ---------- copy-to-clipboard ---------- */
