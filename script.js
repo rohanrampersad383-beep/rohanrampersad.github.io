@@ -699,6 +699,12 @@
     stretch: 0,
     rotation: 0,
   };
+  const auraState = {
+    x: cursorState.x,
+    y: cursorState.y,
+    energy: cursorState.energy,
+    scale: cursorState.scale,
+  };
   const cursorMorphTargets = ['#cursorMorphA', '#cursorMorphB', '#cursorMorphC', '#cursorMorphD'];
   const cursorMoods = {
     hero: ['34, 211, 238', '124, 92, 255', '91, 139, 255'],
@@ -739,11 +745,11 @@
   }
 
   function paintCursor() {
-    root.style.setProperty('--cursor-x', `${cursorState.x}px`);
-    root.style.setProperty('--cursor-y', `${cursorState.y}px`);
-    root.style.setProperty('--cursor-energy', cursorState.energy.toFixed(3));
+    root.style.setProperty('--cursor-x', `${auraState.x}px`);
+    root.style.setProperty('--cursor-y', `${auraState.y}px`);
+    root.style.setProperty('--cursor-energy', Math.max(cursorState.energy, auraState.energy).toFixed(3));
     if (spot) {
-      spot.style.transform = `translate(${cursorState.x - 75}px, ${cursorState.y - 75}px) scale(${cursorState.scale})`;
+      spot.style.transform = `translate(${auraState.x - 75}px, ${auraState.y - 75}px) scale(${auraState.scale})`;
     }
     if (cursorShape) {
       const stretchX = 1 + cursorState.stretch * 0.24;
@@ -756,6 +762,8 @@
     const nextEnergy = clamp(energy, 0.12, 1);
     cursorState.energy = nextEnergy;
     cursorState.scale = 0.64 + nextEnergy * 0.32;
+    auraState.energy = nextEnergy;
+    auraState.scale = 0.66 + nextEnergy * 0.34;
     paintCursor();
 
     if (animeReady && spot) {
@@ -878,7 +886,8 @@
   window.__cursorMoodReady = true;
   updateCursorMoodByScroll();
 
-  if (spot && allowPointerEffects) {
+  if (spot && cursorShape && allowPointerEffects) {
+    root.classList.add('custom-cursor-ready');
     window.addEventListener('mousemove', (e) => {
       if (!spot.classList.contains('is-active')) spot.classList.add('is-active');
       if (cursorShape && !cursorShape.classList.contains('is-active')) cursorShape.classList.add('is-active');
@@ -901,26 +910,30 @@
       const rotation = Math.abs(dx) + Math.abs(dy) > 2 ? Math.atan2(dy, dx) * (180 / Math.PI) : cursorState.rotation;
       lastPointer = { x: e.clientX, y: e.clientY, t: now };
 
+      cursorState.x = e.clientX;
+      cursorState.y = e.clientY;
+      cursorState.energy = Math.max(cursorState.energy, 0.34 + stretch * 0.18);
+      cursorState.scale = Math.max(cursorState.scale, 0.74 + stretch * 0.1);
+      cursorState.stretch = stretch;
+      cursorState.rotation = rotation;
+      paintCursor();
+
       if (animeReady) {
         runAnime({
-          targets: cursorState,
-          x: [cursorState.x, e.clientX],
-          y: [cursorState.y, e.clientY],
-          energy: [cursorState.energy, Math.max(cursorState.energy, 0.3 + stretch * 0.2)],
-          scale: [cursorState.scale, Math.max(cursorState.scale, 0.72 + stretch * 0.1)],
-          stretch: [cursorState.stretch, stretch],
-          rotation: [cursorState.rotation, rotation],
-          duration: 180,
+          targets: auraState,
+          x: e.clientX,
+          y: e.clientY,
+          energy: Math.max(auraState.energy, 0.28 + stretch * 0.16),
+          scale: Math.max(auraState.scale, 0.72 + stretch * 0.08),
+          duration: 115,
           easing: 'outQuad',
           onUpdate: paintCursor,
         });
       } else {
-        cursorState.x = e.clientX;
-        cursorState.y = e.clientY;
-        cursorState.energy = 0.32;
-        cursorState.scale = 0.74;
-        cursorState.stretch = stretch;
-        cursorState.rotation = rotation;
+        auraState.x = e.clientX;
+        auraState.y = e.clientY;
+        auraState.energy = 0.28;
+        auraState.scale = 0.72;
         paintCursor();
       }
       spawnCursorParticle(e.clientX, e.clientY, stretch > 0.55 ? 2 : 1, velocity);
@@ -965,6 +978,13 @@
           });
         }
       });
+    });
+
+    document.querySelectorAll('input, textarea, select, [contenteditable="true"]').forEach((field) => {
+      field.addEventListener('mouseenter', () => root.classList.add('cursor-text-mode'));
+      field.addEventListener('mouseleave', () => root.classList.remove('cursor-text-mode'));
+      field.addEventListener('focus', () => root.classList.add('cursor-text-mode'));
+      field.addEventListener('blur', () => root.classList.remove('cursor-text-mode'));
     });
   }
 

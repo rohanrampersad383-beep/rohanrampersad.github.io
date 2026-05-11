@@ -315,6 +315,37 @@ em { font-style: italic; color: var(--ink); }
   transform: translate3d(var(--p-x, 0), var(--p-y, 0), 0) rotate(45deg) scale(.5);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  html.custom-cursor-ready,
+  html.custom-cursor-ready body,
+  html.custom-cursor-ready a,
+  html.custom-cursor-ready button,
+  html.custom-cursor-ready [role="button"],
+  html.custom-cursor-ready .btn,
+  html.custom-cursor-ready .magnetic,
+  html.custom-cursor-ready .tech-badge,
+  html.custom-cursor-ready .tech-drag-badge,
+  html.custom-cursor-ready .energy-target {
+    cursor: none;
+  }
+
+  html.custom-cursor-ready input,
+  html.custom-cursor-ready textarea,
+  html.custom-cursor-ready select,
+  html.custom-cursor-ready [contenteditable="true"] {
+    cursor: text;
+  }
+
+  html.custom-cursor-ready.cursor-text-mode .cursor-shape {
+    opacity: 0 !important;
+  }
+
+  html.custom-cursor-ready.cursor-text-mode .spotlight {
+    opacity: .16 !important;
+    filter: blur(18px) saturate(105%);
+  }
+}
+
 /* ============================================================
    GLASS UTILITIES
    ============================================================ */
