@@ -50,7 +50,7 @@
 
 /* ---------------- base ---------------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; overflow-y: auto; }
 body {
   margin: 0;
   background: var(--bg);
@@ -59,7 +59,8 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   position: relative;
 }
 img { max-width: 100%; display: block; }
