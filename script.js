@@ -6,11 +6,17 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches;
   const allowPointerEffects = !reduceMotion && !coarsePointer;
-  const animeReady = typeof window.anime === 'function' && !reduceMotion;
+  const animeApi = window.anime || null;
+  const animeReady = !!(animeApi && typeof animeApi.animate === 'function') && !reduceMotion;
+
+  if (animeApi && typeof animeApi.animate === 'function') {
+    console.log('Anime.js latest version loaded successfully');
+  }
 
   const runAnime = (config) => {
     if (!animeReady) return null;
-    return window.anime(config);
+    const { targets, ...params } = config;
+    return animeApi.animate(targets, params);
   };
 
   /* ---------- year ---------- */
@@ -80,16 +86,16 @@
     );
     const visualTargets = document.querySelectorAll('.hero-browser-shell, .hero__cluster .float');
 
-    window.anime.set(introTargets, { opacity: 0, translateY: 24 });
-    window.anime.set(visualTargets, { opacity: 0, translateY: 28, scale: 0.975 });
+    animeApi.set(introTargets, { opacity: 0, translateY: 24 });
+    animeApi.set(visualTargets, { opacity: 0, translateY: 28, scale: 0.975 });
 
     runAnime({
       targets: introTargets,
       opacity: [0, 1],
       translateY: [24, 0],
-      delay: window.anime.stagger(72, { start: 80 }),
+      delay: animeApi.stagger(72, { start: 80 }),
       duration: 900,
-      easing: 'easeOutCubic',
+      easing: 'outCubic',
     });
 
     runAnime({
@@ -97,9 +103,9 @@
       opacity: [0, 1],
       translateY: [34, 0],
       scale: [0.975, 1],
-      delay: window.anime.stagger(110, { start: 360 }),
+      delay: animeApi.stagger(110, { start: 360 }),
       duration: 950,
-      easing: 'easeOutExpo',
+      easing: 'outExpo',
     });
   }
   runHeroIntro();
@@ -134,7 +140,7 @@
         translateY: [8, 0],
         duration: 420,
         delay: 520 + index * 260,
-        easing: 'easeOutCubic',
+        easing: 'outCubic',
       });
     });
 
@@ -147,7 +153,7 @@
         direction: 'alternate',
         loop: true,
         duration: 650,
-        easing: 'easeInOutSine',
+        easing: 'inOutSine',
         delay: 2200,
       });
     }
@@ -170,7 +176,7 @@
             opacity: [0, 1],
             translateY: [30, 0],
             duration: 860,
-            easing: 'easeOutCubic',
+            easing: 'outCubic',
           });
 
           if (target.classList.contains('bento__cell') || target.classList.contains('learning-card')) {
@@ -178,9 +184,9 @@
               targets: target.querySelectorAll('.chip, .learning-card__kicker, h3, p'),
               opacity: [0, 1],
               translateY: [12, 0],
-              delay: window.anime.stagger(38, { start: 120 }),
+              delay: animeApi.stagger(38, { start: 120 }),
               duration: 520,
-              easing: 'easeOutCubic',
+              easing: 'outCubic',
             });
           }
 
@@ -189,9 +195,9 @@
               targets: target.querySelectorAll('.chip, .case__metrics > div, .case__cta .btn'),
               opacity: [0, 1],
               translateY: [12, 0],
-              delay: window.anime.stagger(45, { start: 180 }),
+              delay: animeApi.stagger(45, { start: 180 }),
               duration: 560,
-              easing: 'easeOutCubic',
+              easing: 'outCubic',
             });
           }
         }
@@ -230,7 +236,7 @@
           x: e.clientX,
           y: e.clientY,
           duration: 420,
-          easing: 'easeOutQuad',
+          easing: 'outQuad',
           update: () => {
             spot.style.transform = `translate(${spotlightState.x - 300}px, ${spotlightState.y - 300}px)`;
           },
@@ -272,14 +278,14 @@
         translateY: -8,
         scale: 1.006,
         duration: 360,
-        easing: 'easeOutCubic',
+        easing: 'outCubic',
       });
       runAnime({
         targets: shine,
         translateX: ['-120%', '220%'],
         opacity: [0, 0.9, 0],
         duration: 760,
-        easing: 'easeOutCubic',
+        easing: 'outCubic',
       });
     });
 
@@ -289,7 +295,7 @@
         translateY: 0,
         scale: 1,
         duration: 420,
-        easing: 'easeOutCubic',
+        easing: 'outCubic',
       });
     });
   });
@@ -319,7 +325,7 @@
             translateX: x,
             translateY: y,
             duration: 260,
-            easing: 'easeOutQuad',
+            easing: 'outQuad',
           });
         } else {
           btn.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
@@ -332,7 +338,7 @@
             translateX: 0,
             translateY: 0,
             duration: 420,
-            easing: 'easeOutElastic(1, .55)',
+            easing: 'outElastic(1, .55)',
           });
         } else {
           btn.style.transform = '';
@@ -365,9 +371,9 @@
       targets: '.bleed-divider',
       scaleX: [0.45, 1],
       opacity: [0.35, 0.95],
-      delay: window.anime.stagger(120),
+      delay: animeApi.stagger(120),
       duration: 900,
-      easing: 'easeOutCubic',
+      easing: 'outCubic',
     });
     runAnime({
       targets: '.mockup-ring, .frame-glow-ring',
@@ -375,7 +381,7 @@
       direction: 'alternate',
       loop: true,
       duration: 2600,
-      easing: 'easeInOutSine',
+      easing: 'inOutSine',
     });
   }
 
