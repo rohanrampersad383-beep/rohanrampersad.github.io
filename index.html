@@ -33,8 +33,10 @@
   <div class="atmos__scan"></div>
 </div>
 
+<div class="noise-overlay" aria-hidden="true"></div>
+
 <!-- Mouse-follow spotlight -->
-<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="spotlight cursor-spotlight" id="spotlight" aria-hidden="true"></div>
 
 <!-- ============================================================
      NAVBAR
@@ -54,9 +56,10 @@
     <nav class="nav__links">
       <a href="#about"><span class="nav__num">01</span>About</a>
       <a href="#skills"><span class="nav__num">02</span>Stack</a>
-      <a href="#projects"><span class="nav__num">03</span>Work</a>
-      <a href="#experience"><span class="nav__num">04</span>Path</a>
-      <a href="#contact"><span class="nav__num">05</span>Contact</a>
+      <a href="#learning"><span class="nav__num">03</span>Focus</a>
+      <a href="#projects"><span class="nav__num">04</span>Work</a>
+      <a href="#experience"><span class="nav__num">05</span>Path</a>
+      <a href="#contact"><span class="nav__num">06</span>Contact</a>
     </nav>
     <div class="nav__right">
       <span class="nav__time" id="navTime">--:--:--</span>
@@ -71,9 +74,10 @@
   <div class="nav__mobile" id="navMobile">
     <a href="#about">01 — About</a>
     <a href="#skills">02 — Stack</a>
-    <a href="#projects">03 — Work</a>
-    <a href="#experience">04 — Path</a>
-    <a href="#contact">05 — Contact</a>
+    <a href="#learning">03 — Focus</a>
+    <a href="#projects">04 — Work</a>
+    <a href="#experience">05 — Path</a>
+    <a href="#contact">06 — Contact</a>
   </div>
 </header>
 
@@ -99,23 +103,43 @@
     <path d="M0,200 C200,260 400,140 700,220 C900,280 1100,180 1200,240" stroke="url(#lg2)" stroke-width="1" fill="none" />
     <path d="M0,700 C300,640 600,760 1200,680" stroke="url(#lg1)" stroke-width="1" fill="none" />
   </svg>
+  <svg class="hero__circuit" viewBox="0 0 1000 700" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M80 120H250C286 120 304 148 304 178V248C304 278 326 302 356 302H512" stroke="url(#circuitA)" stroke-width="1.5"/>
+    <path d="M920 170H752C720 170 704 194 704 224V276C704 314 676 340 638 340H526" stroke="url(#circuitB)" stroke-width="1.5"/>
+    <path d="M180 560H360C392 560 414 540 414 508V438C414 406 438 384 470 384H650" stroke="url(#circuitA)" stroke-width="1.5"/>
+    <circle cx="304" cy="248" r="5" fill="#22d3ee"/>
+    <circle cx="704" cy="276" r="5" fill="#7c5cff"/>
+    <circle cx="414" cy="438" r="5" fill="#22c55e"/>
+    <defs>
+      <linearGradient id="circuitA" x1="80" y1="120" x2="650" y2="560" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#22d3ee" stop-opacity="0"/>
+        <stop offset="0.45" stop-color="#22d3ee" stop-opacity="0.45"/>
+        <stop offset="1" stop-color="#7c5cff" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="circuitB" x1="920" y1="170" x2="526" y2="340" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#7c5cff" stop-opacity="0"/>
+        <stop offset="0.5" stop-color="#7c5cff" stop-opacity="0.45"/>
+        <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
 
   <div class="container hero__grid">
 
     <!-- LEFT — main typography -->
     <div class="hero__main">
       <div class="hero__badges reveal">
-        <span class="pill pill--live">
-          <span class="pill__dot"></span> PORTFOLIO ONLINE
+        <span class="pill pill--live status-badge">
+          <span class="pill__dot status-dot"></span> Available for junior developer roles
         </span>
-        <span class="pill">Applied CS Portfolio</span>
+        <span class="pill">Full-stack + AI portfolio</span>
         <span class="pill pill--ghost">TT · GMT-4</span>
       </div>
 
       <h1 class="hero__title">
-        <span class="reveal-line"><span>Engineer.</span></span>
-        <span class="reveal-line"><span class="serif">Designer.</span></span>
-        <span class="reveal-line"><span class="grad">Problem-solver</span><span class="cursor-blink">_</span></span>
+        <span class="reveal-line"><span>Full-stack</span></span>
+        <span class="reveal-line"><span class="serif">AI-powered</span></span>
+        <span class="reveal-line"><span class="grad">software</span><span class="cursor-blink">_</span></span>
       </h1>
 
       <div class="hero__meta reveal">
@@ -125,21 +149,22 @@
         </div>
         <div class="hero__meta-text">
           <strong>Rohan Rampersad</strong>
-          <span>Applied Computer Science · Building AI &amp; full-stack systems from Trinidad &amp; Tobago.</span>
+          <span>Applied Computer Science student from Trinidad &amp; Tobago building full-stack web applications, AI-assisted systems, and cloud-ready software experiences.</span>
         </div>
       </div>
 
       <div class="hero__cta reveal">
-        <a href="#projects" class="btn btn--primary">
-          <span>Explore Work</span>
+        <a href="#projects" class="btn btn--primary" data-magnetic>
+          <span>View Projects</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           <span class="btn__shine"></span>
         </a>
-        <a href="assets/documents/Rohan_Rampersad_Resume.pdf" class="btn btn--ghost" target="_blank" rel="noreferrer">
+        <a href="assets/documents/Rohan_Rampersad_Resume.pdf" class="btn btn--ghost" target="_blank" rel="noreferrer" data-magnetic>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-          Resume PDF
+          View Resume
         </a>
-        <a href="#contact" class="btn btn--outline">Contact -></a>
+        <a href="Rohan_Rampersad_IT_Portfolio.pdf" class="btn btn--outline" target="_blank" rel="noreferrer" data-magnetic>Portfolio PDF</a>
+        <a href="https://ai-job-match-assistant.vercel.app" class="btn btn--accent" target="_blank" rel="noreferrer" data-magnetic>Live Demo</a>
       </div>
 
       <div class="hero__socials reveal">
@@ -179,6 +204,18 @@
 
     <!-- RIGHT — floating dashboard cluster -->
     <div class="hero__cluster">
+      <div class="hero-browser-shell glass-strong" data-tilt data-float="1">
+        <div class="frame-glow-ring"></div>
+        <div class="browser-frame">
+          <div class="window__bar">
+            <span class="dotc dotc--r"></span><span class="dotc dotc--y"></span><span class="dotc dotc--g"></span>
+            <span class="window__url">ai-job-match-assistant.vercel.app/dashboard</span>
+            <span class="browser-live"><span class="pill__dot"></span>Live</span>
+          </div>
+          <div class="scan-line"></div>
+          <img src="assets/job-match/dashboard.png" alt="AI Job Match Assistant dashboard preview">
+        </div>
+      </div>
 
       <div class="float float--terminal glass-strong" data-float="1">
         <div class="float__bar">
@@ -338,8 +375,8 @@
     <div class="section__head reveal">
       <span class="eyebrow"><span class="eyebrow__num">02</span> Stack</span>
       <h2 class="section__title">
-        The <span class="grad">toolkit</span> behind<br/>
-        every <span class="serif">build.</span>
+        Practical <span class="grad">skills</span> for<br/>
+        modern <span class="serif">software.</span>
       </h2>
     </div>
 
@@ -347,13 +384,13 @@
       <div class="bento__cell bento__cell--lang glass-strong reveal" data-tilt>
         <div class="bento__head">
           <span class="bento__num">/01</span>
-          <span class="bento__title">Languages</span>
+          <span class="bento__title">Frontend</span>
         </div>
         <div class="chips">
-          <span class="chip">TypeScript</span><span class="chip">JavaScript</span>
-          <span class="chip">Python</span><span class="chip">PHP</span>
           <span class="chip">HTML</span><span class="chip">CSS</span>
-          <span class="chip">SQL</span><span class="chip">MATLAB</span>
+          <span class="chip">JavaScript</span><span class="chip">React</span>
+          <span class="chip">Next.js</span><span class="chip">Tailwind CSS</span>
+          <span class="chip">Responsive UI</span><span class="chip">Dashboard Design</span>
         </div>
         <div class="bento__glow"></div>
       </div>
@@ -361,29 +398,31 @@
       <div class="bento__cell bento__cell--frame glass-strong reveal" data-tilt>
         <div class="bento__head">
           <span class="bento__num">/02</span>
-          <span class="bento__title">Frameworks &amp; UI</span>
+          <span class="bento__title">Backend</span>
         </div>
         <div class="chips">
-          <span class="chip">Next.js</span>
-          <span class="chip">Tailwind CSS</span>
-          <span class="chip">Prisma</span>
-          <span class="chip">Responsive UI</span>
-          <span class="chip">Dashboards</span>
+          <span class="chip">PHP</span>
+          <span class="chip">Node.js</span>
+          <span class="chip">API Development</span>
+          <span class="chip">Prisma ORM</span>
+          <span class="chip">MySQL</span>
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">CRUD Systems</span>
         </div>
       </div>
 
       <div class="bento__cell bento__cell--data glass-strong reveal" data-tilt>
         <div class="bento__head">
           <span class="bento__num">/03</span>
-          <span class="bento__title">Data &amp; Cloud</span>
+          <span class="bento__title">AI / Cloud</span>
         </div>
         <div class="chips">
-          <span class="chip">PostgreSQL</span>
-          <span class="chip">MySQL</span>
-          <span class="chip">AWS</span>
-          <span class="chip">CRUD</span>
-          <span class="chip">ER Diagrams</span>
-          <span class="chip">Normalization</span>
+          <span class="chip">AI-assisted Workflows</span>
+          <span class="chip">OpenAI API Familiarity</span>
+          <span class="chip">Resume Matching Logic</span>
+          <span class="chip">Job Scoring</span>
+          <span class="chip">AWS Fundamentals</span>
+          <span class="chip">Vercel Deployment</span>
         </div>
         <div class="bento__viz">
           <span style="--h:30%"></span><span style="--h:55%"></span><span style="--h:70%"></span>
@@ -395,17 +434,17 @@
       <div class="bento__cell bento__cell--ai glass-strong reveal" data-tilt>
         <div class="bento__head">
           <span class="bento__num">/04</span>
-          <span class="bento__title">AI &amp; Tooling</span>
+          <span class="bento__title">Tools</span>
         </div>
         <div class="chips">
-          <span class="chip">AI/ML Basics</span>
-          <span class="chip">Jupyter Notebook</span>
-          <span class="chip">Data Preprocessing</span>
-          <span class="chip">Classification</span>
-          <span class="chip">MATLAB Image Processing</span>
           <span class="chip">Git / GitHub</span>
           <span class="chip">VS Code</span>
           <span class="chip">WampServer</span>
+          <span class="chip">phpMyAdmin</span>
+          <span class="chip">Microsoft Office</span>
+          <span class="chip">Jupyter Notebook</span>
+          <span class="chip">MATLAB</span>
+          <span class="chip">Figma / Lovable / Claude / Codex Workflow</span>
         </div>
         <div class="bento__pulse"></div>
       </div>
@@ -421,15 +460,53 @@
 </section>
 
 <!-- ============================================================
+     CURRENTLY LEARNING
+     ============================================================ -->
+<section class="section learning-section" id="learning">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="eyebrow"><span class="eyebrow__num">03</span> Focused On Next</span>
+      <h2 class="section__title">
+        Building depth in <span class="grad">AI engineering</span><br/>
+        and backend <span class="serif">systems.</span>
+      </h2>
+    </div>
+
+    <div class="learning-grid reveal">
+      <article class="learning-card glass-strong" data-tilt>
+        <span class="learning-card__kicker">01</span>
+        <h3>AI Engineering</h3>
+        <p>Improving how AI-assisted workflows are designed, evaluated, and connected to real web application features.</p>
+      </article>
+      <article class="learning-card glass-strong" data-tilt>
+        <span class="learning-card__kicker">02</span>
+        <h3>API Development</h3>
+        <p>Strengthening backend routes, validation, data flow, and integration patterns for maintainable full-stack systems.</p>
+      </article>
+      <article class="learning-card glass-strong" data-tilt>
+        <span class="learning-card__kicker">03</span>
+        <h3>Cloud Deployment</h3>
+        <p>Practicing deployment workflows, environment variables, hosted databases, Vercel, and AWS foundation concepts.</p>
+      </article>
+      <article class="learning-card glass-strong" data-tilt>
+        <span class="learning-card__kicker">04</span>
+        <h3>System Design Fundamentals</h3>
+        <p>Learning how to reason about structure, reliability, database boundaries, and backend architecture at a junior level.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
      PROJECTS — full case-study cards
      ============================================================ -->
 <section class="section" id="projects">
   <div class="container">
     <div class="section__head reveal">
-      <span class="eyebrow"><span class="eyebrow__num">03</span> Selected Work</span>
+      <span class="eyebrow"><span class="eyebrow__num">04</span> Selected Work</span>
       <h2 class="section__title">
-        Products I've <span class="grad">designed</span><br/>
-        and <span class="serif">engineered.</span>
+        Project work with <span class="grad">real product</span><br/>
+        thinking and <span class="serif">technical depth.</span>
       </h2>
     </div>
 
@@ -443,7 +520,7 @@
         <div class="case__copy">
           <h3 class="case__title">AI Job Match Assistant</h3>
           <p class="case__lead">
-            A full-stack Next.js, TypeScript, Prisma, PostgreSQL, and Tailwind CSS web application that helps users manage job discovery, job tracking, resume/application preparation, and match scoring.
+            Flagship full-stack AI-assisted job discovery platform that supports resume upload and parsing, public-source job importing, match scoring, filtering, explanations, and application tracking using Next.js, TypeScript, Prisma, PostgreSQL, Tailwind CSS, and Vercel deployment.
           </p>
           <div class="case__chips chips">
             <span class="chip">Next.js</span><span class="chip">TypeScript</span>
@@ -451,9 +528,9 @@
             <span class="chip">Tailwind CSS</span><span class="chip">Job Tracking</span>
           </div>
           <div class="case__metrics">
-            <div><strong>Discovery</strong><span>public job source workflow</span></div>
-            <div><strong>Tracking</strong><span>application status workflow</span></div>
-            <div><strong>Scoring</strong><span>match ranking logic</span></div>
+            <div><strong>Discovery</strong><span>legal public-source importing</span></div>
+            <div><strong>Scoring</strong><span>resume-to-role matching logic</span></div>
+            <div><strong>Tracking</strong><span>filters, notes, and application status</span></div>
           </div>
           <div class="case__cta">
             <a href="https://ai-job-match-assistant.vercel.app" class="btn btn--primary btn--sm" target="_blank" rel="noreferrer">Live Demo
@@ -481,7 +558,7 @@
                 <div class="dash-card dash-card--flex">
                   <span class="dash-card__label">Core features</span>
                   <div class="dash-tags">
-                    <span>Resume</span><span>Jobs</span><span>Scoring</span><span>SQL</span><span>Tracking</span>
+                    <span>Resume parsing</span><span>Job import</span><span>Scoring</span><span>PostgreSQL</span><span>Tracking</span>
                   </div>
                   <span class="dash-card__label" style="margin-top:8px">Workflow</span>
                   <div class="dash-tags dash-tags--warn"><span>Manual review</span><span>Ethical sourcing</span></div>
@@ -508,7 +585,7 @@
         <div class="case__copy">
           <h3 class="case__title">Fitness Central</h3>
           <p class="case__lead">
-            An academic full-stack fitness tracking system built with HTML, CSS, JavaScript, PHP, MySQL, WAMPServer, and phpMyAdmin. It supports user accounts, workout logging, weight tracking, goals, dashboards, and database-driven features.
+            Multi-user fitness tracking web platform with authentication, workout logging, weight tracking, goal management, dashboard statistics, and MySQL database integration built with PHP, JavaScript, WAMPServer, and phpMyAdmin.
           </p>
           <div class="case__chips chips">
             <span class="chip">PHP</span><span class="chip">MySQL</span>
@@ -517,9 +594,9 @@
             <span class="chip">phpMyAdmin</span>
           </div>
           <div class="case__metrics">
-            <div><strong>Accounts</strong><span>login and registration</span></div>
-            <div><strong>Tracking</strong><span>workouts and weight</span></div>
-            <div><strong>Goals</strong><span>dashboard progress</span></div>
+            <div><strong>Auth</strong><span>login and registration flow</span></div>
+            <div><strong>Tracking</strong><span>workouts, weight, and goals</span></div>
+            <div><strong>Dashboard</strong><span>database-backed statistics</span></div>
           </div>
           <div class="case__cta">
             <a href="https://github.com/rohanrampersad383-beep/fitness-central" class="btn btn--primary btn--sm" target="_blank" rel="noreferrer">GitHub Repo
@@ -574,7 +651,7 @@
 <section class="section" id="experience">
   <div class="container">
     <div class="section__head reveal">
-      <span class="eyebrow"><span class="eyebrow__num">04</span> Path</span>
+      <span class="eyebrow"><span class="eyebrow__num">05</span> Path</span>
       <h2 class="section__title">
         The <span class="grad">journey</span> so far,<br/>
         and where it's <span class="serif">going.</span>
@@ -660,7 +737,7 @@
     <div class="contact-bg__grid"></div>
   </div>
   <div class="container contact reveal">
-    <span class="eyebrow"><span class="eyebrow__num">05</span> Contact</span>
+    <span class="eyebrow"><span class="eyebrow__num">06</span> Contact</span>
     <h2 class="contact__title">
       Let's <span class="grad">build</span> something<br/>
       <span class="serif">remarkable.</span>
