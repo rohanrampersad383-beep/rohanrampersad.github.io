@@ -99,6 +99,7 @@
       else nav.style.transform = 'translateY(0)';
     }
     updateActiveNav(y);
+    if (window.__cursorMoodReady) updateCursorMoodByScroll(y);
     lastY = y;
   };
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -684,37 +685,197 @@
   }
   setupScrollDividerFill();
 
-  /* ---------- mouse-follow spotlight ---------- */
+  /* ---------- cursor energy field ---------- */
   const spot = document.getElementById('spotlight');
-  let spotActive = false;
-  const spotlightState = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  const particleLayer = document.getElementById('cursorParticles');
+  const root = document.documentElement;
+  const cursorState = {
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+    energy: 0.18,
+    scale: 0.82,
+  };
+  const cursorMoods = {
+    hero: ['34, 211, 238', '124, 92, 255', '91, 139, 255'],
+    stack: ['59, 130, 246', '34, 211, 238', '124, 92, 255'],
+    projects: ['124, 92, 255', '34, 211, 238', '244, 114, 182'],
+    contact: ['34, 211, 238', '34, 197, 94', '91, 139, 255'],
+  };
+  const cursorMoodSections = [
+    ['#home', 'hero'],
+    ['#skills', 'stack'],
+    ['#projects', 'projects'],
+    ['#contact', 'contact'],
+  ];
+  let lastParticleAt = 0;
+  let idleTimer = null;
+  let currentCursorMood = 'hero';
+
+  function applyCursorMood(mode) {
+    if (mode === currentCursorMood) return;
+    currentCursorMood = mode;
+    const mood = cursorMoods[mode] || cursorMoods.hero;
+    root.style.setProperty('--cursor-rgb', mood[0]);
+    root.style.setProperty('--cursor-rgb-2', mood[1]);
+    root.style.setProperty('--cursor-rgb-3', mood[2]);
+  }
+
+  function updateCursorMoodByScroll(y = window.scrollY) {
+    let nextMood = 'hero';
+    cursorMoodSections.forEach(([selector, mood]) => {
+      const section = document.querySelector(selector);
+      if (section && y >= section.offsetTop - window.innerHeight * 0.42) nextMood = mood;
+    });
+    applyCursorMood(nextMood);
+  }
+
+  function paintCursor() {
+    root.style.setProperty('--cursor-x', `${cursorState.x}px`);
+    root.style.setProperty('--cursor-y', `${cursorState.y}px`);
+    root.style.setProperty('--cursor-energy', cursorState.energy.toFixed(3));
+    if (spot) {
+      spot.style.transform = `translate(${cursorState.x - 360}px, ${cursorState.y - 360}px) scale(${cursorState.scale})`;
+    }
+  }
+
+  function setCursorEnergy(energy, duration = 420) {
+    const nextEnergy = clamp(energy, 0.12, 1);
+    cursorState.energy = nextEnergy;
+    cursorState.scale = 0.72 + nextEnergy * 0.42;
+    paintCursor();
+
+    if (animeReady && spot) {
+      runAnime({
+        targets: spot,
+        opacity: [parseFloat(getComputedStyle(spot).opacity) || 0, Math.min(0.92, 0.7 + nextEnergy * 0.2)],
+        duration,
+        easing: 'outCubic',
+      });
+    }
+  }
+
+  function spawnCursorParticle(x, y) {
+    if (!particleLayer || !animeReady) return;
+    const now = performance.now();
+    if (now - lastParticleAt < 34) return;
+    lastParticleAt = now;
+
+    const particle = document.createElement('span');
+    particle.className = 'cursor-particle';
+    const colors = [
+      getComputedStyle(root).getPropertyValue('--cursor-rgb').trim() || '34, 211, 238',
+      getComputedStyle(root).getPropertyValue('--cursor-rgb-2').trim() || '124, 92, 255',
+      getComputedStyle(root).getPropertyValue('--cursor-rgb-3').trim() || '91, 139, 255',
+    ];
+    const size = 4 + Math.random() * 5;
+    particle.style.setProperty('--p-size', `${size}px`);
+    particle.style.setProperty('--p-rgb', colors[Math.floor(Math.random() * colors.length)]);
+    particle.style.left = `${x}px`;
+    particle.style.top = `${y}px`;
+    particleLayer.appendChild(particle);
+
+    runAnime({
+      targets: particle,
+      translateX: [0, (Math.random() - 0.5) * 48],
+      translateY: [0, (Math.random() - 0.5) * 48],
+      opacity: [0.9, 0],
+      scale: [0.9, 0],
+      duration: 640,
+      easing: 'outCubic',
+    });
+    setTimeout(() => particle.remove(), 700);
+  }
+
+  function setupCursorMoodObserver() {
+    if (!('IntersectionObserver' in window) || reduceMotion) return;
+    const moodObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        applyCursorMood(entry.target.getAttribute('data-cursor-mood') || 'hero');
+      });
+    }, { threshold: 0.28, rootMargin: '-20% 0px -45% 0px' });
+
+    cursorMoodSections.forEach(([selector, mood]) => {
+      const section = document.querySelector(selector);
+      if (!section) return;
+      section.setAttribute('data-cursor-mood', mood);
+      moodObserver.observe(section);
+    });
+    retainedObservers.push(moodObserver);
+  }
+
+  applyCursorMood('hero');
+  paintCursor();
+  setupCursorMoodObserver();
+  window.__cursorMoodReady = true;
+  updateCursorMoodByScroll();
+
   if (spot && allowPointerEffects) {
     window.addEventListener('mousemove', (e) => {
-      document.documentElement.style.setProperty('--cursor-x', `${e.clientX}px`);
-      document.documentElement.style.setProperty('--cursor-y', `${e.clientY}px`);
-      if (!spotActive) {
-        spot.classList.add('is-active');
-        spotActive = true;
-      }
+      if (!spot.classList.contains('is-active')) spot.classList.add('is-active');
+      spot.classList.remove('is-idle');
+      window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(() => {
+        spot.classList.add('is-idle');
+        setCursorEnergy(0.16, 900);
+      }, 950);
 
       if (animeReady) {
         runAnime({
-          targets: spotlightState,
-          x: e.clientX,
-          y: e.clientY,
-          duration: 420,
+          targets: cursorState,
+          x: [cursorState.x, e.clientX],
+          y: [cursorState.y, e.clientY],
+          energy: [cursorState.energy, Math.max(cursorState.energy, 0.34)],
+          scale: [cursorState.scale, Math.max(cursorState.scale, 0.9)],
+          duration: 260,
           easing: 'outQuad',
-          onUpdate: () => {
-            spot.style.transform = `translate(${spotlightState.x - 300}px, ${spotlightState.y - 300}px)`;
-          },
+          onUpdate: paintCursor,
         });
       } else {
-        spot.style.transform = `translate(${e.clientX - 300}px, ${e.clientY - 300}px)`;
+        cursorState.x = e.clientX;
+        cursorState.y = e.clientY;
+        cursorState.energy = 0.34;
+        cursorState.scale = 0.9;
+        paintCursor();
       }
-    });
+      spawnCursorParticle(e.clientX, e.clientY);
+    }, { passive: true });
     window.addEventListener('mouseleave', () => {
       spot.classList.remove('is-active');
-      spotActive = false;
+      setCursorEnergy(0.12, 500);
+    });
+
+    const energyTargets = document.querySelectorAll(
+      '.btn, .social-chip, .nav__links a, [data-project], .learning-card, .chip, .story-chip, .project-flow, .tech-drag-badge, .portfolio-runtime-badge, .contact__row'
+    );
+    energyTargets.forEach((target) => {
+      target.classList.add('energy-target');
+      target.addEventListener('mouseenter', () => {
+        target.classList.add('is-energy-hover');
+        setCursorEnergy(0.95, 240);
+        if (animeReady) {
+          runAnime({
+            targets: target,
+            scale: target.matches('[data-project], .learning-card') ? 1.012 : 1.045,
+            translateY: target.matches('[data-project], .learning-card') ? -4 : -2,
+            duration: 260,
+            easing: 'outCubic',
+          });
+        }
+      });
+      target.addEventListener('mouseleave', () => {
+        target.classList.remove('is-energy-hover');
+        setCursorEnergy(0.32, 420);
+        if (animeReady) {
+          runAnime({
+            targets: target,
+            scale: 1,
+            translateY: 0,
+            duration: 420,
+            easing: 'outElastic(1, .55)',
+          });
+        }
+      });
     });
   }
 
