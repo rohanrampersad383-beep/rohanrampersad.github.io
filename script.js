@@ -186,37 +186,164 @@
       });
     });
 
-    if (!motionPath || !motionDot) return;
-    if (typeof animeApi.createMotionPath === 'function') {
-      motionDot.setAttribute('cx', '0');
-      motionDot.setAttribute('cy', '0');
-      const motion = animeApi.createMotionPath(motionPath);
-      runAnime({
-        targets: motionDot,
-        translateX: motion.translateX,
-        translateY: motion.translateY,
-        rotate: motion.rotate,
-        delay: 1500,
-        duration: 5200,
-        loop: true,
-        easing: 'linear',
+    if (motionDot) motionDot.style.display = 'none';
+  }
+  setupHeroSvgShowcase();
+
+  /* ---------- hero convergence into RR core ---------- */
+  function setupHeroConvergence() {
+    const hero = document.querySelector('.hero');
+    const avatar = document.querySelector('.hero__avatar');
+    const convergence = document.getElementById('heroConvergence');
+    const paths = Array.from(document.querySelectorAll('[data-convergence-path]'));
+    const particles = Array.from(document.querySelectorAll('[data-convergence-particle]'));
+    const pulse = document.querySelector('.hero__avatar-pulse');
+    if (!hero || !avatar || !convergence || !paths.length) return;
+    let convergenceActivated = false;
+
+    const drawConvergencePaths = () => {
+      const heroRect = hero.getBoundingClientRect();
+      const avatarRect = avatar.getBoundingClientRect();
+      const width = Math.max(1, Math.round(heroRect.width));
+      const height = Math.max(1, Math.round(Math.min(heroRect.height, window.innerHeight * 0.92)));
+      const target = {
+        x: avatarRect.left - heroRect.left + avatarRect.width / 2,
+        y: avatarRect.top - heroRect.top + avatarRect.height / 2,
+      };
+      convergence.setAttribute('viewBox', `0 0 ${width} ${height}`);
+
+      const starts = [
+        { x: width * 0.08, y: height * 0.16, c1x: width * 0.03, c1y: height * 0.32, c2x: target.x - 92, c2y: target.y - 132 },
+        { x: width * 0.88, y: height * 0.2, c1x: width * 0.86, c1y: height * 0.58, c2x: target.x + 260, c2y: target.y + 118 },
+        { x: width * 0.76, y: height * 0.76, c1x: width * 0.56, c1y: height * 0.78, c2x: target.x + 188, c2y: target.y + 92 },
+        { x: width * 0.28, y: height * 0.08, c1x: width * 0.18, c1y: height * 0.24, c2x: target.x - 126, c2y: target.y - 86 },
+      ];
+
+      paths.forEach((path, index) => {
+        const route = starts[index] || starts[0];
+        const d = `M${route.x.toFixed(1)} ${route.y.toFixed(1)} C${route.c1x.toFixed(1)} ${route.c1y.toFixed(1)} ${route.c2x.toFixed(1)} ${route.c2y.toFixed(1)} ${target.x.toFixed(1)} ${target.y.toFixed(1)}`;
+        path.setAttribute('d', d);
+        const length = path.getTotalLength();
+        path.style.strokeDasharray = length;
+        path.style.strokeDashoffset = reduceMotion || convergenceActivated ? '0' : length;
+        if (particles[index]) {
+          const startPoint = path.getPointAtLength(0);
+          particles[index].setAttribute('cx', startPoint.x);
+          particles[index].setAttribute('cy', startPoint.y);
+          particles[index].style.opacity = reduceMotion ? '0' : '0';
+          particles[index].style.transform = 'none';
+        }
       });
+    };
+
+    const powerUpAvatar = () => {
+      avatar.classList.add('is-powered');
+      if (!animeReady) return;
+      runAnime({
+        targets: avatar,
+        scale: [1, 1.16, 1],
+        duration: 900,
+        easing: 'outElastic(1, .55)',
+      });
+      if (pulse) {
+        runAnime({
+          targets: pulse,
+          opacity: [0, .95, 0],
+          scale: [0.8, 2.35],
+          duration: 980,
+          easing: 'outCubic',
+        });
+      }
+      window.setTimeout(() => {
+        runAnime({
+          targets: avatar,
+          boxShadow: [
+            '0 0 22px rgba(34,211,238,.78), 0 0 62px rgba(124,92,255,.42), 0 0 94px rgba(244,114,182,.18)',
+            '0 0 16px rgba(34,211,238,.56), 0 0 46px rgba(124,92,255,.24), 0 0 68px rgba(244,114,182,.1)',
+          ],
+          direction: 'alternate',
+          loop: true,
+          duration: 28000,
+          easing: 'inOutSine',
+        });
+      }, 1500);
+    };
+
+    drawConvergencePaths();
+    window.addEventListener('resize', () => {
+      drawConvergencePaths();
+    }, { passive: true });
+
+    if (reduceMotion || !animeReady || window.innerWidth <= 640) {
+      powerUpAvatar();
       return;
     }
 
-    const length = motionPath.getTotalLength();
-    let start = null;
-    const moveDot = (time) => {
-      if (start === null) start = time;
-      const progress = ((time - start) % 5200) / 5200;
-      const point = motionPath.getPointAtLength(progress * length);
-      motionDot.setAttribute('cx', point.x);
-      motionDot.setAttribute('cy', point.y);
-      requestAnimationFrame(moveDot);
-    };
-    requestAnimationFrame(moveDot);
+    const arrivalAt = 3350;
+    const baseDelay = 760;
+    const stagger = 130;
+    let completedParticles = 0;
+    convergenceActivated = true;
+
+    paths.forEach((path, index) => {
+      const delay = baseDelay + index * stagger;
+      const duration = Math.max(1500, arrivalAt - delay);
+      runAnime({
+        targets: path,
+        strokeDashoffset: [path.getTotalLength(), 0],
+        opacity: [0.1, 0.68, 0.24],
+        delay,
+        duration,
+        easing: 'inOutSine',
+      });
+
+      const particle = particles[index];
+      if (!particle) return;
+      if (typeof animeApi.createMotionPath === 'function') {
+        particle.setAttribute('cx', '0');
+        particle.setAttribute('cy', '0');
+        const motion = animeApi.createMotionPath(path);
+        runAnime({
+          targets: particle,
+          translateX: motion.translateX,
+          translateY: motion.translateY,
+          rotate: motion.rotate,
+          opacity: [0, 1, 1, 0],
+          scale: [0.65, 1.18, 1],
+          delay,
+          duration,
+          easing: 'inOutSine',
+          onComplete: () => {
+            completedParticles += 1;
+            if (completedParticles === particles.length) powerUpAvatar();
+          },
+        });
+        return;
+      }
+
+      const length = path.getTotalLength();
+      const startTime = performance.now() + delay;
+      const fallbackMove = (time) => {
+        if (time < startTime) {
+          requestAnimationFrame(fallbackMove);
+          return;
+        }
+        const progress = clamp((time - startTime) / duration, 0, 1);
+        const point = path.getPointAtLength(progress * length);
+        particle.setAttribute('cx', point.x);
+        particle.setAttribute('cy', point.y);
+        particle.style.opacity = progress > .04 && progress < .96 ? '1' : '0';
+        if (progress < 1) {
+          requestAnimationFrame(fallbackMove);
+          return;
+        }
+        completedParticles += 1;
+        if (completedParticles === particles.length) powerUpAvatar();
+      };
+      requestAnimationFrame(fallbackMove);
+    });
   }
-  setupHeroSvgShowcase();
+  setupHeroConvergence();
 
   /* ---------- signature hero orb and network animation ---------- */
   function setupSignatureHeroEffects() {

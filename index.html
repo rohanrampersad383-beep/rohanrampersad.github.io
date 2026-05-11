@@ -32,6 +32,24 @@
   <div class="atmos__orb atmos__orb--cyan"></div>
   <div class="atmos__orb atmos__orb--pink"></div>
   <div class="atmos__scan"></div>
+  <svg class="atmos__data-lines" viewBox="0 0 1400 1000" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="dataLineCyan" x1="0" x2="1" y1="0" y2="1">
+        <stop offset="0%" stop-color="#22d3ee" stop-opacity="0"/>
+        <stop offset="45%" stop-color="#22d3ee" stop-opacity=".34"/>
+        <stop offset="100%" stop-color="#7c5cff" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="dataLineViolet" x1="1" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#7c5cff" stop-opacity="0"/>
+        <stop offset="50%" stop-color="#a78bfa" stop-opacity=".28"/>
+        <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <path class="data-route data-route--a" d="M-80 210C180 120 370 300 610 230S1010 80 1480 170"/>
+    <path class="data-route data-route--b" d="M-90 720C250 650 390 790 690 680S1020 480 1490 590"/>
+    <path class="data-route data-route--c" d="M230 -70C310 180 210 330 360 520S650 780 560 1080"/>
+    <path class="data-route data-route--d" d="M1040 -80C980 180 1150 320 1010 540S760 760 890 1080"/>
+  </svg>
 </div>
 
 <div class="noise-overlay" aria-hidden="true"></div>
@@ -159,6 +177,40 @@
     <path id="heroMotionPath" class="anime-motion-path" d="M100 585C260 510 400 560 525 455C645 355 760 400 900 280" />
     <circle id="heroMotionDot" class="anime-motion-dot" r="5" cx="100" cy="585" />
   </svg>
+  <svg class="hero-convergence" id="heroConvergence" viewBox="0 0 1200 760" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <filter id="convergenceGlow" x="-40%" y="-40%" width="180%" height="180%">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <linearGradient id="convergeCyan" x1="0" x2="1" y1="0" y2="1">
+        <stop offset="0%" stop-color="#22d3ee" stop-opacity="0"/>
+        <stop offset="58%" stop-color="#22d3ee" stop-opacity=".85"/>
+        <stop offset="100%" stop-color="#d9fbff" stop-opacity=".92"/>
+      </linearGradient>
+      <linearGradient id="convergeViolet" x1="1" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#7c5cff" stop-opacity="0"/>
+        <stop offset="58%" stop-color="#a78bfa" stop-opacity=".78"/>
+        <stop offset="100%" stop-color="#22d3ee" stop-opacity=".9"/>
+      </linearGradient>
+      <linearGradient id="convergePink" x1="0" x2="1" y1="1" y2="0">
+        <stop offset="0%" stop-color="#f472b6" stop-opacity="0"/>
+        <stop offset="60%" stop-color="#f472b6" stop-opacity=".48"/>
+        <stop offset="100%" stop-color="#22d3ee" stop-opacity=".9"/>
+      </linearGradient>
+    </defs>
+    <path class="convergence-path convergence-path--cyan" data-convergence-path="0"/>
+    <path class="convergence-path convergence-path--violet" data-convergence-path="1"/>
+    <path class="convergence-path convergence-path--blue" data-convergence-path="2"/>
+    <path class="convergence-path convergence-path--pink" data-convergence-path="3"/>
+    <circle class="convergence-particle convergence-particle--cyan" data-convergence-particle="0" r="4"/>
+    <circle class="convergence-particle convergence-particle--violet" data-convergence-particle="1" r="4"/>
+    <circle class="convergence-particle convergence-particle--blue" data-convergence-particle="2" r="3.5"/>
+    <circle class="convergence-particle convergence-particle--pink" data-convergence-particle="3" r="3.5"/>
+  </svg>
 
   <div class="container hero__grid">
 
@@ -210,6 +262,7 @@
           <span class="hero__avatar-arc hero__avatar-arc--1"></span>
           <span class="hero__avatar-arc hero__avatar-arc--2"></span>
           <span class="hero__avatar-ring"></span>
+          <span class="hero__avatar-pulse"></span>
           <span class="hero__avatar-init">RR</span>
         </div>
         <div class="hero__meta-text">
