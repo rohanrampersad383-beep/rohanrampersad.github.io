@@ -38,6 +38,10 @@
 
 <!-- Mouse-follow spotlight -->
 <div class="spotlight cursor-spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="anime-active-badge" aria-hidden="true">
+  <span class="anime-active-badge__dot"></span>
+  Anime.js active
+</div>
 
 <!-- ============================================================
      NAVBAR
@@ -123,6 +127,13 @@
         <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
       </linearGradient>
     </defs>
+  </svg>
+  <svg class="hero-anime-lines" viewBox="0 0 1000 700" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path class="anime-draw-path anime-draw-path--primary" d="M70 520C210 410 310 470 420 360S640 250 830 330" />
+    <path class="anime-draw-path anime-draw-path--secondary" d="M145 165H290C345 165 365 210 365 250V315C365 360 405 390 455 390H710" />
+    <path class="anime-draw-path anime-draw-path--tertiary" d="M860 115V230C860 282 822 312 774 312H690C640 312 612 342 612 386V458" />
+    <path id="heroMotionPath" class="anime-motion-path" d="M100 585C260 510 400 560 525 455C645 355 760 400 900 280" />
+    <circle id="heroMotionDot" class="anime-motion-dot" r="5" cx="100" cy="585" />
   </svg>
 
   <div class="container hero__grid">
@@ -459,6 +470,22 @@
         <p>
           I focus on practical systems: clean interfaces, reliable data, and workflows that make technical work easier.
         </p>
+      </div>
+    </div>
+
+    <div class="tech-orbit glass-strong reveal" data-tech-lab>
+      <div class="tech-orbit__copy">
+        <span class="eyebrow eyebrow--mini">Interactive Stack</span>
+        <h3>Drag the badges around the lab.</h3>
+        <p>A lightweight interaction layer for the tools I use across web, database, cloud, and AI-focused projects.</p>
+      </div>
+      <div class="tech-orbit__stage" aria-label="Interactive draggable technology badges">
+        <button class="tech-drag-badge" type="button" data-tech="React">React</button>
+        <button class="tech-drag-badge" type="button" data-tech="Next.js">Next.js</button>
+        <button class="tech-drag-badge" type="button" data-tech="PHP">PHP</button>
+        <button class="tech-drag-badge" type="button" data-tech="MySQL">MySQL</button>
+        <button class="tech-drag-badge" type="button" data-tech="Python">Python</button>
+        <button class="tech-drag-badge" type="button" data-tech="AI">AI</button>
       </div>
     </div>
   </div>

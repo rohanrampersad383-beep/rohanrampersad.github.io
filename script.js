@@ -18,6 +18,7 @@
     const { targets, ...params } = config;
     return animeApi.animate(targets, params);
   };
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
   /* ---------- year ---------- */
   const yr = document.getElementById('yr');
@@ -81,34 +82,103 @@
   function runHeroIntro() {
     if (!animeReady) return;
 
-    const introTargets = document.querySelectorAll(
-      '.hero__badges .pill, .hero__title .reveal-line, .hero__meta, .hero__cta .btn, .hero__socials > *, .hero__strip .strip'
-    );
+    const badgeTargets = document.querySelectorAll('.hero__badges .pill');
+    const headlineTargets = document.querySelectorAll('.hero__title .reveal-line');
+    const introTargets = document.querySelectorAll('.hero__meta');
+    const ctaTargets = document.querySelectorAll('.hero__cta .btn, .hero__socials > *');
+    const stripTargets = document.querySelectorAll('.hero__strip .strip');
     const visualTargets = document.querySelectorAll('.hero-browser-shell, .hero__cluster .float');
+    const activeBadge = document.querySelector('.anime-active-badge');
+    const stagedTargets = [
+      ...badgeTargets,
+      ...headlineTargets,
+      ...introTargets,
+      ...ctaTargets,
+      ...stripTargets,
+    ];
 
-    animeApi.set(introTargets, { opacity: 0, translateY: 24 });
+    animeApi.set(stagedTargets, { opacity: 0, translateY: 24 });
     animeApi.set(visualTargets, { opacity: 0, translateY: 28, scale: 0.975 });
+    if (activeBadge) animeApi.set(activeBadge, { opacity: 0, translateY: 10, scale: 0.94 });
+
+    if (typeof animeApi.createTimeline === 'function') {
+      const heroTl = animeApi.createTimeline({ defaults: { easing: 'outCubic' } });
+      heroTl
+        .add(activeBadge, { opacity: [0, 1], translateY: [10, 0], scale: [0.94, 1], duration: 520 }, 0)
+        .add(badgeTargets, { opacity: [0, 1], translateY: [22, 0], delay: animeApi.stagger(70), duration: 640 }, 80)
+        .add(headlineTargets, { opacity: [0, 1], translateY: [36, 0], delay: animeApi.stagger(110), duration: 820, easing: 'outExpo' }, 180)
+        .add(introTargets, { opacity: [0, 1], translateY: [24, 0], duration: 720 }, 540)
+        .add(visualTargets, { opacity: [0, 1], translateY: [34, 0], scale: [0.975, 1], delay: animeApi.stagger(95), duration: 920, easing: 'outExpo' }, 360)
+        .add(ctaTargets, { opacity: [0, 1], translateY: [20, 0], delay: animeApi.stagger(55), duration: 620 }, 720)
+        .add(stripTargets, { opacity: [0, 1], translateY: [18, 0], delay: animeApi.stagger(80), duration: 680 }, 900);
+      return;
+    }
 
     runAnime({
-      targets: introTargets,
+      targets: [...stagedTargets, ...visualTargets],
       opacity: [0, 1],
       translateY: [24, 0],
       delay: animeApi.stagger(72, { start: 80 }),
       duration: 900,
       easing: 'outCubic',
     });
-
-    runAnime({
-      targets: visualTargets,
-      opacity: [0, 1],
-      translateY: [34, 0],
-      scale: [0.975, 1],
-      delay: animeApi.stagger(110, { start: 360 }),
-      duration: 950,
-      easing: 'outExpo',
-    });
   }
   runHeroIntro();
+
+  /* ---------- Anime.js SVG line drawing and motion path accent ---------- */
+  function setupHeroSvgShowcase() {
+    const drawPaths = Array.from(document.querySelectorAll('.anime-draw-path, .anime-motion-path'));
+    const motionPath = document.getElementById('heroMotionPath');
+    const motionDot = document.getElementById('heroMotionDot');
+    if (!drawPaths.length || !animeReady) return;
+
+    drawPaths.forEach((path) => {
+      const length = path.getTotalLength();
+      path.style.strokeDasharray = length;
+      path.style.strokeDashoffset = length;
+    });
+
+    drawPaths.forEach((path, index) => {
+      runAnime({
+        targets: path,
+        strokeDashoffset: [path.getTotalLength(), 0],
+        delay: 980 + index * 180,
+        duration: 1800,
+        easing: 'inOutSine',
+      });
+    });
+
+    if (!motionPath || !motionDot) return;
+    if (typeof animeApi.createMotionPath === 'function') {
+      motionDot.setAttribute('cx', '0');
+      motionDot.setAttribute('cy', '0');
+      const motion = animeApi.createMotionPath(motionPath);
+      runAnime({
+        targets: motionDot,
+        translateX: motion.translateX,
+        translateY: motion.translateY,
+        rotate: motion.rotate,
+        delay: 1500,
+        duration: 5200,
+        loop: true,
+        easing: 'linear',
+      });
+      return;
+    }
+
+    const length = motionPath.getTotalLength();
+    let start = null;
+    const moveDot = (time) => {
+      if (start === null) start = time;
+      const progress = ((time - start) % 5200) / 5200;
+      const point = motionPath.getPointAtLength(progress * length);
+      motionDot.setAttribute('cx', point.x);
+      motionDot.setAttribute('cy', point.y);
+      requestAnimationFrame(moveDot);
+    };
+    requestAnimationFrame(moveDot);
+  }
+  setupHeroSvgShowcase();
 
   /* ---------- terminal boot sequence ---------- */
   function runTerminalSequence() {
@@ -217,6 +287,107 @@
     revealItems.forEach((el) => el.classList.add('is-visible'));
   }
 
+  /* ---------- advanced skill grid wave ---------- */
+  function setupSkillWave() {
+    const skillsSection = document.getElementById('skills');
+    if (!skillsSection || !animeReady || reduceMotion) return;
+
+    const waveTargets = skillsSection.querySelectorAll('.bento__cell, .tech-orbit');
+    const chipTargets = skillsSection.querySelectorAll('.chip, .tech-drag-badge');
+    animeApi.set(waveTargets, { opacity: 0.001, translateY: 34, scale: 0.97 });
+    animeApi.set(chipTargets, { opacity: 0.001, translateY: 18, scale: 0.9 });
+
+    const playWave = () => {
+      runAnime({
+        targets: waveTargets,
+        opacity: [0.001, 1],
+        translateY: [34, 0],
+        scale: [0.97, 1],
+        delay: animeApi.stagger(95, { grid: [3, 2], from: 'center' }),
+        duration: 760,
+        easing: 'outExpo',
+      });
+
+      runAnime({
+        targets: chipTargets,
+        opacity: [0.001, 1],
+        translateY: [18, 0],
+        scale: [0.9, 1],
+        delay: animeApi.stagger(24, { grid: [8, 6], from: 'center', start: 220 }),
+        duration: 520,
+        easing: 'outCubic',
+      });
+    };
+
+    if ('IntersectionObserver' in window) {
+      const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          playWave();
+          skillObserver.disconnect();
+        });
+      }, { threshold: 0.18 });
+      skillObserver.observe(skillsSection);
+    } else {
+      playWave();
+    }
+
+    if (!allowPointerEffects) return;
+    chipTargets.forEach((chip) => {
+      if (chip.classList.contains('tech-drag-badge')) return;
+      chip.addEventListener('mouseenter', () => {
+        runAnime({
+          targets: chip,
+          translateY: -5,
+          scale: 1.055,
+          duration: 260,
+          easing: 'outCubic',
+        });
+      });
+      chip.addEventListener('mouseleave', () => {
+        runAnime({
+          targets: chip,
+          translateY: 0,
+          scale: 1,
+          duration: 420,
+          easing: 'outElastic(1, .55)',
+        });
+      });
+    });
+  }
+  setupSkillWave();
+
+  /* ---------- scroll-synced divider fill ---------- */
+  function setupScrollDividerFill() {
+    const dividers = Array.from(document.querySelectorAll('.bleed-divider'));
+    if (!dividers.length || reduceMotion) {
+      dividers.forEach((divider) => divider.style.setProperty('--scroll-fill', '100%'));
+      return;
+    }
+
+    let ticking = false;
+    const updateDividerFill = () => {
+      const viewport = window.innerHeight || 1;
+      dividers.forEach((divider) => {
+        const rect = divider.getBoundingClientRect();
+        const progress = clamp((viewport - rect.top) / (viewport + rect.height + 180), 0, 1);
+        divider.style.setProperty('--scroll-fill', `${Math.round(progress * 100)}%`);
+      });
+      ticking = false;
+    };
+
+    const requestUpdate = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateDividerFill);
+    };
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    requestUpdate();
+  }
+  setupScrollDividerFill();
+
   /* ---------- mouse-follow spotlight ---------- */
   const spot = document.getElementById('spotlight');
   let spotActive = false;
@@ -270,9 +441,23 @@
       card.appendChild(shine);
     }
 
+    let frame = card.querySelector('.case__anime-frame');
+    if (!frame) {
+      frame = document.createElement('span');
+      frame.className = 'case__anime-frame';
+      frame.innerHTML = [
+        '<span class="case__frame-glint case__frame-glint--top"></span>',
+        '<span class="case__frame-glint case__frame-glint--right"></span>',
+        '<span class="case__frame-glint case__frame-glint--bottom"></span>',
+        '<span class="case__frame-glint case__frame-glint--left"></span>',
+      ].join('');
+      card.appendChild(frame);
+    }
+
     if (!allowPointerEffects || !animeReady) return;
 
     card.addEventListener('mouseenter', () => {
+      card.classList.add('is-frame-active');
       runAnime({
         targets: card,
         translateY: -8,
@@ -287,9 +472,32 @@
         duration: 760,
         easing: 'outCubic',
       });
+      runAnime({
+        targets: frame.querySelector('.case__frame-glint--top'),
+        translateX: ['0%', '380%'],
+        opacity: [0, 1, 0],
+        duration: 760,
+        easing: 'outCubic',
+      });
+      runAnime({
+        targets: frame.querySelector('.case__frame-glint--bottom'),
+        translateX: ['360%', '-20%'],
+        opacity: [0, 0.85, 0],
+        duration: 760,
+        easing: 'outCubic',
+      });
+      runAnime({
+        targets: frame.querySelectorAll('.case__frame-glint--left, .case__frame-glint--right'),
+        translateY: ['0%', '330%'],
+        opacity: [0, 0.75, 0],
+        delay: animeApi.stagger(80),
+        duration: 720,
+        easing: 'outCubic',
+      });
     });
 
     card.addEventListener('mouseleave', () => {
+      card.classList.remove('is-frame-active');
       runAnime({
         targets: card,
         translateY: 0,
@@ -299,6 +507,114 @@
       });
     });
   });
+
+  /* ---------- draggable tech badges ---------- */
+  function setupDraggableTechBadges() {
+    const stage = document.querySelector('.tech-orbit__stage');
+    const badges = Array.from(document.querySelectorAll('.tech-drag-badge'));
+    if (!stage || !badges.length || !allowPointerEffects) return;
+
+    if (typeof animeApi?.createDraggable === 'function') {
+      try {
+        badges.forEach((badge) => {
+          animeApi.createDraggable(badge, {
+            container: stage,
+            containerPadding: 8,
+            releaseStiffness: 46,
+            releaseDamping: 13,
+            releaseEase: 'out(3)',
+            onGrab: () => badge.classList.add('is-dragging'),
+            onRelease: () => badge.classList.remove('is-dragging'),
+          });
+        });
+        return;
+      } catch (error) {
+        console.warn('Anime.js Draggable unavailable; using bounded pointer fallback.', error);
+      }
+    }
+
+    badges.forEach((badge) => {
+      let dragging = false;
+      let startX = 0;
+      let startY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      let bounds = null;
+
+      badge.addEventListener('pointerdown', (event) => {
+        dragging = true;
+        badge.classList.add('is-dragging');
+        badge.setPointerCapture?.(event.pointerId);
+        startX = event.clientX - currentX;
+        startY = event.clientY - currentY;
+
+        const stageRect = stage.getBoundingClientRect();
+        const badgeRect = badge.getBoundingClientRect();
+        bounds = {
+          minX: -(badgeRect.left - stageRect.left) + 8,
+          maxX: stageRect.right - badgeRect.right - 8,
+          minY: -(badgeRect.top - stageRect.top) + 8,
+          maxY: stageRect.bottom - badgeRect.bottom - 8,
+        };
+
+        if (animeReady) {
+          runAnime({
+            targets: badge,
+            scale: 1.08,
+            duration: 180,
+            easing: 'outCubic',
+          });
+        }
+      });
+
+      badge.addEventListener('pointermove', (event) => {
+        if (!dragging || !bounds) return;
+        currentX = clamp(event.clientX - startX, bounds.minX, bounds.maxX);
+        currentY = clamp(event.clientY - startY, bounds.minY, bounds.maxY);
+        badge.style.transform = `translate(${currentX}px, ${currentY}px) scale(1.08)`;
+      });
+
+      const release = (event) => {
+        if (!dragging) return;
+        dragging = false;
+        badge.classList.remove('is-dragging');
+        badge.releasePointerCapture?.(event.pointerId);
+
+        if (animeReady) {
+          runAnime({
+            targets: badge,
+            translateX: currentX,
+            translateY: currentY,
+            scale: [1.08, 1],
+            duration: 520,
+            easing: 'outElastic(1, .55)',
+          });
+        } else {
+          badge.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        }
+      };
+
+      badge.addEventListener('pointerup', release);
+      badge.addEventListener('pointercancel', release);
+      badge.addEventListener('dblclick', () => {
+        currentX = 0;
+        currentY = 0;
+        if (animeReady) {
+          runAnime({
+            targets: badge,
+            translateX: 0,
+            translateY: 0,
+            scale: 1,
+            duration: 580,
+            easing: 'outElastic(1, .55)',
+          });
+        } else {
+          badge.style.transform = '';
+        }
+      });
+    });
+  }
+  setupDraggableTechBadges();
 
   if (allowPointerEffects) {
     /* ---------- subtle tilt on tilt cards ---------- */
