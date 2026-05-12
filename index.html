@@ -338,16 +338,83 @@
 
     <!-- RIGHT — floating dashboard cluster -->
     <div class="hero__cluster">
-      <div class="hero-browser-shell glass-strong" data-tilt data-float="1">
+      <div class="hero-core-shell glass-strong" data-ai-core data-tilt data-float="1">
         <div class="frame-glow-ring"></div>
-        <div class="browser-frame">
-          <div class="window__bar">
+        <div class="ai-core-panel">
+          <div class="window__bar ai-core__bar">
             <span class="dotc dotc--r"></span><span class="dotc dotc--y"></span><span class="dotc dotc--g"></span>
-            <span class="window__url">ai-job-match-assistant.vercel.app/dashboard</span>
+            <span class="window__url">ai-matching-core.system</span>
             <span class="browser-live"><span class="pill__dot"></span>Live</span>
           </div>
           <div class="scan-line"></div>
-          <img src="assets/job-match/dashboard.png" alt="AI Job Match Assistant dashboard preview">
+          <div class="ai-core__stage">
+            <svg class="ai-core__paths" viewBox="0 0 620 460" fill="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="aiCorePathGradient" x1="0" y1="0" x2="620" y2="460" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#22d3ee" stop-opacity=".95" />
+                  <stop offset=".52" stop-color="#7c5cff" stop-opacity=".78" />
+                  <stop offset="1" stop-color="#f472b6" stop-opacity=".5" />
+                </linearGradient>
+                <filter id="aiCorePathGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <path id="aiCorePathResume" class="ai-core-path" data-core-path d="M106 100C168 98 214 130 252 182C272 210 288 224 310 230" />
+              <path id="aiCorePathParser" class="ai-core-path" data-core-path d="M488 92C426 104 394 128 370 174C352 206 336 224 310 230" />
+              <path id="aiCorePathScoring" class="ai-core-path" data-core-path d="M86 332C158 318 218 298 258 264C282 244 294 234 310 230" />
+              <path id="aiCorePathJobs" class="ai-core-path" data-core-path d="M522 328C456 316 410 294 372 264C344 242 326 232 310 230" />
+              <path id="aiCorePathMatches" class="ai-core-path ai-core-path--soft" data-core-path d="M310 70C304 122 304 164 310 230" />
+              <path id="aiCorePathDatabase" class="ai-core-path ai-core-path--soft" data-core-path d="M310 390C318 340 318 284 310 230" />
+              <circle class="ai-core-particle" data-core-particle data-path="#aiCorePathResume" r="4" cx="106" cy="100" />
+              <circle class="ai-core-particle ai-core-particle--violet" data-core-particle data-path="#aiCorePathParser" r="4" cx="488" cy="92" />
+              <circle class="ai-core-particle ai-core-particle--pink" data-core-particle data-path="#aiCorePathScoring" r="3.5" cx="86" cy="332" />
+              <circle class="ai-core-particle ai-core-particle--blue" data-core-particle data-path="#aiCorePathJobs" r="3.5" cx="522" cy="328" />
+            </svg>
+
+            <span class="ai-node ai-node--resume" data-core-node>Resume</span>
+            <span class="ai-node ai-node--parser" data-core-node>Parser</span>
+            <span class="ai-node ai-node--scoring" data-core-node>Scoring</span>
+            <span class="ai-node ai-node--jobs" data-core-node>Jobs</span>
+            <span class="ai-node ai-node--matches" data-core-node>Matches</span>
+            <span class="ai-node ai-node--database" data-core-node>Database</span>
+
+            <div class="ai-core__center" data-core-center>
+              <span class="ai-core__ripple"></span>
+              <svg class="ai-core__shape" viewBox="0 0 120 120" aria-hidden="true">
+                <defs>
+                  <linearGradient id="aiCoreShapeGradient" x1="20" y1="16" x2="102" y2="104" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#e0fbff" />
+                    <stop offset=".36" stop-color="#22d3ee" />
+                    <stop offset=".72" stop-color="#7c5cff" />
+                    <stop offset="1" stop-color="#f472b6" />
+                  </linearGradient>
+                  <filter id="aiCoreShapeGlow" x="-70%" y="-70%" width="240%" height="240%">
+                    <feGaussianBlur stdDeviation="7" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                <path id="aiCoreShape" class="ai-core__shape-path" d="M60 8C76 18 99 36 104 58C96 82 78 101 58 112C36 100 17 82 9 60C18 36 38 18 60 8Z" />
+                <path id="aiCoreMorphA" class="ai-core__morph-source" d="M60 8C76 18 99 36 104 58C96 82 78 101 58 112C36 100 17 82 9 60C18 36 38 18 60 8Z" />
+                <path id="aiCoreMorphB" class="ai-core__morph-source" d="M60 7C70 25 96 23 104 43C88 55 107 78 88 94C70 88 63 113 43 105C41 85 12 82 13 59C30 48 18 23 40 18C48 17 54 11 60 7Z" />
+                <path id="aiCoreMorphC" class="ai-core__morph-source" d="M60 10C82 15 101 31 111 54C100 77 83 99 61 110C40 101 20 84 10 62C20 38 38 18 60 10Z" />
+              </svg>
+              <strong>AI Match Core</strong>
+              <span><i class="pill__dot"></i> Live system visual</span>
+            </div>
+
+            <div class="ai-core-terminal" aria-label="AI matching status">
+              <span>&gt; parsing resume</span>
+              <span>&gt; scoring roles</span>
+              <span>&gt; match ready</span>
+            </div>
+          </div>
         </div>
       </div>
 

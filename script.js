@@ -140,7 +140,7 @@
     const introTargets = document.querySelectorAll('.hero__meta');
     const ctaTargets = document.querySelectorAll('.hero__cta .btn, .hero__socials > *');
     const stripTargets = document.querySelectorAll('.hero__strip .strip');
-    const visualTargets = document.querySelectorAll('.hero-browser-shell, .hero__cluster .float');
+    const visualTargets = document.querySelectorAll('.hero-browser-shell, .hero-core-shell, .hero__cluster .float');
     const runtimeBadge = document.querySelector('.portfolio-runtime-badge');
     const stagedTargets = [
       ...badgeTargets,
@@ -361,6 +361,173 @@
     });
   }
   setupHeroConvergence();
+
+  /* ---------- hero AI matching core visual ---------- */
+  function setupHeroMatchingCore() {
+    const shell = document.querySelector('[data-ai-core]');
+    if (!shell) return;
+
+    const coreShape = document.getElementById('aiCoreShape');
+    const morphTargets = ['#aiCoreMorphA', '#aiCoreMorphB', '#aiCoreMorphC'];
+    const paths = Array.from(shell.querySelectorAll('[data-core-path]'));
+    const particles = Array.from(shell.querySelectorAll('[data-core-particle]'));
+    const nodes = Array.from(shell.querySelectorAll('[data-core-node]'));
+    const center = shell.querySelector('[data-core-center]');
+    const ripple = shell.querySelector('.ai-core__ripple');
+    const terminalLines = shell.querySelectorAll('.ai-core-terminal span');
+    const loopingAnimations = [];
+    let morphTimer = null;
+    let pulseTimer = null;
+    let morphIndex = 0;
+
+    if (reduceMotion || !animeReady) {
+      paths.forEach((path) => {
+        path.style.strokeDasharray = 'none';
+        path.style.strokeDashoffset = 0;
+      });
+      particles.forEach((particle) => { particle.style.display = 'none'; });
+      return;
+    }
+
+    paths.forEach((path, index) => {
+      const length = path.getTotalLength();
+      path.style.strokeDasharray = length;
+      path.style.strokeDashoffset = length;
+      runAnime({
+        targets: path,
+        strokeDashoffset: [length, 0],
+        opacity: [0.08, path.classList.contains('ai-core-path--soft') ? 0.38 : 0.68],
+        delay: 650 + index * 95,
+        duration: 1500,
+        easing: 'inOutSine',
+      });
+    });
+
+    runFastAnime({
+      targets: nodes,
+      opacity: [0, 1],
+      translateY: [14, 0],
+      scale: [0.94, 1],
+      delay: animeApi.stagger(85, { start: 760 }),
+      duration: 720,
+      easing: 'outCubic',
+    });
+
+    runFastAnime({
+      targets: terminalLines,
+      opacity: [0, 1],
+      translateX: [-8, 0],
+      delay: animeApi.stagger(130, { start: 1120 }),
+      duration: 560,
+      easing: 'outCubic',
+    });
+
+    if (coreShape && animeApi.svg && typeof animeApi.svg.morphTo === 'function') {
+      const morphCore = () => {
+        morphIndex = (morphIndex + 1) % morphTargets.length;
+        runAnime({
+          targets: coreShape,
+          d: animeApi.svg.morphTo(morphTargets[morphIndex]),
+          duration: 1700,
+          easing: 'inOutSine',
+        });
+      };
+      morphTimer = setInterval(morphCore, 2100);
+      morphCore();
+    }
+
+    particles.forEach((particle, index) => {
+      const path = document.querySelector(particle.getAttribute('data-path'));
+      if (!path || typeof animeApi.createMotionPath !== 'function') return;
+      particle.setAttribute('cx', '0');
+      particle.setAttribute('cy', '0');
+      const motion = animeApi.createMotionPath(path);
+      const animation = runAnime({
+        targets: particle,
+        translateX: motion.translateX,
+        translateY: motion.translateY,
+        rotate: motion.rotate,
+        opacity: [0, 1, 1, 0],
+        scale: [0.65, 1.18, 0.82],
+        delay: 1500 + index * 280,
+        duration: 4200 + index * 180,
+        loop: true,
+        loopDelay: 1700,
+        easing: 'inOutSine',
+      });
+      if (animation) loopingAnimations.push(animation);
+    });
+
+    const matchPulse = () => {
+      const activeNodes = nodes
+        .filter((_, index) => index === 3 || index === 4 || index === Math.floor(Math.random() * nodes.length))
+        .slice(0, 2);
+      runFastAnime({
+        targets: shell.querySelector('.ai-core__shape'),
+        scale: [1, 1.045, 1],
+        duration: 900,
+        easing: 'inOutSine',
+      });
+      runFastAnime({
+        targets: ripple,
+        scale: [0.86, 1.24],
+        opacity: [0.38, 0],
+        duration: 920,
+        easing: 'outCubic',
+      });
+      runFastAnime({
+        targets: activeNodes,
+        translateY: [0, -4, 0],
+        boxShadow: [
+          '0 18px 45px -28px rgba(34,211,238,.72)',
+          '0 22px 60px -24px rgba(124,92,255,.95)',
+          '0 18px 45px -28px rgba(34,211,238,.72)',
+        ],
+        duration: 900,
+        easing: 'inOutSine',
+      });
+    };
+    pulseTimer = setInterval(matchPulse, 7200);
+    setTimeout(matchPulse, 2200);
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const visible = entry.isIntersecting;
+          loopingAnimations.forEach((animation) => {
+            if (visible && typeof animation.play === 'function') animation.play();
+            if (!visible && typeof animation.pause === 'function') animation.pause();
+          });
+          if (!visible) {
+            if (morphTimer) {
+              clearInterval(morphTimer);
+              morphTimer = null;
+            }
+            if (pulseTimer) {
+              clearInterval(pulseTimer);
+              pulseTimer = null;
+            }
+          } else {
+            if (!morphTimer && coreShape && animeApi.svg && typeof animeApi.svg.morphTo === 'function') {
+              morphTimer = setInterval(() => {
+                morphIndex = (morphIndex + 1) % morphTargets.length;
+                runAnime({
+                  targets: coreShape,
+                  d: animeApi.svg.morphTo(morphTargets[morphIndex]),
+                  duration: 1700,
+                  easing: 'inOutSine',
+                });
+              }, 2100);
+            }
+            if (!pulseTimer) pulseTimer = setInterval(matchPulse, 7200);
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(shell);
+      retainedObservers.push(observer);
+    }
+  }
+  setupHeroMatchingCore();
 
   /* ---------- lower-page data highway activation ---------- */
   function setupSectionCircuitAnimations() {
@@ -1488,7 +1655,7 @@
     /* ---------- hero floating cards: parallax on mouse ---------- */
     const cluster = document.querySelector('.hero__cluster');
     if (cluster) {
-      const floats = cluster.querySelectorAll('.float, .hero-browser-shell');
+      const floats = cluster.querySelectorAll('.float, .hero-browser-shell, .hero-core-shell');
       cluster.addEventListener('mousemove', (e) => {
         const r = cluster.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width - 0.5;
