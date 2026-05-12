@@ -968,12 +968,12 @@
     root.style.setProperty('--cursor-y', `${auraState.y}px`);
     root.style.setProperty('--cursor-energy', Math.max(cursorState.energy, auraState.energy).toFixed(3));
     if (spot) {
-      spot.style.transform = `translate(${auraState.x - 75}px, ${auraState.y - 75}px) scale(${auraState.scale})`;
+      spot.style.transform = `translate(${auraState.x - 64}px, ${auraState.y - 64}px) scale(${auraState.scale})`;
     }
     if (cursorShape) {
       const stretchX = 1 + cursorState.stretch * 0.24;
       const stretchY = 1 - cursorState.stretch * 0.1;
-      cursorShape.style.transform = `translate(${cursorState.x - 32}px, ${cursorState.y - 32}px) rotate(${cursorState.rotation}deg) scale(${cursorState.scale * stretchX}, ${cursorState.scale * stretchY})`;
+      cursorShape.style.transform = `translate(${cursorState.x - 26}px, ${cursorState.y - 26}px) rotate(${cursorState.rotation}deg) scale(${cursorState.scale * stretchX}, ${cursorState.scale * stretchY})`;
     }
   }
 
