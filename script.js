@@ -1900,7 +1900,7 @@
         signalPacket.removeAttribute('data-contact-packet');
         signalPacket.removeAttribute('data-route');
         signalPacket.classList.add('contact-signal__packet--burst');
-        signalPacket.setAttribute('r', key === 'github' ? '5' : '4.5');
+        signalPacket.setAttribute('r', '4.5');
         signalPacket.setAttribute('cx', '0');
         signalPacket.setAttribute('cy', '0');
         routesSvg?.appendChild(signalPacket);
@@ -1911,7 +1911,7 @@
           translateY: motion.translateY,
           opacity: [0, 1, 0],
           scale: [0.72, 1.38, 0.72],
-          duration: key === 'github' ? 980 : 880,
+          duration: 880,
           easing: 'inOutSine',
           onComplete: () => signalPacket.remove(),
         });
