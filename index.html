@@ -7,6 +7,15 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-TGXPTJ0FN5');
+  
+  function trackPortfolioClick(eventName, label) {
+  if (typeof gtag === "function") {
+    gtag("event", eventName, {
+      event_category: "portfolio_click",
+      event_label: label
+    });
+  }
+}
 </script><meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Rohan Rampersad | AI, Full-Stack & IT Portfolio</title>
