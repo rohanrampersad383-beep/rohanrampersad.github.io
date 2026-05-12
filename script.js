@@ -1008,7 +1008,7 @@
       skills.forEach((skill, index) => {
         const cats = (skill.getAttribute('data-skill-cats') || '').split(/\s+/);
         const isMatch = category === 'all' || cats.includes(category);
-        skill.classList.toggle('skill-dimmed', !isMatch);
+        skill.classList.toggle('skill-dimmed', category !== 'all' && !isMatch);
         skill.classList.toggle('skill-highlight', isMatch && category !== 'all');
 
         if (animeReady) {

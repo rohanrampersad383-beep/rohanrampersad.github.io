@@ -1034,7 +1034,7 @@ em { font-style: italic; color: var(--ink); }
 }
 .ai-node--resume { left: 8%; top: 15%; }
 .ai-node--parser { right: 9%; top: 14%; }
-.ai-node--scoring { left: 5%; bottom: 21%; }
+.ai-node--scoring { left: 5%; bottom: 25%; }
 .ai-node--jobs { right: 7%; bottom: 22%; }
 .ai-node--matches { left: 50%; top: 8%; translate: -50% 0; }
 .ai-node--database { left: 50%; bottom: 8%; translate: -50% 0; }
@@ -1169,7 +1169,6 @@ em { font-style: italic; color: var(--ink); }
 .float--ai       { top: 550px; right: -10px; width: 300px; animation-delay: -5s; z-index: 5; }
 .float--badge    { top: 620px; left: 110px; width: 250px; animation-delay: -2s; z-index: 5; }
 .float--orbit    { top: 0px; right: -50px; width: 190px; height: 190px; z-index: 3; animation-delay: -4s; }
->>>>>>> 21ac07c (Adjusted hero floating card positioning)
 
 .float__bar {
   display: flex; align-items: center; gap: 8px;
@@ -1546,7 +1545,7 @@ em { font-style: italic; color: var(--ink); }
   gap: 18px;
 }
 .bento__cell {
-  position: relative; overflow: hidden;
+  position: relative; overflow: hidden; isolation: isolate;
   padding: 22px;
   display: flex; flex-direction: column; gap: 14px;
   transition: transform .35s ease, border-color .35s ease;
