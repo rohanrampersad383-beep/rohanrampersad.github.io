@@ -1173,17 +1173,17 @@ em { font-style: italic; color: var(--ink); }
 }
 
 .float--metric {
-  top: 355px;
-  left: -70px;
-  width: 205px;
+  top: 375px;
+  left: -105px;
+  width: 185px;
   animation-delay: -3s;
   z-index: 5;
 }
 
 .float--ai {
-  top: 470px;
-  right: -48px;
-  width: 270px;
+  top: 500px;
+  right: -95px;
+  width: 245px;
   animation-delay: -5s;
   z-index: 5;
 }
@@ -1197,10 +1197,10 @@ em { font-style: italic; color: var(--ink); }
 }
 
 .float--orbit {
-  top: 48px;
-  right: -22px;
-  width: 160px;
-  height: 160px;
+  top: 42px;
+  right: -65px;
+  width: 145px;
+  height: 145px;
   z-index: 3;
   animation-delay: -4s;
 }
