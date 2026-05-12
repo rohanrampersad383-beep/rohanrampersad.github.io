@@ -1164,43 +1164,43 @@ em { font-style: italic; color: var(--ink); }
   50%     { transform: translateY(-10px); }
 }
 .float--terminal {
-  top: -28px;
-  left: -18px;
+  top: -38px;
+  left: -44px;
   width: 100%;
-  max-width: 390px;
+  max-width: 370px;
   animation-delay: -1s;
   z-index: 5;
 }
 
 .float--metric {
-  top: 360px;
-  left: -34px;
-  width: 220px;
+  top: 355px;
+  left: -70px;
+  width: 205px;
   animation-delay: -3s;
   z-index: 5;
 }
 
 .float--ai {
-  top: 430px;
-  right: -12px;
-  width: 290px;
+  top: 470px;
+  right: -48px;
+  width: 270px;
   animation-delay: -5s;
   z-index: 5;
 }
 
 .float--badge {
-  top: 610px;
-  left: 120px;
-  width: 220px;
+  top: 635px;
+  left: 110px;
+  width: 210px;
   animation-delay: -2s;
   z-index: 5;
 }
 
 .float--orbit {
-  top: 42px;
-  right: 10px;
-  width: 170px;
-  height: 170px;
+  top: 48px;
+  right: -22px;
+  width: 160px;
+  height: 160px;
   z-index: 3;
   animation-delay: -4s;
 }
