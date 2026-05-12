@@ -1358,7 +1358,7 @@
     });
 
     const energyTargets = document.querySelectorAll(
-      '.btn, .social-chip, .nav__links a, [data-project], .learning-card, .chip, .story-chip, .project-flow, .tech-drag-badge, .portfolio-runtime-badge, .contact__row, .contact-node'
+      '.btn, .social-chip, .nav__links a, [data-project], .learning-card, .chip, .story-chip, .project-flow, .tech-drag-badge, .portfolio-runtime-badge, .contact-node'
     );
     energyTargets.forEach((target) => {
       target.classList.add('energy-target');
@@ -1368,7 +1368,7 @@
         morphCursor('#cursorMorphB', 420);
         cursorState.stretch = Math.max(cursorState.stretch, 0.62);
         spawnCursorParticle(cursorState.x, cursorState.y, 5, 38);
-        if (animeReady) {
+        if (animeReady && !target.matches('.tech-drag-badge')) {
           runAnime({
             targets: target,
             scale: target.matches('[data-project], .learning-card') ? 1.012 : 1.045,
@@ -1381,7 +1381,7 @@
       target.addEventListener('mouseleave', () => {
         target.classList.remove('is-energy-hover');
         setCursorEnergy(0.28, 420);
-        if (animeReady) {
+        if (animeReady && !target.matches('.tech-drag-badge')) {
           runAnime({
             targets: target,
             scale: 1,
@@ -1495,13 +1495,13 @@
 
     badges.forEach((badge) => {
       let dragging = false;
-      let startX = 0;
-      let startY = 0;
       let currentX = 0;
       let currentY = 0;
       let bounds = null;
       let lastMove = { x: 0, y: 0, t: 0 };
       let velocity = { x: 0, y: 0 };
+      let baseCenterX = 0;
+      let baseCenterY = 0;
 
       const applyPosition = (x, y, scale = '') => {
         badge.style.translate = `${x}px ${y}px`;
@@ -1513,20 +1513,23 @@
         dragging = true;
         badge.classList.add('is-dragging');
         badge.setPointerCapture?.(event.pointerId);
-        startX = event.clientX - currentX;
-        startY = event.clientY - currentY;
         lastMove = { x: event.clientX, y: event.clientY, t: performance.now() };
         velocity = { x: 0, y: 0 };
 
         const stageRect = stage.getBoundingClientRect();
         const badgeRect = badge.getBoundingClientRect();
         const pad = 10;
+        baseCenterX = badgeRect.left + badgeRect.width / 2 - currentX;
+        baseCenterY = badgeRect.top + badgeRect.height / 2 - currentY;
         bounds = {
           minX: currentX - (badgeRect.left - stageRect.left) + pad,
           maxX: currentX + (stageRect.right - badgeRect.right) - pad,
           minY: currentY - (badgeRect.top - stageRect.top) + pad,
           maxY: currentY + (stageRect.bottom - badgeRect.bottom) - pad,
         };
+        currentX = clamp(event.clientX - baseCenterX, bounds.minX, bounds.maxX);
+        currentY = clamp(event.clientY - baseCenterY, bounds.minY, bounds.maxY);
+        applyPosition(currentX, currentY, '1.08');
 
         if (animeReady) {
           runAnime({
@@ -1548,8 +1551,8 @@
           y: (event.clientY - lastMove.y) / dt,
         };
         lastMove = { x: event.clientX, y: event.clientY, t: now };
-        currentX = clamp(event.clientX - startX, bounds.minX, bounds.maxX);
-        currentY = clamp(event.clientY - startY, bounds.minY, bounds.maxY);
+        currentX = clamp(event.clientX - baseCenterX, bounds.minX, bounds.maxX);
+        currentY = clamp(event.clientY - baseCenterY, bounds.minY, bounds.maxY);
         applyPosition(currentX, currentY, '1.08');
       });
 
@@ -1870,6 +1873,7 @@
       const node = signal.querySelector(`[data-contact-node="${key}"]`);
       const route = signal.querySelector(`[data-contact-route="${key}"]`);
       const packet = signal.querySelector(`[data-contact-packet="${key}"]`);
+      const routesSvg = signal.querySelector('.contact-signal__routes');
       node?.classList.add('is-contact-hot');
       route?.classList.add('is-contact-hot');
 
@@ -1880,16 +1884,25 @@
         easing: 'inOutSine',
       });
 
-      if (route && packet && typeof animeApi.createMotionPath === 'function') {
+      if (route && typeof animeApi.createMotionPath === 'function') {
+        const signalPacket = packet?.cloneNode(false) || document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        signalPacket.removeAttribute('data-contact-packet');
+        signalPacket.removeAttribute('data-route');
+        signalPacket.classList.add('contact-signal__packet--burst');
+        signalPacket.setAttribute('r', key === 'github' ? '5' : '4.5');
+        signalPacket.setAttribute('cx', '0');
+        signalPacket.setAttribute('cy', '0');
+        routesSvg?.appendChild(signalPacket);
         const motion = animeApi.createMotionPath(route);
         runAnime({
-          targets: packet,
+          targets: signalPacket,
           translateX: motion.translateX,
           translateY: motion.translateY,
           opacity: [0, 1, 0],
-          scale: [0.8, 1.3, 0.7],
-          duration: 880,
+          scale: [0.72, 1.38, 0.72],
+          duration: key === 'github' ? 980 : 880,
           easing: 'inOutSine',
+          onComplete: () => signalPacket.remove(),
         });
       }
 

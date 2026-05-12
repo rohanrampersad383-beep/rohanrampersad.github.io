@@ -2303,6 +2303,10 @@ em { font-style: italic; color: var(--ink); }
 .contact-signal__packet--violet { fill: var(--violet-2); filter: drop-shadow(0 0 10px rgba(167,139,250,.88)); }
 .contact-signal__packet--blue { fill: var(--blue); filter: drop-shadow(0 0 10px rgba(91,139,255,.82)); }
 .contact-signal__packet--green { fill: var(--green); filter: drop-shadow(0 0 10px rgba(34,197,94,.82)); }
+.contact-signal__packet--burst {
+  pointer-events: none;
+  filter: drop-shadow(0 0 12px currentColor) drop-shadow(0 0 24px currentColor);
+}
 .contact-core {
   position: absolute;
   z-index: 3;
@@ -2403,30 +2407,7 @@ em { font-style: italic; color: var(--ink); }
 .contact-node--github { left: 7%; bottom: 15%; }
 .contact-node--resume { right: 8%; bottom: 16%; }
 
-.contact__panel {
-  width: 100%; max-width: 760px; margin-top: 8px;
-  padding: 8px; display: flex; flex-direction: column;
-}
-.contact__row {
-  display: grid; grid-template-columns: 110px 1fr auto; align-items: center; gap: 16px;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
-  text-align: left;
-}
-.contact__row:last-child { border-bottom: 0; }
-.contact__label { font-family: var(--f-mono); font-size: 10.5px; color: var(--ink-mute); letter-spacing: .15em; }
-.contact__value { font-family: var(--f-mono); font-size: 14px; color: var(--ink); }
-a.contact__value { transition: color .2s ease; }
-a.contact__value:hover { color: var(--violet-2); }
-.contact__copy {
-  font-family: var(--f-mono); font-size: 11px; color: var(--ink-dim);
-  padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border-2);
-  background: var(--surface); cursor: pointer;
-  display: inline-flex; align-items: center; gap: 6px;
-  transition: all .2s ease;
-}
-.contact__copy:hover { color: var(--ink); background: var(--surface-2); }
-.contact__cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 24px; }
+.contact__cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 18px; }
 
 /* ============================================================
    FOOTER
@@ -2613,7 +2594,6 @@ a.contact__value:hover { color: var(--violet-2); }
   .contact-node--linkedin { right: 4%; top: 15%; }
   .contact-node--github { left: 4%; bottom: 14%; }
   .contact-node--resume { right: 4%; bottom: 15%; }
-  .contact__row { grid-template-columns: 1fr; gap: 6px; text-align: left; }
   .footer__cols { grid-template-columns: 1fr 1fr; }
   .nav__name small { display: none; }
 }
