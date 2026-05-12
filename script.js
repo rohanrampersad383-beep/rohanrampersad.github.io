@@ -14,7 +14,6 @@
       animeApi.engine.fps = 60;
       animeApi.engine.pauseOnDocumentHidden = true;
     }
-    console.log('Portfolio interactions loaded');
   }
 
   const runAnime = (config) => {
@@ -44,13 +43,14 @@
   /* ---------- live clock in nav ---------- */
   const navTime = document.getElementById('navTime');
   function tick() {
-    if (!navTime) return;
     const d = new Date();
     const pad = (n) => String(n).padStart(2, '0');
     navTime.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())} TT`;
   }
-  tick();
-  setInterval(tick, 1000);
+  if (navTime) {
+    tick();
+    setInterval(tick, 1000);
+  }
 
   /* ---------- navbar scroll behavior and active section ---------- */
   const nav = document.getElementById('nav');
@@ -1923,15 +1923,18 @@
       }, 900);
     };
 
+    const hoverEvent = window.PointerEvent ? 'pointerenter' : 'mouseenter';
     signal.querySelectorAll('[data-contact-node]').forEach((node) => {
-      node.addEventListener('pointerenter', () => triggerSignal(node.getAttribute('data-contact-node')));
-      node.addEventListener('mouseenter', () => triggerSignal(node.getAttribute('data-contact-node')));
-      node.addEventListener('focus', () => triggerSignal(node.getAttribute('data-contact-node')));
+      const key = node.getAttribute('data-contact-node');
+      if (!key) return;
+      node.addEventListener(hoverEvent, () => triggerSignal(key));
+      node.addEventListener('focus', () => triggerSignal(key));
     });
     document.querySelectorAll('[data-contact-action]:not([data-contact-node])').forEach((item) => {
-      item.addEventListener('pointerenter', () => triggerSignal(item.getAttribute('data-contact-action')));
-      item.addEventListener('mouseenter', () => triggerSignal(item.getAttribute('data-contact-action')));
-      item.addEventListener('focusin', () => triggerSignal(item.getAttribute('data-contact-action')));
+      const key = item.getAttribute('data-contact-action');
+      if (!key) return;
+      item.addEventListener(hoverEvent, () => triggerSignal(key));
+      item.addEventListener('focusin', () => triggerSignal(key));
     });
 
     if ('IntersectionObserver' in window && loopingAnimations.length) {
