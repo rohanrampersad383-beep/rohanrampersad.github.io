@@ -286,10 +286,17 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           <span class="btn__shine"></span>
         </a>
-        <a href="assets/documents/Rohan_Rampersad_Resume.pdf" class="btn btn--ghost" target="_blank" rel="noreferrer" data-magnetic>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-          View Resume
-        </a>
+        <a href="assets/documents/Rohan_Rampersad_Resume.pdf"
+   class="btn btn--ghost"
+   target="_blank"
+   rel="noreferrer"
+   data-magnetic
+   onclick="trackPortfolioClick('resume_click', 'top_resume_button')">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+  </svg>
+  View Resume
+      </a>
         <a href="Rohan_Rampersad_IT_Portfolio.pdf" class="btn btn--outline" target="_blank" rel="noreferrer" data-magnetic>Portfolio PDF</a>
         <a href="https://ai-job-match-assistant.vercel.app" class="btn btn--accent" target="_blank" rel="noreferrer" data-magnetic>Live Demo</a>
       </div>
@@ -1048,7 +1055,13 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         <span class="btn__shine"></span>
       </a>
-      <a href="assets/documents/Rohan_Rampersad_Resume.pdf" class="btn btn--ghost" target="_blank" rel="noreferrer">Download Resume</a>
+      <a href="assets/documents/Rohan_Rampersad_Resume.pdf"
+   class="btn btn--ghost"
+   target="_blank"
+   rel="noreferrer"
+   onclick="trackPortfolioClick('resume_click', 'bottom_resume_button')">
+   Download Resume
+</a>
       <a href="Rohan_Rampersad_IT_Portfolio.pdf" class="btn btn--outline" target="_blank" rel="noreferrer">Portfolio PDF</a>
     </div>
   </div>
