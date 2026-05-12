@@ -782,9 +782,9 @@ em { font-style: italic; color: var(--ink); }
 .hero__avatar::after {
   content: "core online";
   position: absolute;
-  left: calc(100% + 12px);
-  top: 50%;
-  translate: 0 -50%;
+  left: 50%;
+  top: calc(100% + 8px);
+  translate: -50% 0;
   width: max-content;
   padding: 5px 8px;
   border-radius: 999px;
@@ -796,9 +796,10 @@ em { font-style: italic; color: var(--ink); }
   letter-spacing: .12em;
   text-transform: uppercase;
   opacity: 0;
-  transform: translateX(-6px);
+  transform: translateY(-4px);
   box-shadow: 0 0 22px rgba(34,211,238,.18);
   pointer-events: none;
+  z-index: 4;
 }
 .hero__avatar.is-powered {
   box-shadow:
