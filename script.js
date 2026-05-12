@@ -362,6 +362,81 @@
   }
   setupHeroConvergence();
 
+  /* ---------- lower-page data highway activation ---------- */
+  function setupSectionCircuitAnimations() {
+    const circuits = Array.from(document.querySelectorAll('.section-circuit'));
+    if (!circuits.length) return;
+
+    if (reduceMotion || !animeReady || window.innerWidth <= 640) {
+      circuits.forEach((circuit) => circuit.classList.add('is-active'));
+      return;
+    }
+
+    circuits.forEach((circuit) => {
+      const routes = Array.from(circuit.querySelectorAll('.section-circuit__route'));
+      const markers = Array.from(circuit.querySelectorAll('[data-section-marker]'));
+      const animations = [];
+
+      markers.forEach((marker, markerIndex) => {
+        const pathIndex = Number(marker.getAttribute('data-path-index') || markerIndex);
+        const path = routes[pathIndex] || routes[0];
+        if (!path || typeof animeApi.createMotionPath !== 'function') return;
+
+        marker.setAttribute('cx', '0');
+        marker.setAttribute('cy', '0');
+        const motion = animeApi.createMotionPath(path);
+        const animation = runAnime({
+          targets: marker,
+          translateX: motion.translateX,
+          translateY: motion.translateY,
+          rotate: motion.rotate,
+          opacity: [0, .95, .95, 0],
+          scale: [0.72, 1.15, 1],
+          duration: 9800 + markerIndex * 1800,
+          delay: markerIndex * 650,
+          loop: true,
+          easing: 'linear',
+        });
+        if (animation && typeof animation.pause === 'function') animation.pause();
+        if (animation) animations.push(animation);
+      });
+
+      circuit.__sectionCircuitAnimations = animations;
+    });
+
+    if (!('IntersectionObserver' in window)) {
+      circuits.forEach((circuit) => {
+        circuit.classList.add('is-active');
+        (circuit.__sectionCircuitAnimations || []).forEach((animation) => {
+          if (typeof animation.play === 'function') animation.play();
+        });
+      });
+      return;
+    }
+
+    const circuitObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const circuit = entry.target;
+        const animations = circuit.__sectionCircuitAnimations || [];
+        if (entry.isIntersecting) {
+          circuit.classList.add('is-active');
+          animations.forEach((animation) => {
+            if (typeof animation.play === 'function') animation.play();
+          });
+          return;
+        }
+        circuit.classList.remove('is-active');
+        animations.forEach((animation) => {
+          if (typeof animation.pause === 'function') animation.pause();
+        });
+      });
+    }, { threshold: 0.12, rootMargin: '18% 0px 18% 0px' });
+
+    circuits.forEach((circuit) => circuitObserver.observe(circuit));
+    retainedObservers.push(circuitObserver);
+  }
+  setupSectionCircuitAnimations();
+
   /* ---------- signature hero orb and network animation ---------- */
   function setupSignatureHeroEffects() {
     if (!animeReady) return;

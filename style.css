@@ -725,7 +725,7 @@ em { font-style: italic; color: var(--ink); }
   top: 84px;
   width: min(740px, 92vw);
   height: 390px;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
   opacity: .36;
   filter: drop-shadow(0 0 14px rgba(34,211,238,.12));
@@ -827,7 +827,7 @@ em { font-style: italic; color: var(--ink); }
 .hero__avatar-orb {
   position: absolute;
   inset: -16px;
-  z-index: 0;
+  z-index: 1;
   border-radius: 50%;
   background:
     radial-gradient(circle, rgba(34,211,238,.22), transparent 58%),
@@ -1212,17 +1212,18 @@ em { font-style: italic; color: var(--ink); }
   inset: 4% 0 auto;
   width: 100%;
   height: min(560px, 72%);
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
-  opacity: .23;
+  opacity: .54;
   overflow: visible;
   contain: paint;
-  filter: drop-shadow(0 0 8px rgba(34,211,238,.08));
+  filter: drop-shadow(0 0 9px rgba(34,211,238,.14));
+  mix-blend-mode: screen;
 }
 .section-circuit--stack,
 .section-circuit--work,
 .section-circuit--contact {
-  opacity: .27;
+  opacity: .62;
 }
 .section-circuit--work {
   height: min(720px, 56%);
@@ -1232,27 +1233,44 @@ em { font-style: italic; color: var(--ink); }
 }
 .section-circuit__route {
   fill: none;
-  stroke-width: 1;
+  stroke-width: 1.55;
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
-  stroke-dasharray: 8 24;
-  animation: sectionRouteDrift 62s linear infinite;
+  stroke-dasharray: 10 22;
+  animation: sectionRouteDrift 74s linear infinite paused;
 }
-.section-circuit__route--cyan { stroke: rgba(34,211,238,.42); }
-.section-circuit__route--blue { stroke: rgba(91,139,255,.34); animation-duration: 74s; }
-.section-circuit__route--violet { stroke: rgba(124,92,255,.36); animation-duration: 82s; animation-direction: reverse; }
+.section-circuit.is-active .section-circuit__route {
+  animation-play-state: running;
+}
+.section-circuit__route--cyan { stroke: rgba(34,211,238,.82); }
+.section-circuit__route--blue { stroke: rgba(91,139,255,.7); animation-duration: 86s; }
+.section-circuit__route--violet { stroke: rgba(124,92,255,.76); animation-duration: 96s; animation-direction: reverse; }
 .section-circuit__node {
-  fill: rgba(34,211,238,.82);
-  filter: drop-shadow(0 0 8px rgba(34,211,238,.5));
+  fill: rgba(34,211,238,.96);
+  filter: drop-shadow(0 0 12px rgba(34,211,238,.72));
 }
 .section-circuit__node--blue {
-  fill: rgba(91,139,255,.78);
-  filter: drop-shadow(0 0 8px rgba(91,139,255,.44));
+  fill: rgba(91,139,255,.94);
+  filter: drop-shadow(0 0 12px rgba(91,139,255,.64));
 }
 .section-circuit__node--violet {
-  fill: rgba(167,139,250,.72);
-  filter: drop-shadow(0 0 8px rgba(124,92,255,.42));
+  fill: rgba(167,139,250,.94);
+  filter: drop-shadow(0 0 12px rgba(124,92,255,.64));
+}
+.section-circuit__marker {
+  opacity: 0;
+  pointer-events: none;
+  fill: currentColor;
+  color: var(--cyan);
+  filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 18px currentColor);
+  will-change: transform, opacity;
+}
+.section-circuit__marker--cyan { color: #22d3ee; }
+.section-circuit__marker--blue { color: #5b8bff; }
+.section-circuit__marker--violet { color: #a78bfa; }
+.section-circuit.is-active .section-circuit__marker {
+  opacity: .9;
 }
 @keyframes sectionRouteDrift {
   to { stroke-dashoffset: -220; }
@@ -2139,11 +2157,13 @@ a.contact__value:hover { color: var(--violet-2); }
     inset: 2% -18% auto;
     width: 136%;
     height: 420px;
-    opacity: .16;
+    opacity: .28;
   }
   .section-circuit__route {
     animation: none;
+    stroke-width: 1.05;
   }
+  .section-circuit__marker { display: none; }
   .stats-grid { grid-template-columns: 1fr; }
   .stat-tile { min-height: 104px; }
   .skill-filter { width: 100%; border-radius: 22px; margin: -18px 0 24px; }
@@ -2195,5 +2215,6 @@ a.contact__value:hover { color: var(--violet-2); }
   .atmos__data-lines { opacity: .18; }
   .hero-network, .hero__avatar-particle { opacity: .35; }
   .section-circuit__route { animation: none !important; }
-  .section-circuit { opacity: .16; }
+  .section-circuit { opacity: .28; }
+  .section-circuit__marker { display: none; }
 }
