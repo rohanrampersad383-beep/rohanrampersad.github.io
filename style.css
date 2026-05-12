@@ -782,24 +782,25 @@ em { font-style: italic; color: var(--ink); }
 .hero__avatar::after {
   content: "core online";
   position: absolute;
-  left: 50%;
-  top: calc(100% + 8px);
-  translate: -50% 0;
+  left: 50% !important;
+  top: calc(100% + 10px) !important;
+  translate: -50% 0 !important;
   width: max-content;
   padding: 5px 8px;
   border-radius: 999px;
-  border: 1px solid rgba(34,211,238,.28);
-  background: rgba(5,6,11,.72);
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  background: rgba(5, 6, 11, 0.72);
   color: var(--cyan);
   font-family: var(--f-mono);
   font-size: 9px;
-  letter-spacing: .12em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   opacity: 0;
   transform: translateY(-4px);
-  box-shadow: 0 0 22px rgba(34,211,238,.18);
+  box-shadow: 0 0 22px rgba(34, 211, 238, 0.18);
   pointer-events: none;
-  z-index: 4;
+  z-index: 10;
+  white-space: nowrap;
 }
 .hero__avatar.is-powered {
   box-shadow:
