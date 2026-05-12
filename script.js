@@ -1314,7 +1314,7 @@
 
   if (spot && cursorShape && allowPointerEffects) {
     root.classList.add('custom-cursor-ready');
-    window.addEventListener('mousemove', (e) => {
+    const handleCursorPointerMove = (e, options = {}) => {
       if (!spot.classList.contains('is-active')) spot.classList.add('is-active');
       if (cursorShape && !cursorShape.classList.contains('is-active')) cursorShape.classList.add('is-active');
       spot.classList.remove('is-idle');
@@ -1349,8 +1349,10 @@
       auraTarget.energy = Math.max(auraTarget.energy, 0.24 + stretch * 0.14);
       auraTarget.scale = Math.max(auraTarget.scale, 0.7 + stretch * 0.07);
       scheduleAuraTrail();
-      spawnCursorParticle(e.clientX, e.clientY, stretch > 0.55 ? 2 : 1, velocity);
-    }, { passive: true });
+      if (!options.quiet) spawnCursorParticle(e.clientX, e.clientY, stretch > 0.55 ? 2 : 1, velocity);
+    };
+    window.__portfolioCursorMove = handleCursorPointerMove;
+    window.addEventListener('mousemove', handleCursorPointerMove, { passive: true });
     window.addEventListener('mouseleave', () => {
       spot.classList.remove('is-active');
       if (cursorShape) cursorShape.classList.remove('is-active');
@@ -1493,57 +1495,72 @@
     const badges = Array.from(document.querySelectorAll('.tech-drag-badge'));
     if (!stage || !badges.length || !allowPointerEffects) return;
 
+    const initializeBadgePositions = () => {
+      const stageRect = stage.getBoundingClientRect();
+      badges.forEach((badge) => {
+        const rect = badge.getBoundingClientRect();
+        const initialX = rect.left - stageRect.left;
+        const initialY = rect.top - stageRect.top;
+        badge.__dragX = initialX;
+        badge.__dragY = initialY;
+        badge.style.left = '0px';
+        badge.style.top = '0px';
+        badge.style.transform = `translate3d(${initialX}px, ${initialY}px, 0)`;
+      });
+    };
+
+    requestAnimationFrame(initializeBadgePositions);
+    window.addEventListener('resize', initializeBadgePositions, { passive: true });
+
     badges.forEach((badge) => {
       let dragging = false;
-      let currentX = 0;
-      let currentY = 0;
+      let currentX = badge.__dragX || 0;
+      let currentY = badge.__dragY || 0;
       let bounds = null;
       let lastMove = { x: 0, y: 0, t: 0 };
       let velocity = { x: 0, y: 0 };
-      let baseCenterX = 0;
-      let baseCenterY = 0;
+      let pointerOffsetX = 0;
+      let pointerOffsetY = 0;
 
-      const applyPosition = (x, y, scale = '') => {
-        badge.style.translate = `${x}px ${y}px`;
-        if (scale) badge.style.scale = scale;
+      const applyPosition = (x, y, scale = 1) => {
+        badge.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
       };
 
       badge.addEventListener('pointerdown', (event) => {
         event.preventDefault();
+        event.stopPropagation();
         dragging = true;
         badge.classList.add('is-dragging');
+        badge.classList.remove('is-energy-hover');
         badge.setPointerCapture?.(event.pointerId);
+        currentX = badge.__dragX || currentX;
+        currentY = badge.__dragY || currentY;
         lastMove = { x: event.clientX, y: event.clientY, t: performance.now() };
         velocity = { x: 0, y: 0 };
 
         const stageRect = stage.getBoundingClientRect();
         const badgeRect = badge.getBoundingClientRect();
         const pad = 10;
-        baseCenterX = badgeRect.left + badgeRect.width / 2 - currentX;
-        baseCenterY = badgeRect.top + badgeRect.height / 2 - currentY;
+        pointerOffsetX = event.clientX - badgeRect.left;
+        pointerOffsetY = event.clientY - badgeRect.top;
         bounds = {
-          minX: currentX - (badgeRect.left - stageRect.left) + pad,
-          maxX: currentX + (stageRect.right - badgeRect.right) - pad,
-          minY: currentY - (badgeRect.top - stageRect.top) + pad,
-          maxY: currentY + (stageRect.bottom - badgeRect.bottom) - pad,
+          minX: pad,
+          maxX: stageRect.width - badgeRect.width - pad,
+          minY: pad,
+          maxY: stageRect.height - badgeRect.height - pad,
         };
-        currentX = clamp(event.clientX - baseCenterX, bounds.minX, bounds.maxX);
-        currentY = clamp(event.clientY - baseCenterY, bounds.minY, bounds.maxY);
-        applyPosition(currentX, currentY, '1.08');
-
-        if (animeReady) {
-          runAnime({
-            targets: badge,
-            scale: 1.08,
-            duration: 180,
-            easing: 'outCubic',
-          });
-        }
+        currentX = clamp(event.clientX - stageRect.left - pointerOffsetX, bounds.minX, bounds.maxX);
+        currentY = clamp(event.clientY - stageRect.top - pointerOffsetY, bounds.minY, bounds.maxY);
+        badge.__dragX = currentX;
+        badge.__dragY = currentY;
+        applyPosition(currentX, currentY, 1.06);
+        window.__portfolioCursorMove?.(event, { quiet: true });
       });
 
       badge.addEventListener('pointermove', (event) => {
         if (!dragging || !bounds) return;
         event.preventDefault();
+        event.stopPropagation();
         const now = performance.now();
         const dt = Math.max(16, now - lastMove.t);
         velocity = {
@@ -1551,9 +1568,13 @@
           y: (event.clientY - lastMove.y) / dt,
         };
         lastMove = { x: event.clientX, y: event.clientY, t: now };
-        currentX = clamp(event.clientX - baseCenterX, bounds.minX, bounds.maxX);
-        currentY = clamp(event.clientY - baseCenterY, bounds.minY, bounds.maxY);
-        applyPosition(currentX, currentY, '1.08');
+        const stageRect = stage.getBoundingClientRect();
+        currentX = clamp(event.clientX - stageRect.left - pointerOffsetX, bounds.minX, bounds.maxX);
+        currentY = clamp(event.clientY - stageRect.top - pointerOffsetY, bounds.minY, bounds.maxY);
+        badge.__dragX = currentX;
+        badge.__dragY = currentY;
+        applyPosition(currentX, currentY, 1.06);
+        window.__portfolioCursorMove?.(event, { quiet: true });
       });
 
       const release = (event) => {
@@ -1562,9 +1583,8 @@
         badge.classList.remove('is-dragging');
         badge.releasePointerCapture?.(event.pointerId);
 
-        const targetX = bounds ? clamp(currentX + velocity.x * 180, bounds.minX, bounds.maxX) : currentX;
-        const targetY = bounds ? clamp(currentY + velocity.y * 180, bounds.minY, bounds.maxY) : currentY;
-        badge.style.scale = '';
+        const targetX = bounds ? clamp(currentX + velocity.x * 80, bounds.minX, bounds.maxX) : currentX;
+        const targetY = bounds ? clamp(currentY + velocity.y * 80, bounds.minY, bounds.maxY) : currentY;
 
         if (animeReady) {
           const state = { x: currentX, y: currentY };
@@ -1577,36 +1597,24 @@
             onUpdate: () => {
               currentX = state.x;
               currentY = state.y;
+              badge.__dragX = currentX;
+              badge.__dragY = currentY;
               applyPosition(currentX, currentY);
             },
-          });
-          runAnime({
-            targets: badge,
-            scale: [1.08, 1],
-            duration: 520,
-            easing: 'outElastic(1, .55)',
           });
         } else {
           currentX = targetX;
           currentY = targetY;
+          badge.__dragX = currentX;
+          badge.__dragY = currentY;
           applyPosition(currentX, currentY);
-          badge.style.scale = '';
         }
       };
 
       badge.addEventListener('pointerup', release);
       badge.addEventListener('pointercancel', release);
       badge.addEventListener('dblclick', () => {
-        currentX = 0;
-        currentY = 0;
         if (animeReady) {
-          badge.style.scale = '';
-          runAnime({
-            targets: badge,
-            scale: 1,
-            duration: 580,
-            easing: 'outElastic(1, .55)',
-          });
           const state = { x: currentX, y: currentY };
           runAnime({
             targets: state,
@@ -1617,12 +1625,15 @@
             onUpdate: () => {
               currentX = state.x;
               currentY = state.y;
+              badge.__dragX = currentX;
+              badge.__dragY = currentY;
               applyPosition(currentX, currentY);
             },
           });
         } else {
-          badge.style.translate = '';
-          badge.style.scale = '';
+          badge.__dragX = 0;
+          badge.__dragY = 0;
+          applyPosition(0, 0);
         }
       });
     });
@@ -1913,10 +1924,12 @@
     };
 
     signal.querySelectorAll('[data-contact-node]').forEach((node) => {
+      node.addEventListener('pointerenter', () => triggerSignal(node.getAttribute('data-contact-node')));
       node.addEventListener('mouseenter', () => triggerSignal(node.getAttribute('data-contact-node')));
       node.addEventListener('focus', () => triggerSignal(node.getAttribute('data-contact-node')));
     });
-    document.querySelectorAll('[data-contact-action]').forEach((item) => {
+    document.querySelectorAll('[data-contact-action]:not([data-contact-node])').forEach((item) => {
+      item.addEventListener('pointerenter', () => triggerSignal(item.getAttribute('data-contact-action')));
       item.addEventListener('mouseenter', () => triggerSignal(item.getAttribute('data-contact-action')));
       item.addEventListener('focusin', () => triggerSignal(item.getAttribute('data-contact-action')));
     });
