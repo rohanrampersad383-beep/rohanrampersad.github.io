@@ -1358,7 +1358,7 @@
     });
 
     const energyTargets = document.querySelectorAll(
-      '.btn, .social-chip, .nav__links a, [data-project], .learning-card, .chip, .story-chip, .project-flow, .tech-drag-badge, .portfolio-runtime-badge, .contact__row'
+      '.btn, .social-chip, .nav__links a, [data-project], .learning-card, .chip, .story-chip, .project-flow, .tech-drag-badge, .portfolio-runtime-badge, .contact__row, .contact-node'
     );
     energyTargets.forEach((target) => {
       target.classList.add('energy-target');
@@ -1493,25 +1493,6 @@
     const badges = Array.from(document.querySelectorAll('.tech-drag-badge'));
     if (!stage || !badges.length || !allowPointerEffects) return;
 
-    if (typeof animeApi?.createDraggable === 'function') {
-      try {
-        badges.forEach((badge) => {
-          animeApi.createDraggable(badge, {
-            container: stage,
-            containerPadding: 8,
-            releaseStiffness: 46,
-            releaseDamping: 13,
-            releaseEase: 'out(3)',
-            onGrab: () => badge.classList.add('is-dragging'),
-            onRelease: () => badge.classList.remove('is-dragging'),
-          });
-        });
-        return;
-      } catch (error) {
-        console.warn('Anime.js Draggable unavailable; using bounded pointer fallback.', error);
-      }
-    }
-
     badges.forEach((badge) => {
       let dragging = false;
       let startX = 0;
@@ -1519,21 +1500,32 @@
       let currentX = 0;
       let currentY = 0;
       let bounds = null;
+      let lastMove = { x: 0, y: 0, t: 0 };
+      let velocity = { x: 0, y: 0 };
+
+      const applyPosition = (x, y, scale = '') => {
+        badge.style.translate = `${x}px ${y}px`;
+        if (scale) badge.style.scale = scale;
+      };
 
       badge.addEventListener('pointerdown', (event) => {
+        event.preventDefault();
         dragging = true;
         badge.classList.add('is-dragging');
         badge.setPointerCapture?.(event.pointerId);
         startX = event.clientX - currentX;
         startY = event.clientY - currentY;
+        lastMove = { x: event.clientX, y: event.clientY, t: performance.now() };
+        velocity = { x: 0, y: 0 };
 
         const stageRect = stage.getBoundingClientRect();
         const badgeRect = badge.getBoundingClientRect();
+        const pad = 10;
         bounds = {
-          minX: -(badgeRect.left - stageRect.left) + 8,
-          maxX: stageRect.right - badgeRect.right - 8,
-          minY: -(badgeRect.top - stageRect.top) + 8,
-          maxY: stageRect.bottom - badgeRect.bottom - 8,
+          minX: currentX - (badgeRect.left - stageRect.left) + pad,
+          maxX: currentX + (stageRect.right - badgeRect.right) - pad,
+          minY: currentY - (badgeRect.top - stageRect.top) + pad,
+          maxY: currentY + (stageRect.bottom - badgeRect.bottom) - pad,
         };
 
         if (animeReady) {
@@ -1548,9 +1540,17 @@
 
       badge.addEventListener('pointermove', (event) => {
         if (!dragging || !bounds) return;
+        event.preventDefault();
+        const now = performance.now();
+        const dt = Math.max(16, now - lastMove.t);
+        velocity = {
+          x: (event.clientX - lastMove.x) / dt,
+          y: (event.clientY - lastMove.y) / dt,
+        };
+        lastMove = { x: event.clientX, y: event.clientY, t: now };
         currentX = clamp(event.clientX - startX, bounds.minX, bounds.maxX);
         currentY = clamp(event.clientY - startY, bounds.minY, bounds.maxY);
-        badge.style.transform = `translate(${currentX}px, ${currentY}px) scale(1.08)`;
+        applyPosition(currentX, currentY, '1.08');
       });
 
       const release = (event) => {
@@ -1559,17 +1559,35 @@
         badge.classList.remove('is-dragging');
         badge.releasePointerCapture?.(event.pointerId);
 
+        const targetX = bounds ? clamp(currentX + velocity.x * 180, bounds.minX, bounds.maxX) : currentX;
+        const targetY = bounds ? clamp(currentY + velocity.y * 180, bounds.minY, bounds.maxY) : currentY;
+        badge.style.scale = '';
+
         if (animeReady) {
+          const state = { x: currentX, y: currentY };
+          runAnime({
+            targets: state,
+            x: targetX,
+            y: targetY,
+            duration: 620,
+            easing: 'outElastic(1, .62)',
+            onUpdate: () => {
+              currentX = state.x;
+              currentY = state.y;
+              applyPosition(currentX, currentY);
+            },
+          });
           runAnime({
             targets: badge,
-            translateX: currentX,
-            translateY: currentY,
             scale: [1.08, 1],
             duration: 520,
             easing: 'outElastic(1, .55)',
           });
         } else {
-          badge.style.transform = `translate(${currentX}px, ${currentY}px)`;
+          currentX = targetX;
+          currentY = targetY;
+          applyPosition(currentX, currentY);
+          badge.style.scale = '';
         }
       };
 
@@ -1579,16 +1597,29 @@
         currentX = 0;
         currentY = 0;
         if (animeReady) {
+          badge.style.scale = '';
           runAnime({
             targets: badge,
-            translateX: 0,
-            translateY: 0,
             scale: 1,
             duration: 580,
             easing: 'outElastic(1, .55)',
           });
+          const state = { x: currentX, y: currentY };
+          runAnime({
+            targets: state,
+            x: 0,
+            y: 0,
+            duration: 580,
+            easing: 'outElastic(1, .55)',
+            onUpdate: () => {
+              currentX = state.x;
+              currentY = state.y;
+              applyPosition(currentX, currentY);
+            },
+          });
         } else {
-          badge.style.transform = '';
+          badge.style.translate = '';
+          badge.style.scale = '';
         }
       });
     });
@@ -1605,6 +1636,54 @@
       easing: 'inOutSine',
     });
   }
+
+  /* ---------- interactive stack background packets ---------- */
+  function setupTechOrbitPackets() {
+    const stage = document.querySelector('.tech-orbit__stage');
+    if (!stage || !animeReady || reduceMotion || window.innerWidth <= 640) return;
+    const routes = Array.from(stage.querySelectorAll('.tech-orbit__route'));
+    const packets = Array.from(stage.querySelectorAll('[data-tech-packet]'));
+    const animations = [];
+
+    packets.forEach((packet, index) => {
+      const pathIndex = Number(packet.getAttribute('data-path-index') || index);
+      const route = routes[pathIndex] || routes[0];
+      if (!route || typeof animeApi.createMotionPath !== 'function') return;
+      packet.setAttribute('cx', '0');
+      packet.setAttribute('cy', '0');
+      const motion = animeApi.createMotionPath(route);
+      const animation = runAnime({
+        targets: packet,
+        translateX: motion.translateX,
+        translateY: motion.translateY,
+        rotate: motion.rotate,
+        opacity: [0, .9, .9, 0],
+        scale: [.72, 1.12, .86],
+        duration: 7400 + index * 1300,
+        delay: index * 600,
+        loop: true,
+        easing: 'linear',
+      });
+      if (animation && typeof animation.pause === 'function') animation.pause();
+      if (animation) animations.push(animation);
+    });
+
+    if ('IntersectionObserver' in window && animations.length) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          animations.forEach((animation) => {
+            if (entry.isIntersecting && typeof animation.play === 'function') animation.play();
+            if (!entry.isIntersecting && typeof animation.pause === 'function') animation.pause();
+          });
+        });
+      }, { threshold: 0.18 });
+      observer.observe(stage);
+      retainedObservers.push(observer);
+    } else {
+      animations.forEach((animation) => animation.play?.());
+    }
+  }
+  setupTechOrbitPackets();
 
   if (allowPointerEffects) {
     /* ---------- subtle tilt on tilt cards ---------- */
@@ -1690,6 +1769,161 @@
       easing: 'inOutSine',
     });
   }
+
+  /* ---------- live contact signal finale ---------- */
+  function setupContactSignal() {
+    const signal = document.querySelector('[data-contact-signal]');
+    if (!signal) return;
+
+    const routes = Array.from(signal.querySelectorAll('[data-contact-route]'));
+    const packets = Array.from(signal.querySelectorAll('[data-contact-packet]'));
+    const nodes = Array.from(signal.querySelectorAll('[data-contact-node]'));
+    const core = signal.querySelector('[data-contact-core]');
+    const pulse = signal.querySelector('.contact-core__pulse');
+    const loopingAnimations = [];
+
+    if (reduceMotion || !animeReady) {
+      packets.forEach((packet) => { packet.style.display = 'none'; });
+      routes.forEach((route) => {
+        route.style.strokeDasharray = 'none';
+        route.style.strokeDashoffset = 0;
+      });
+      return;
+    }
+
+    routes.forEach((route, index) => {
+      const length = route.getTotalLength();
+      route.style.strokeDasharray = length;
+      route.style.strokeDashoffset = length;
+      runAnime({
+        targets: route,
+        strokeDashoffset: [length, 0],
+        opacity: [0.08, 0.48],
+        delay: 180 + index * 120,
+        duration: 1200,
+        easing: 'inOutSine',
+      });
+    });
+
+    runFastAnime({
+      targets: nodes,
+      opacity: [0, 1],
+      scale: [0.9, 1],
+      delay: animeApi.stagger(95, { start: 360 }),
+      duration: 720,
+      easing: 'outCubic',
+    });
+
+    nodes.forEach((node, index) => {
+      const drift = runAnime({
+        targets: node,
+        translateX: [0, index % 2 ? -8 : 8, 0],
+        translateY: [0, index < 2 ? 7 : -7, 0],
+        duration: 6800 + index * 700,
+        delay: index * 180,
+        loop: true,
+        easing: 'inOutSine',
+      });
+      if (drift && typeof drift.pause === 'function') drift.pause();
+      if (drift) loopingAnimations.push(drift);
+    });
+
+    if (pulse) {
+      const pulseAnimation = runAnime({
+        targets: pulse,
+        scale: [0.86, 1.18],
+        opacity: [0.45, 0.12],
+        duration: 2600,
+        loop: true,
+        direction: 'alternate',
+        easing: 'inOutSine',
+      });
+      if (pulseAnimation && typeof pulseAnimation.pause === 'function') pulseAnimation.pause();
+      if (pulseAnimation) loopingAnimations.push(pulseAnimation);
+    }
+
+    packets.forEach((packet, index) => {
+      const route = document.querySelector(packet.getAttribute('data-route'));
+      if (!route || typeof animeApi.createMotionPath !== 'function') return;
+      packet.setAttribute('cx', '0');
+      packet.setAttribute('cy', '0');
+      const motion = animeApi.createMotionPath(route);
+      const animation = runAnime({
+        targets: packet,
+        translateX: motion.translateX,
+        translateY: motion.translateY,
+        rotate: motion.rotate,
+        opacity: [0, .95, .95, 0],
+        scale: [0.7, 1.15, 0.8],
+        duration: 5200 + index * 650,
+        delay: 1000 + index * 520,
+        loop: true,
+        loopDelay: 900,
+        easing: 'inOutSine',
+      });
+      if (animation && typeof animation.pause === 'function') animation.pause();
+      if (animation) loopingAnimations.push(animation);
+    });
+
+    const triggerSignal = (key) => {
+      if (!key) return;
+      const node = signal.querySelector(`[data-contact-node="${key}"]`);
+      const route = signal.querySelector(`[data-contact-route="${key}"]`);
+      const packet = signal.querySelector(`[data-contact-packet="${key}"]`);
+      node?.classList.add('is-contact-hot');
+      route?.classList.add('is-contact-hot');
+
+      runFastAnime({
+        targets: [node, pulse].filter(Boolean),
+        scale: [1, 1.055, 1],
+        duration: 700,
+        easing: 'inOutSine',
+      });
+
+      if (route && packet && typeof animeApi.createMotionPath === 'function') {
+        const motion = animeApi.createMotionPath(route);
+        runAnime({
+          targets: packet,
+          translateX: motion.translateX,
+          translateY: motion.translateY,
+          opacity: [0, 1, 0],
+          scale: [0.8, 1.3, 0.7],
+          duration: 880,
+          easing: 'inOutSine',
+        });
+      }
+
+      window.setTimeout(() => {
+        node?.classList.remove('is-contact-hot');
+        route?.classList.remove('is-contact-hot');
+      }, 900);
+    };
+
+    signal.querySelectorAll('[data-contact-node]').forEach((node) => {
+      node.addEventListener('mouseenter', () => triggerSignal(node.getAttribute('data-contact-node')));
+      node.addEventListener('focus', () => triggerSignal(node.getAttribute('data-contact-node')));
+    });
+    document.querySelectorAll('[data-contact-action]').forEach((item) => {
+      item.addEventListener('mouseenter', () => triggerSignal(item.getAttribute('data-contact-action')));
+      item.addEventListener('focusin', () => triggerSignal(item.getAttribute('data-contact-action')));
+    });
+
+    if ('IntersectionObserver' in window && loopingAnimations.length) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          loopingAnimations.forEach((animation) => {
+            if (entry.isIntersecting && typeof animation.play === 'function') animation.play();
+            if (!entry.isIntersecting && typeof animation.pause === 'function') animation.pause();
+          });
+        });
+      }, { threshold: 0.16 });
+      observer.observe(signal);
+      retainedObservers.push(observer);
+    } else {
+      loopingAnimations.forEach((animation) => animation.play?.());
+    }
+  }
+  setupContactSignal();
 
   /* ---------- copy-to-clipboard ---------- */
   document.querySelectorAll('[data-copy]').forEach((btn) => {
