@@ -1180,14 +1180,6 @@ em { font-style: italic; color: var(--ink); }
   z-index: 5;
 }
 
-.float--ai {
-  top: 500px;
-  right: -95px;
-  width: 245px;
-  animation-delay: -5s;
-  z-index: 5;
-}
-
 .float--badge {
   top: 635px;
   left: 110px;
