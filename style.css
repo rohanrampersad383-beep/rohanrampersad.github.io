@@ -1197,7 +1197,7 @@ em { font-style: italic; color: var(--ink); }
 }
 
 .float--orbit {
-  top: 42px;
+  top: 0px;
   right: -65px;
   width: 145px;
   height: 145px;
