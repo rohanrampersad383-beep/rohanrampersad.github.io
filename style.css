@@ -1163,7 +1163,7 @@ em { font-style: italic; color: var(--ink); }
   0%,100% { transform: translateY(0); }
   50%     { transform: translateY(-10px); }
 }
-.float--terminal { top: 0; left: 20px; width: 100%; max-width: 410px; animation-delay: -1s; z-index: 5; }
+.float--terminal { top: -18; left: -8px; width: 100%; max-width: 410px; animation-delay: -1s; z-index: 5; }
 .float--metric   { top: 330px; left: -8px; width: 240px; animation-delay: -3s; z-index: 5; }
 .float--ai       { top: 462px; right: 28px; width: 320px; animation-delay: -5s; z-index: 5; }
 .float--badge    { top: 585px; left: 170px; width: 250px; animation-delay: -2s; z-index: 5; }
