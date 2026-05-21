@@ -803,7 +803,8 @@
           return;
         }
 
-        const state = { value: 0 };
+        const initial = Number(counter.textContent || '0');
+        const state = { value: Number.isFinite(initial) ? initial : 0 };
         runAnime({
           targets: state,
           value: target,

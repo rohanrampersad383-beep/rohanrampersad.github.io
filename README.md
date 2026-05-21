@@ -10,7 +10,8 @@ Live site: https://rohanrampersad.vercel.app
 - `style.css` - site styling and responsive layout
 - `script.js` - browser-side interactions and animations
 - `assets/` - screenshots, certificates, documents, and image assets
-- `Rohan_Rampersad_IT_Portfolio.pdf` - root-level portfolio PDF download used by existing links
+- `assets/documents/Rohan Rampersad Resume.pdf` - current resume PDF linked from the site
+- `assets/documents/Rohan_Rampersad_Full_Redesigned_Portfolio.pdf` - current portfolio PDF linked from the site
 
 This project does not use React, Next.js, Vite, npm, or a backend. It works by opening `index.html` directly in a browser.
 
