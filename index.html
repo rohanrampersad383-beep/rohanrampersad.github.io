@@ -870,25 +870,8 @@
               <span class="browser-live"><span class="pill__dot"></span>Live</span>
             </div>
             <div class="scan-line scan-line--slow"></div>
-            <div class="window__body">
-              <div class="dash-row">
-                <div class="dash-card dash-card--score">
-                  <span class="dash-card__label">Match Workflow</span>
-                  <div class="ring">
-                    <svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" stroke="rgba(255,255,255,.08)" stroke-width="6" fill="none"/><circle cx="30" cy="30" r="26" stroke="url(#rg)" stroke-width="6" fill="none" stroke-dasharray="163" stroke-dashoffset="20" stroke-linecap="round" transform="rotate(-90 30 30)"/><defs><linearGradient id="rg"><stop offset="0%" stop-color="#7c5cff"/><stop offset="100%" stop-color="#22d3ee"/></linearGradient></defs></svg>
-                    <span>Rank</span>
-                  </div>
-                </div>
-                <div class="dash-card dash-card--flex">
-                  <span class="dash-card__label">Core features</span>
-                  <div class="dash-tags">
-                    <span>Resume parsing</span><span>Job import</span><span>Scoring</span><span>PostgreSQL</span><span>Tracking</span>
-                  </div>
-                  <span class="dash-card__label" style="margin-top:8px">Workflow</span>
-                  <div class="dash-tags dash-tags--warn"><span>Manual review</span><span>Ethical sourcing</span></div>
-                </div>
-              </div>
-              <div class="dash-cta">Review matched opportunities →</div>
+            <div class="window__body window__body--image">
+              <img class="project-screenshot" src="assets/projects/ai-job-match-home.png" alt="AI Job Match Assistant dashboard preview" loading="lazy">
             </div>
           </div>
           <div class="window window--mini glass">
@@ -903,90 +886,68 @@
     <article class="case case--alt glass-strong reveal" data-project>
       <div class="case__meta">
         <span class="pill pill--live pill--cyan"><span class="pill__dot"></span> CASE STUDY 02</span>
-        <span class="case__year">2024</span>
+        <span class="case__year">2026</span>
       </div>
       <div class="case__grid case__grid--reverse">
         <div class="case__copy">
-          <h3 class="case__title">Fitness Central</h3>
+          <h3 class="case__title">Cash Compass</h3>
           <p class="case__lead">
-            Multi-user fitness tracking web platform with authentication, workout logging, weight tracking, goal management, dashboard statistics, and MySQL database integration built with PHP, JavaScript, WAMPServer, and phpMyAdmin.
+            Cash Compass is a full-stack personal finance tracking web app built with Next.js, TypeScript, Tailwind CSS, Prisma, and Neon PostgreSQL. It includes secure authentication, protected dashboard routes, income and expense tracking, bill management, savings goals, transaction history, CSV/bank statement upload support, TTD and USD currency support, and a polished fintech-style interface deployed on Vercel.
           </p>
           <div class="case__chips chips">
-            <span class="chip">PHP</span><span class="chip">MySQL</span>
-            <span class="chip">JavaScript</span><span class="chip">HTML</span>
-            <span class="chip">CSS</span><span class="chip">WAMPServer</span>
-            <span class="chip">phpMyAdmin</span>
+            <span class="chip">Next.js</span><span class="chip">TypeScript</span>
+            <span class="chip">Tailwind CSS</span><span class="chip">Prisma</span>
+            <span class="chip">Neon PostgreSQL</span><span class="chip">Vercel</span>
           </div>
-          <div class="story-chips" aria-label="Fitness Central project highlights">
-            <span class="story-chip story-chip--academic">Academic Project</span>
-            <span class="story-chip">PHP</span>
-            <span class="story-chip">MySQL</span>
-            <span class="story-chip">WAMPServer</span>
-            <span class="story-chip">Dashboard</span>
+          <div class="story-chips" aria-label="Cash Compass project highlights">
+            <span class="story-chip story-chip--live"><span class="pill__dot"></span>Live Demo</span>
+            <span class="story-chip">Fintech UI</span>
+            <span class="story-chip">Authentication</span>
+            <span class="story-chip">Neon PostgreSQL</span>
+            <span class="story-chip">Vercel</span>
           </div>
-          <div class="project-flow" data-flow aria-label="Fitness Central workflow">
+          <div class="project-flow" data-flow aria-label="Cash Compass workflow">
             <span class="flow-trace" aria-hidden="true"></span>
-            <span class="flow-node">Register</span>
+            <span class="flow-node">Authenticate</span>
             <span class="flow-connector"></span>
-            <span class="flow-node">Log Workouts</span>
+            <span class="flow-node">Track Income</span>
             <span class="flow-connector"></span>
-            <span class="flow-node">Track Weight</span>
+            <span class="flow-node">Manage Bills</span>
             <span class="flow-connector"></span>
-            <span class="flow-node">View Progress</span>
+            <span class="flow-node">Review Dashboard</span>
           </div>
           <div class="system-walkthrough">
-            <strong>System walkthrough</strong>
-            <span>Users create an account, log workouts, monitor weight changes, set goals, and review dashboard progress from a MySQL-backed PHP application.</span>
+            <strong>Personal finance tracking web application</strong>
+            <span>Cash Compass helps users monitor income, expenses, bills, savings goals, and transaction activity through a clean, animated dashboard.</span>
           </div>
           <div class="case__metrics">
-            <div><strong>Auth</strong><span>login and registration flow</span></div>
-            <div><strong>Tracking</strong><span>workouts, weight, and goals</span></div>
-            <div><strong>Dashboard</strong><span>database-backed statistics</span></div>
+            <div><strong>Auth</strong><span>secure protected dashboard pages</span></div>
+            <div><strong>Finance</strong><span>income, expenses, bills, and goals</span></div>
+            <div><strong>Data</strong><span>CSV uploads and transaction history</span></div>
           </div>
           <div class="case__cta">
-            <a href="https://github.com/rohanrampersad383-beep/fitness-central" class="btn btn--primary btn--sm" target="_blank" rel="noreferrer">GitHub Repo
+            <a href="https://cash-compass-finance.vercel.app" class="btn btn--primary btn--sm" target="_blank" rel="noreferrer">Live Demo
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
             </a>
-            <a href="#contact" class="btn btn--outline btn--sm">Ask About Project</a>
-            <span class="btn btn--disabled btn--sm" aria-disabled="true">Case Study Coming Soon</span>
           </div>
         </div>
 
-        <div class="case__preview case__preview--fit">
+        <div class="case__preview case__preview--cash">
           <div class="mockup-ring mockup-ring--cyan" aria-hidden="true"></div>
           <div class="window glass-strong">
             <div class="window__bar">
               <span class="dotc dotc--r"></span><span class="dotc dotc--y"></span><span class="dotc dotc--g"></span>
-              <span class="window__url">fitness-central.local/dashboard</span>
-              <span class="browser-live"><span class="pill__dot"></span>Repo</span>
+              <span class="window__url">cash-compass-finance.vercel.app</span>
+              <span class="browser-live"><span class="pill__dot"></span>Live</span>
             </div>
             <div class="scan-line scan-line--slow"></div>
-            <div class="window__body">
-              <div class="dash-row">
-                <div class="dash-card dash-card--flex">
-                  <span class="dash-card__label">Dashboard features</span>
-                  <div class="big-num">CRUD <small>system</small></div>
-                  <div class="dash-bars">
-                    <span style="--h:40%"></span><span style="--h:65%"></span>
-                    <span style="--h:80%"></span><span style="--h:55%"></span>
-                    <span style="--h:90%"></span><span style="--h:70%"></span>
-                    <span style="--h:45%"></span>
-                  </div>
-                </div>
-                <div class="dash-card dash-card--score">
-                  <span class="dash-card__label">Database</span>
-                  <div class="ring">
-                    <svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" stroke="rgba(255,255,255,.08)" stroke-width="6" fill="none"/><circle cx="30" cy="30" r="26" stroke="url(#rg2)" stroke-width="6" fill="none" stroke-dasharray="163" stroke-dashoffset="40" stroke-linecap="round" transform="rotate(-90 30 30)"/><defs><linearGradient id="rg2"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#a7f3d0"/></linearGradient></defs></svg>
-                    <span>SQL</span>
-                  </div>
-                </div>
-              </div>
-              <div class="dash-cta dash-cta--cyan">Track workouts and goals →</div>
+            <div class="window__body window__body--image">
+              <img class="project-screenshot" src="assets/projects/cash-compass-home.png" alt="Cash Compass finance dashboard preview" loading="lazy">
             </div>
           </div>
           <div class="window window--mini glass">
-            <div class="mini__head"><span>Academic system</span><span class="pill__dot"></span></div>
-            <div class="mini__body">“Users, goals, workouts, and progress are managed through MySQL-backed CRUD features.”</div>
+            <div class="mini__head"><span>Finance system</span><span class="pill__dot"></span></div>
+            <div class="mini__body">“Income, expenses, bills, savings goals, CSV uploads, and TTD/USD support in one dashboard.”</div>
           </div>
         </div>
       </div>
@@ -1175,7 +1136,7 @@
       <span class="nav__logo"><span class="nav__logo-shape"></span><span class="nav__logo-text">RR</span></span>
       <div>
         <strong>Technical Portfolio</strong>
-        <small>© <span id="yr"></span> · Portfolio hosted on GitHub Pages</small>
+        <small>© <span id="yr"></span> · Portfolio hosted on Vercel</small>
       </div>
     </div>
     <div class="footer__cols">

@@ -2,6 +2,8 @@
 
 Static HTML/CSS/JavaScript portfolio for Rohan Rampersad, showcasing web development, databases, AI/ML, image processing, cloud practice, and academic projects.
 
+Live site: https://rohanrampersad.vercel.app
+
 ## Project Structure
 
 - `index.html` - main static portfolio page
@@ -25,7 +27,7 @@ Use Vercel's GitHub import flow and keep the GitHub repository as the source cod
    - **Install Command:** leave empty / not required
    - **Output Directory:** `.`
 4. Deploy the project.
-5. After Vercel provides the production URL, update any public profiles or resume links that should point to the new live portfolio URL.
+5. Production portfolio URL: `https://rohanrampersad.vercel.app`.
 
 ## Notes
 
