@@ -23,7 +23,7 @@ Use Vercel's GitHub import flow and keep the GitHub repository as the source cod
    - **Root Directory:** `./`
    - **Build Command:** leave empty / not required
    - **Install Command:** leave empty / not required
-   - **Output Directory:** `./` if Vercel asks; otherwise leave the default for a root static site
+   - **Output Directory:** `.`
 4. Deploy the project.
 5. After Vercel provides the production URL, update any public profiles or resume links that should point to the new live portfolio URL.
 
