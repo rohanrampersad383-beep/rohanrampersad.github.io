@@ -1,9 +1,10 @@
 {
   "name": "rohanrampersad.github.io-main",
   "version": "1.0.0",
-  "description": "Static HTML/CSS/JavaScript portfolio for Rohan Rampersad, showcasing web development, databases, AI/ML, image processing, cloud practice, and academic projects.",
+  "description": "Static HTML/CSS/JavaScript portfolio for Rohan Rampersad, a recent BSc Applied Computer Science graduate showcasing full-stack, database, AI/ML, reporting, and IT support-ready project work.",
   "main": "script.js",
   "scripts": {
+    "check": "node --check script.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

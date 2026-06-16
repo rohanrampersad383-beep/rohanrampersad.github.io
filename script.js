@@ -690,8 +690,9 @@
       '<span class="c-mut">&gt;</span> initializing portfolio...',
       '<span class="c-mut">&gt;</span> loading projects...',
       '<span class="c-mut">&gt;</span> connecting to GitHub...',
-      '<span class="c-ok">&gt;</span> AI Job Match Assistant ready',
+      '<span class="c-ok">&gt;</span> MatchIQ ready',
       '<span class="c-ok">&gt;</span> Cash Compass ready',
+      '<span class="c-ok">&gt;</span> Fitness Central documented',
       '<span class="c-ok">&gt;</span> resume loaded successfully',
       '<span class="c-acc">▌</span>',
     ];

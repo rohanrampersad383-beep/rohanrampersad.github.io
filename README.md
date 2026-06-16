@@ -1,6 +1,6 @@
 # Rohan Rampersad Portfolio
 
-Static HTML/CSS/JavaScript portfolio for Rohan Rampersad, showcasing web development, databases, AI/ML, image processing, cloud practice, and academic projects.
+Static HTML/CSS/JavaScript portfolio for Rohan Rampersad, a recent BSc (Hons) Applied Computer Science graduate showcasing full-stack projects, databases, AI/ML coursework, cloud foundations, IT support readiness, reporting, and academic project work.
 
 Live site: https://rohanrampersad.vercel.app
 
