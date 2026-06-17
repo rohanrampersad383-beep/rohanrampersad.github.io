@@ -1,15 +1,29 @@
 import ElectricBorder from "./ElectricBorder.jsx";
+import DecryptedText from "./DecryptedText.jsx";
 
 export default function ProjectCard({ project, featured = false }) {
   const card = (
     <article className={featured ? "project-card project-featured" : "project-card"} data-reveal>
       <div className="project-content">
         <div className="project-labels">
-          <span>{project.role}</span>
+          <span>
+            <DecryptedText>{project.role}</DecryptedText>
+          </span>
           <span>{project.type}</span>
         </div>
         <h3>{project.title}</h3>
         <p>{project.description}</p>
+
+        {project.metrics?.length ? (
+          <div className="project-metrics" aria-label={`${project.title} proof points`}>
+            {project.metrics.map(([label, value]) => (
+              <span key={label}>
+                <strong>{value}</strong>
+                {label}
+              </span>
+            ))}
+          </div>
+        ) : null}
 
         <ul className="feature-list">
           {project.highlights.map((item) => (
@@ -39,7 +53,15 @@ export default function ProjectCard({ project, featured = false }) {
 
       <div className="project-media" aria-hidden={!project.image}>
         {project.image ? (
-          <img src={project.image} alt={project.alt} loading={featured ? "eager" : "lazy"} />
+          <>
+            <div className="project-media-bar">
+              <span />
+              <span />
+              <span />
+              <small>{project.previewLabel}</small>
+            </div>
+            <img src={project.image} alt={project.alt} loading={featured ? "eager" : "lazy"} />
+          </>
         ) : (
           <div className="system-diagram">
             <span>Account</span>

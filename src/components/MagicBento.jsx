@@ -24,7 +24,10 @@ export default function MagicBento({ items, className = "" }) {
           onPointerMove={handlePointerMove}
           onPointerLeave={handlePointerLeave}
         >
-          <span className="magic-bento-index">{String(index + 1).padStart(2, "0")}</span>
+          <div className="magic-bento-topline">
+            <span className="magic-bento-index">{String(index + 1).padStart(2, "0")}</span>
+            {item.Icon ? <item.Icon className="magic-bento-icon" aria-hidden="true" /> : null}
+          </div>
           <h3>{item.title}</h3>
           <p>{item.text}</p>
         </article>

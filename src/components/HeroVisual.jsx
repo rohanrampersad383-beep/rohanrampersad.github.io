@@ -1,16 +1,24 @@
 import ElectricBorder from "./ElectricBorder.jsx";
+import DecryptedText from "./DecryptedText.jsx";
 
 export default function HeroVisual() {
   return (
     <div className="hero-visual" data-reveal>
       <div className="visual-ring" />
+      <div className="command-grid" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
       <ElectricBorder className="terminal-shell" intensity="strong">
         <div className="terminal-card glass-card">
           <div className="terminal-top">
             <span />
             <span />
             <span />
-            <small>portfolio.runtime</small>
+            <small>
+              <DecryptedText>portfolio.runtime</DecryptedText>
+            </small>
           </div>
           <pre>
 {`const focus = [
@@ -26,6 +34,17 @@ ship({
   mindset: "practical"
 });`}
           </pre>
+          <div className="terminal-metrics">
+            <span>
+              <strong>Live</strong> Cash Compass
+            </span>
+            <span>
+              <strong>AI</strong> MatchIQ
+            </span>
+            <span>
+              <strong>SQL</strong> PostgreSQL / MySQL
+            </span>
+          </div>
         </div>
       </ElectricBorder>
 

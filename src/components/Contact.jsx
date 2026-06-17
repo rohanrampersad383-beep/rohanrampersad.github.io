@@ -1,4 +1,5 @@
 import ElectricBorder from "./ElectricBorder.jsx";
+import ShinyText from "./ShinyText.jsx";
 
 const contactLinks = [
   ["Email", "mailto:rohanrampersad383@gmail.com"],
@@ -14,7 +15,9 @@ export default function Contact() {
       <ElectricBorder className="contact-panel-shell">
         <div className="contact-panel" data-reveal>
           <p className="section-kicker">Contact</p>
-          <h2>Open to practical technical work where I can build, support, and improve systems.</h2>
+          <h2>
+            Open to practical technical work where I can <ShinyText>build, support, and improve</ShinyText> systems.
+          </h2>
           <p>
             Based in Trinidad & Tobago and available for junior developer, IT support, database
             support, data/reporting, technical support, admin, operations, and general entry-level
@@ -22,11 +25,11 @@ export default function Contact() {
           </p>
 
           <div className="contact-actions">
-            <a className="btn btn-primary" href="mailto:rohanrampersad383@gmail.com">
+            <a className="btn btn-primary magnetic-btn" href="mailto:rohanrampersad383@gmail.com">
               Email Me
             </a>
             <a
-              className="btn btn-secondary"
+              className="btn btn-secondary magnetic-btn"
               href="/assets/documents/Rohan%20Rampersad%20Resume.pdf"
               target="_blank"
               rel="noreferrer"

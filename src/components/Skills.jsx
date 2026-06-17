@@ -1,21 +1,38 @@
 import { skills } from "../data/skills.js";
 import LogoLoop from "./LogoLoop.jsx";
+import ShinyText from "./ShinyText.jsx";
+import {
+  SiCss,
+  SiGithub,
+  SiHtml5,
+  SiJavascript,
+  SiMysql,
+  SiNextdotjs,
+  SiPhp,
+  SiPostgresql,
+  SiPrisma,
+  SiPython,
+  SiReact,
+  SiTailwindcss,
+  SiTypescript,
+  SiVercel,
+} from "react-icons/si";
 
 const logoLoopItems = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "JavaScript",
-  "HTML",
-  "CSS",
-  "Tailwind CSS",
-  "PHP",
-  "Python",
-  "MySQL",
-  "PostgreSQL",
-  "Prisma",
-  "GitHub",
-  "Vercel",
+  { label: "React", Icon: SiReact, color: "#61dafb" },
+  { label: "Next.js", Icon: SiNextdotjs, color: "#ffffff" },
+  { label: "TypeScript", Icon: SiTypescript, color: "#3178c6" },
+  { label: "JavaScript", Icon: SiJavascript, color: "#f7df1e" },
+  { label: "HTML5", Icon: SiHtml5, color: "#e34f26" },
+  { label: "CSS3", Icon: SiCss, color: "#1572b6" },
+  { label: "Tailwind CSS", Icon: SiTailwindcss, color: "#38bdf8" },
+  { label: "PHP", Icon: SiPhp, color: "#777bb4" },
+  { label: "Python", Icon: SiPython, color: "#ffd43b" },
+  { label: "MySQL", Icon: SiMysql, color: "#4479a1" },
+  { label: "PostgreSQL", Icon: SiPostgresql, color: "#4169e1" },
+  { label: "Prisma", Icon: SiPrisma, color: "#9be7ff" },
+  { label: "GitHub", Icon: SiGithub, color: "#ffffff" },
+  { label: "Vercel", Icon: SiVercel, color: "#ffffff" },
 ];
 
 export default function Skills() {
@@ -23,7 +40,9 @@ export default function Skills() {
     <section className="skills section-pad" id="skills">
       <div className="section-intro" data-reveal>
         <p className="section-kicker">Technical stack</p>
-        <h2>Tools grouped around the roles I'm targeting.</h2>
+        <h2>
+          <ShinyText>Tools grouped</ShinyText> around the roles I'm targeting.
+        </h2>
       </div>
 
       <LogoLoop items={logoLoopItems} />

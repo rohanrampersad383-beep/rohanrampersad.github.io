@@ -1,5 +1,6 @@
 import { projects } from "../data/projects.js";
 import ProjectCard from "./ProjectCard.jsx";
+import ShinyText from "./ShinyText.jsx";
 
 export default function Projects() {
   const [featured, ...secondary] = projects;
@@ -8,7 +9,9 @@ export default function Projects() {
     <section className="projects section-pad" id="projects">
       <div className="section-intro section-intro-wide" data-reveal>
         <p className="section-kicker">Selected work</p>
-        <h2>Case-study projects with real product, database, and workflow depth.</h2>
+        <h2>
+          Case-study projects with real <ShinyText>product, database, and workflow depth.</ShinyText>
+        </h2>
         <p>
           The strongest work is presented as shipped software, with academic systems kept focused
           and easy to scan.
