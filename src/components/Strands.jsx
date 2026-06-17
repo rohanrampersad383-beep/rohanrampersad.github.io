@@ -1,18 +1,24 @@
-const paths = [
-  "M -20 80 C 180 0, 330 190, 560 82 S 880 -8, 1110 122",
-  "M -10 160 C 170 78, 350 245, 555 146 S 880 60, 1120 210",
-  "M 20 245 C 220 170, 345 318, 575 238 S 900 154, 1100 292",
-  "M -20 330 C 210 238, 390 408, 625 310 S 920 235, 1125 370",
-];
+import ReactBitsStrands from "./reactbits/Strands/Strands";
+import { useFinePointerMotion } from "./useMotionEnabled.js";
 
 export default function Strands({ className = "" }) {
+  const motionEnabled = useFinePointerMotion();
+
+  if (!motionEnabled) return null;
+
   return (
     <div className={`strands ${className}`.trim()} aria-hidden="true">
-      <svg viewBox="0 0 1100 420" role="presentation" focusable="false">
-        {paths.map((d, index) => (
-          <path className={`strand strand-${index + 1}`} d={d} key={d} />
-        ))}
-      </svg>
+      <ReactBitsStrands
+        colors={["#22d3ee", "#8b5cf6", "#34d399", "#f472b6"]}
+        count={3}
+        speed={0.34}
+        amplitude={0.72}
+        waviness={0.86}
+        thickness={0.56}
+        glow={2.1}
+        opacity={0.74}
+        scale={1.22}
+      />
     </div>
   );
 }

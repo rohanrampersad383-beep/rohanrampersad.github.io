@@ -1,37 +1,29 @@
-import { useCallback } from "react";
+import ReactBitsMagicBento from "./reactbits/MagicBento/MagicBento";
+import { useReducedMotion } from "./useMotionEnabled.js";
 
 export default function MagicBento({ items, className = "" }) {
-  const handlePointerMove = useCallback((event) => {
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    const card = event.currentTarget;
-    const rect = card.getBoundingClientRect();
-    card.style.setProperty("--glow-x", `${((event.clientX - rect.left) / rect.width) * 100}%`);
-    card.style.setProperty("--glow-y", `${((event.clientY - rect.top) / rect.height) * 100}%`);
-    card.style.setProperty("--glow-strength", "1");
-  }, []);
-
-  const handlePointerLeave = useCallback((event) => {
-    event.currentTarget.style.setProperty("--glow-strength", "0");
-  }, []);
+  const reducedMotion = useReducedMotion();
+  const cards = items.map((item, index) => ({
+    color: index === 0 ? "#081525" : "#0b1022",
+    label: String(index + 1).padStart(2, "0"),
+    title: item.title,
+    description: item.text,
+  }));
 
   return (
-    <div className={`magic-bento ${className}`.trim()}>
-      {items.map((item, index) => (
-        <article
-          className={`magic-bento-card magic-bento-${index + 1}`}
-          data-reveal
-          key={item.title}
-          onPointerMove={handlePointerMove}
-          onPointerLeave={handlePointerLeave}
-        >
-          <div className="magic-bento-topline">
-            <span className="magic-bento-index">{String(index + 1).padStart(2, "0")}</span>
-            {item.Icon ? <item.Icon className="magic-bento-icon" aria-hidden="true" /> : null}
-          </div>
-          <h3>{item.title}</h3>
-          <p>{item.text}</p>
-        </article>
-      ))}
-    </div>
+    <ReactBitsMagicBento
+      cards={cards}
+      className={`magic-bento ${className}`.trim()}
+      enableStars
+      enableSpotlight
+      enableBorderGlow
+      enableTilt
+      disableAnimations={reducedMotion}
+      enableMagnetism={false}
+      clickEffect={false}
+      particleCount={8}
+      glowColor="34, 211, 238"
+      spotlightRadius={360}
+    />
   );
 }

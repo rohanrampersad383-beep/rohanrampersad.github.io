@@ -7,7 +7,6 @@ import Skills from "./components/Skills.jsx";
 import About from "./components/About.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
-import SplashCursor from "./components/SplashCursor.jsx";
 import { useReveal } from "./components/useReveal.js";
 
 export default function App() {
@@ -16,7 +15,6 @@ export default function App() {
   return (
     <>
       <Background />
-      <SplashCursor />
       <Navbar />
       <main>
         <Hero />

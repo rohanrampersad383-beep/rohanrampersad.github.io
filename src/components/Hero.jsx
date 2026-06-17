@@ -1,10 +1,8 @@
 import HeroVisual from "./HeroVisual.jsx";
 import GradientText from "./GradientText.jsx";
 import ShinyText from "./ShinyText.jsx";
-import SplitText from "./SplitText.jsx";
 import Strands from "./Strands.jsx";
 
-const heroTech = ["React", "Next.js", "TypeScript", "Prisma", "PostgreSQL", "PHP", "MySQL", "AWS"];
 const roles = ["full-stack apps", "AI workflows", "database systems", "support-ready tools"];
 
 export default function Hero() {
@@ -16,7 +14,7 @@ export default function Hero() {
           <span /> Available for junior developer, IT, data, support, and operations roles
         </p>
         <h1>
-          <SplitText>Building practical</SplitText> <GradientText>AI-assisted</GradientText> and{" "}
+          Building practical <GradientText>AI-assisted</GradientText> and{" "}
           <span className="text-nowrap">full-stack web</span> systems.
         </h1>
         <p className="hero-lead blur-text">
@@ -51,12 +49,6 @@ export default function Hero() {
             <span key={role}>
               <ShinyText>{role}</ShinyText>
             </span>
-          ))}
-        </div>
-
-        <div className="tech-marquee" aria-label="Technology focus">
-          {heroTech.concat(heroTech).map((tech, index) => (
-            <span key={`${tech}-${index}`}>{tech}</span>
           ))}
         </div>
       </div>
