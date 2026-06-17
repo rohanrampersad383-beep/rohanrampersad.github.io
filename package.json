@@ -1,25 +1,31 @@
 {
-  "name": "rohanrampersad.github.io-main",
-  "version": "1.0.0",
-  "description": "Static HTML/CSS/JavaScript portfolio for Rohan Rampersad, a recent BSc Applied Computer Science graduate showcasing full-stack, database, AI/ML, reporting, and IT support-ready project work.",
-  "main": "script.js",
+  "name": "rohanrampersad-portfolio",
+  "version": "2.0.0",
+  "description": "Vite and React portfolio for Rohan Rampersad, a recent BSc (Hons) Applied Computer Science graduate showcasing full-stack, AI, database, cloud, and technical support-ready project work.",
+  "type": "module",
   "scripts": {
-    "check": "node --check script.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "check": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rohanrampersad383-beep/rohanrampersad.github.io.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Rohan Rampersad",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/rohanrampersad383-beep/rohanrampersad.github.io/issues"
   },
-  "homepage": "https://github.com/rohanrampersad383-beep/rohanrampersad.github.io#readme",
+  "homepage": "https://rohanrampersad.vercel.app",
   "dependencies": {
-    "@vercel/analytics": "^2.0.1"
+    "@vercel/analytics": "^2.0.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.1.2",
+    "vite": "^7.2.7"
   }
 }
