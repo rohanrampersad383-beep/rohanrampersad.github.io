@@ -1,35 +1,41 @@
 {
-  "name": "rohanrampersad-portfolio",
-  "version": "2.0.0",
-  "description": "Vite and React portfolio for Rohan Rampersad, a recent BSc (Hons) Applied Computer Science graduate showcasing full-stack, AI, database, cloud, and technical support-ready project work.",
+  "name": "portfolio-v2",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host 127.0.0.1",
+    "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --host 127.0.0.1",
-    "check": "npm run build"
+    "lint": "eslint .",
+    "check": "npm run lint && npm run test -- --run",
+    "test": "vitest",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rohanrampersad383-beep/rohanrampersad.github.io.git"
-  },
-  "author": "Rohan Rampersad",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rohanrampersad383-beep/rohanrampersad.github.io/issues"
-  },
-  "homepage": "https://rohanrampersad.vercel.app",
   "dependencies": {
-    "@vercel/analytics": "^2.0.1",
+    "framer-motion": "^12.40.0",
     "gsap": "^3.15.0",
+    "lucide-react": "^1.20.0",
     "motion": "^12.40.0",
     "ogl": "^1.0.11",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "react-icons": "^5.6.0"
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-icons": "^5.6.0",
+    "three": "^0.167.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^5.1.2",
-    "vite": "^7.2.7"
+    "@eslint/js": "^10.0.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "jsdom": "^29.1.1",
+    "playwright": "^1.61.0",
+    "vite": "^8.0.12",
+    "vitest": "^4.1.9"
   }
 }

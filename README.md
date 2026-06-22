@@ -1,53 +1,58 @@
-# Rohan Rampersad Portfolio
+# Rohan Rampersad Portfolio V2
 
-Vite + React portfolio for Rohan Rampersad, a recent BSc (Hons) Applied Computer Science graduate showcasing full-stack projects, AI-assisted workflows, databases, cloud foundations, technical support readiness, reporting, and academic project work.
+Premium cinematic Vite + React portfolio for Rohan Rampersad.
 
-Live site: https://rohanrampersad.vercel.app
-
-## Project Structure
-
-- `index.html` - Vite HTML entry and analytics scripts
-- `src/main.jsx` - React app bootstrap
-- `src/App.jsx` - page composition
-- `src/components/` - portfolio sections and reusable UI components
-- `src/data/` - project and skills content
-- `src/styles/global.css` - design system, layout, animation, and responsive styling
-- `assets/` - screenshots, certificates, documents, and image assets
-- `assets/documents/Rohan Rampersad Resume.pdf` - current resume PDF linked from the site
-- `assets/documents/Rohan_Rampersad_Full_Redesigned_Portfolio.pdf` - current portfolio PDF linked from the site
-
-## Local Development
+## Setup
 
 ```bash
 npm install
 npm run dev
 ```
 
-Build for production:
+Production preview:
 
 ```bash
 npm run build
-```
-
-Preview the production build:
-
-```bash
 npm run preview
 ```
 
-## Deploying To Vercel
+Quality checks:
 
-Use Vercel's GitHub import flow and keep the GitHub repository as the source code repo.
+```bash
+npm run check
+```
 
-1. Go to the Vercel dashboard and choose **Add New > Project**.
-2. Import the GitHub repository: `rohanrampersad383-beep/rohanrampersad.github.io`.
-3. Use these settings:
-   - **Framework Preset:** Vite
-   - **Root Directory:** `./`
-   - **Install Command:** `npm install`
-   - **Build Command:** `npm run build`
-   - **Output Directory:** `dist`
-4. Deploy the project.
-5. Production portfolio URL: `https://rohanrampersad.vercel.app`.
+## Content Sources
 
-GitHub Pages can remain enabled until it is manually disabled in GitHub repository settings. Future pushes to the connected GitHub repository can trigger automatic Vercel deployments.
+- Email, phone, GitHub, LinkedIn, portfolio, and resume links: `src/data/links.js`
+- Project details, live links, and code links: `src/data/projects.js`
+- Skills, logo loop, and value cards: `src/data/skills.js`
+- Resume and portfolio documents: `public/assets/documents/`
+- Project screenshots and supporting visuals: `public/assets/`
+
+## React Bits Sources
+
+Official React Bits JS/CSS source was copied from `DavidHDev/react-bits`:
+
+- `src/content/Backgrounds/FloatingLines/FloatingLines.jsx` and `FloatingLines.css`
+- `src/content/Backgrounds/Lightfall/Lightfall.jsx` and `Lightfall.css`
+- `src/content/Animations/ElectricBorder/ElectricBorder.jsx` and `ElectricBorder.css`
+- `src/content/TextAnimations/GradientText/GradientText.jsx` and `GradientText.css`
+- `src/content/TextAnimations/ShinyText/ShinyText.jsx` and `ShinyText.css`
+- `src/content/Animations/LogoLoop/LogoLoop.jsx` and `LogoLoop.css`
+- `src/content/Components/MagicBento/MagicBento.jsx` and `MagicBento.css`
+- `src/content/Components/SpotlightCard/SpotlightCard.jsx` and `SpotlightCard.css`
+- `src/content/Animations/Magnet/Magnet.jsx`
+- `src/content/Animations/StarBorder/StarBorder.jsx` and `StarBorder.css`
+
+Adaptations:
+
+- `MagicBento` accepts a `cards` prop so it renders Rohan's real value cards instead of React Bits demo content.
+- `Background` lazy-loads Floating Lines with WebGL support detection and a static mobile/reduced-motion fallback.
+- `ContactCTA` uses Lightfall only inside the contact card, with a static mobile/reduced-motion fallback.
+- `ElectricBorder` disables its canvas animation on mobile and for reduced-motion users.
+- ESLint disables two React hook lint rules only inside copied React Bits files because the official components intentionally use refs and effect state patterns that React 19's strict lint flags.
+
+## Notes
+
+The portfolio intentionally avoids fake metrics, client claims, seniority claims, current-student wording, and awaiting-results wording.

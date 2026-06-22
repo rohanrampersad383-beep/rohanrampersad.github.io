@@ -1,13 +1,10 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import { inject } from "@vercel/analytics";
-import App from "./App.jsx";
-import "./styles/global.css";
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
 
-inject();
-
-createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
     <App />
-  </React.StrictMode>
-);
+  </StrictMode>,
+)

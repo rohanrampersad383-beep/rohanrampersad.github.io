@@ -1,30 +1,32 @@
-import Background from "./components/Background.jsx";
-import Navbar from "./components/Navbar.jsx";
-import Hero from "./components/Hero.jsx";
-import Snapshot from "./components/Snapshot.jsx";
-import Projects from "./components/Projects.jsx";
-import Skills from "./components/Skills.jsx";
-import About from "./components/About.jsx";
-import Contact from "./components/Contact.jsx";
-import Footer from "./components/Footer.jsx";
-import { useReveal } from "./components/useReveal.js";
+import Background from './components/Background';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import LogoLoopSection from './components/LogoLoopSection';
+import ValueBento from './components/ValueBento';
+import FeaturedProjects from './components/FeaturedProjects';
+import SkillsShowcase from './components/SkillsShowcase';
+import About from './components/About';
+import ContactCTA from './components/ContactCTA';
+import Footer from './components/Footer';
+import './App.css';
 
-export default function App() {
-  useReveal();
-
+function App() {
   return (
     <>
       <Background />
       <Navbar />
       <main>
         <Hero />
-        <Snapshot />
-        <Projects />
-        <Skills />
+        <LogoLoopSection />
+        <ValueBento />
+        <FeaturedProjects />
+        <SkillsShowcase />
         <About />
-        <Contact />
+        <ContactCTA />
       </main>
       <Footer />
     </>
   );
 }
+
+export default App;

@@ -1,25 +1,47 @@
-import Aurora from "./reactbits/Aurora/Aurora";
-import { useReducedMotion } from "./useMotionEnabled.js";
+import { lazy, Suspense, useState } from 'react';
+
+const FloatingLines = lazy(() => import('./reactbits/FloatingLines/FloatingLines'));
 
 export default function Background() {
-  const reducedMotion = useReducedMotion();
+  const [canUseWebGL] = useState(() => {
+    if (typeof document === 'undefined') return false;
+    if (typeof window.matchMedia === 'function') {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+      if (window.matchMedia('(max-width: 760px)').matches) return false;
+    }
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('webgl2') || canvas.getContext('webgl');
+    return Boolean(context);
+  });
 
   return (
-    <div className="site-bg" aria-hidden="true">
-      <div className="rb-aurora-shell">
-        {reducedMotion ? (
-          <div className="rb-aurora-static" />
-        ) : (
-          <Aurora
-            colorStops={["#22d3ee", "#8b5cf6", "#34d399"]}
-            amplitude={0.78}
-            blend={0.58}
-            speed={0.44}
-          />
-        )}
-      </div>
-      <div className="grid-plane" />
-      <div className="noise" />
+    <div className="site-background" aria-hidden="true">
+      {canUseWebGL ? (
+        <div className="floating-lines-layer">
+          <Suspense fallback={<div className="floating-lines-fallback" />}>
+            <FloatingLines
+              linesGradient={['#06b6d4', '#ec4899', '#f43f5e']}
+              enabledWaves={['top', 'middle', 'bottom']}
+              lineCount={[5, 5, 5]}
+              lineDistance={[100, 100, 100]}
+              animationSpeed={2.9}
+              interactive
+              bendRadius={20}
+              bendStrength={2}
+              mouseDamping={0.06}
+              parallax
+              parallaxStrength={0.12}
+              mixBlendMode="screen"
+            />
+          </Suspense>
+        </div>
+      ) : (
+        <div className="floating-lines-fallback" />
+      )}
+      <div className="background-grid" />
+      <div className="depth-grid" />
+      <div className="background-noise" />
+      <div className="background-vignette" />
     </div>
   );
 }
