@@ -16,13 +16,13 @@ describe('portfolio content', () => {
     expect(screen.getAllByRole('link', { name: /download resume/i }).length).toBeGreaterThan(0);
   });
 
-  it('includes the three real projects and leaves room for future work', () => {
+  it('includes the three real projects without the future projects placeholder', () => {
     render(<App />);
 
     expect(screen.getByRole('heading', { name: /cash compass/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /matchiq/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /fitness central/i })).toBeInTheDocument();
-    expect(screen.getByText(/future projects/i)).toBeInTheDocument();
+    expect(screen.queryByText(/future projects/i)).not.toBeInTheDocument();
   });
 
   it('does not render stale student or fake-claim wording', () => {

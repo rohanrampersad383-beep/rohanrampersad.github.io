@@ -1,6 +1,5 @@
-import { FiArrowUpRight, FiCode, FiMonitor } from 'react-icons/fi';
+import { FiCode, FiMonitor } from 'react-icons/fi';
 import SpotlightCard from './reactbits/SpotlightCard/SpotlightCard';
-import StarBorder from './reactbits/StarBorder/StarBorder';
 import SectionReveal from './SectionReveal';
 import { projects } from '../data/projects';
 
@@ -82,14 +81,6 @@ export default function FeaturedProjects() {
         {projects.slice(1).map(project => (
           <ProjectCard project={project} key={project.title} />
         ))}
-        <StarBorder as="div" className="future-card" color="#8b5cf6" thickness={1}>
-          <div>
-            <p className="project-type">Future Projects</p>
-            <h3>More builds can slot in here.</h3>
-            <p>Reserved space for new live work, screenshots, repositories, or role-specific portfolio updates.</p>
-            <FiArrowUpRight />
-          </div>
-        </StarBorder>
       </div>
     </SectionReveal>
   );

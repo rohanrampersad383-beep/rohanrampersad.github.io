@@ -906,15 +906,13 @@ main,
 }
 
 .project-content h3,
-.future-card h3,
 .skill-card h3 {
   margin: 0;
   color: #ffffff;
   font-size: clamp(1.45rem, 2.4vw, 2.35rem);
 }
 
-.project-content p,
-.future-card p {
+.project-content p {
   margin: 8px 0 0;
   color: #aeb8ca;
   line-height: 1.7;
@@ -1036,27 +1034,6 @@ main,
   background: rgba(0, 0, 0, 0.22);
   font-size: 0.76rem;
   font-weight: 750;
-}
-
-.future-card .inner-content {
-  height: 100%;
-  border-radius: 22px;
-  background:
-    linear-gradient(135deg, rgba(139, 92, 246, 0.13), transparent 34%),
-    rgba(9, 13, 24, 0.72);
-}
-
-.future-card .inner-content > div {
-  min-height: 100%;
-  padding: 24px;
-  border-radius: inherit;
-  border: 1px dashed rgba(255, 255, 255, 0.16);
-}
-
-.future-card svg {
-  margin-top: 28px;
-  color: var(--cyan);
-  font-size: 1.45rem;
 }
 
 .skills-grid {
