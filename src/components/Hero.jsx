@@ -26,8 +26,8 @@ export default function Hero() {
           </GradientText>
         </h1>
         <p className="hero-summary">
-          I design and build reliable software systems that solve real problems. From full-stack web apps to data
-          workflows and AI prototypes, grounded in clean code and practical thinking.
+          I build web applications and business software, from customer records and invoicing
+          to finance tracking and job matching. I also work with databases, reporting, and AI prototypes.
         </p>
         <div className="hero-actions">
           <Magnet padding={48} magnetStrength={12}>

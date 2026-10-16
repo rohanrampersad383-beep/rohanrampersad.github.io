@@ -135,8 +135,9 @@ export default function ContactCTA() {
               </GradientText>
             </h2>
             <p>
-              I&apos;m open to software development, IT support, data and reporting, technical support, admin,
-              operations, and other entry-level opportunities where clear thinking and practical delivery matter.
+              Have a project in mind or a role you think I&apos;d be a good fit for? Get in touch.
+              I&apos;m open to client projects and opportunities in software development, IT support,
+              data and reporting, administration, and operations.
             </p>
             <div className="contact-primary-actions">
               <Magnet padding={36} magnetStrength={14}>

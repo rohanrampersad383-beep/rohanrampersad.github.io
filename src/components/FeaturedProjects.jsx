@@ -51,6 +51,7 @@ function ProjectCard({ project, featured = false }) {
           ))}
         </div>
         <div className="project-links">
+          {project.delivery && <span>{project.delivery}</span>}
           {project.links.live && (
             <a href={project.links.live} aria-label={`View ${project.title} live`} target="_blank" rel="noreferrer">
               <FiMonitor /> Live project
@@ -73,8 +74,8 @@ export default function FeaturedProjects() {
     <SectionReveal className="section projects-section" id="projects">
       <div className="section-heading wide">
         <span>Selected work</span>
-        <h2>Projects presented like product case studies.</h2>
-        <p>Each project has its own shape so Cash Compass, MatchIQ, and Fitness Central do not collapse into identical resume cards.</p>
+        <h2>Projects</h2>
+        <p>Software I've built for clients, along with personal and university projects.</p>
       </div>
       <div className="projects-grid">
         <ProjectCard project={projects[0]} featured />

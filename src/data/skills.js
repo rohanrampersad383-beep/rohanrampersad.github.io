@@ -35,7 +35,7 @@ export const logoSkills = [
 
 export const skillGroups = [
   {
-    title: 'Frontend delivery',
+    title: 'Frontend development',
     Icon: Workflow,
     items: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS']
   },
@@ -47,7 +47,7 @@ export const skillGroups = [
   {
     title: 'AI & automation projects',
     Icon: Bot,
-    items: ['AI/ML coursework', 'dashboard intelligence', 'practical automation']
+    items: ['AI/ML coursework', 'job matching', 'automation prototypes']
   },
   {
     title: 'IT / technical support',
@@ -60,7 +60,7 @@ export const skillGroups = [
     items: ['system analysis', '3NF design', 'project documentation', 'handover notes']
   },
   {
-    title: 'Operations mindset',
+    title: 'Administration & operations',
     Icon: LineChart,
     items: ['admin support', 'data cleanup', 'process reporting', 'clear communication']
   }
@@ -70,19 +70,19 @@ export const valueCards = [
   {
     color: '#0b1220',
     title: 'Web Applications',
-    description: 'Responsive interfaces and database-backed workflows built around real user tasks.',
+    description: 'Responsive interfaces and database-backed workflows for customer records, finance tracking, and other everyday tasks.',
     label: 'Build'
   },
   {
     color: '#101426',
     title: 'Databases & Reporting',
-    description: 'Dashboards, reports, and structured data models for clearer operational decisions.',
+    description: 'Dashboards, reports, and structured data models that make information easier to understand.',
     label: 'Data'
   },
   {
     color: '#111827',
     title: 'IT / Technical Support',
-    description: 'Grounded troubleshooting, user support, and clear handover notes.',
+    description: 'Troubleshooting, user support, and clear handover notes to help people use their software.',
     label: 'Support'
   },
   {
@@ -95,6 +95,6 @@ export const valueCards = [
     color: '#0d1825',
     title: 'Documentation & Analysis',
     description: 'System analysis, 3NF design, and technical documentation that supports handover.',
-    label: 'Clarity'
+    label: 'Documentation'
   }
 ];

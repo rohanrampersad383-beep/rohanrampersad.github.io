@@ -16,9 +16,13 @@ describe('portfolio content', () => {
     expect(screen.getAllByRole('link', { name: /download resume/i }).length).toBeGreaterThan(0);
   });
 
-  it('includes the three real projects without the future projects placeholder', () => {
+  it('includes both paid client systems and the existing projects without the future projects placeholder', () => {
     render(<App />);
 
+    expect(screen.getByRole('heading', { name: 'CSM Enterprises' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: '1484 Performance Wrecking Service' })).toBeInTheDocument();
+    expect(screen.getAllByText('Local Windows application')).toHaveLength(2);
+    expect(screen.queryByRole('link', { name: /view (CSM Enterprises|1484 Performance Wrecking Service)/i })).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /cash compass/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /matchiq/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /fitness central/i })).toBeInTheDocument();

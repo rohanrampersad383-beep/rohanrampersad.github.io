@@ -9,9 +9,9 @@ export default function SkillsShowcase() {
   return (
     <SectionReveal className="section skills-section" id="skills">
       <div className="section-heading">
-        <span>Capability map</span>
-        <h2>Technical skills with an operational edge.</h2>
-        <p>Honest, early-career strengths across web delivery, data, support, reporting, and documentation.</p>
+        <span>Skills</span>
+        <h2>Tools and technologies I work with.</h2>
+        <p>My experience includes web development, databases, reporting, technical support, and documentation.</p>
       </div>
       <div className="skills-grid">
         {skillGroups.map((group, index) => {
